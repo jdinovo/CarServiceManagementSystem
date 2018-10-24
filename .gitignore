@@ -1,3 +1,7 @@
+# DB info ignore
+src/database/DBConst.java
+bin/database/DBConst.class
+
 # General
 .DS_Store
 .AppleDouble
