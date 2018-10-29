@@ -43,7 +43,6 @@ public class Main extends Application {
 		
 		window.setScene(new MainMenuScene());
 		window.setTitle("Car Service Management System");
-		window.setResizable(false);
 		window.centerOnScreen();
 		window.show();
 	}

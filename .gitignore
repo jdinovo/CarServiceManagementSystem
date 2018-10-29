@@ -1,3 +1,7 @@
+# DB info ignore
+src/database/DBConst.java
+bin/database/DBConst.class
+
 # General
 .DS_Store
 .AppleDouble
@@ -186,7 +190,7 @@ $RECYCLE.BIN/
 .mtj.tmp/
 
 # Package Files #
-*.jar
+# *.jar
 *.war
 *.nar
 *.ear
