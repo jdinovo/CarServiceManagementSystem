@@ -34,6 +34,7 @@ public class StatisticsTab extends Tab {
 	 * @author James DiNovo
 	 * @date 29.10.2018
 	 * @version 1.0
+	 * @return StatisticsTab()
 	 * 
 	 * Statistics getInstance method
 	 *
