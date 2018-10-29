@@ -35,6 +35,7 @@ public class NewWorkOrderTab extends Tab {
 	 * @author James DiNovo
 	 * @date 29.10.2018
 	 * @version 1.0
+	 * @return NewWorkOrder()
 	 * 
 	 * NewWorkOrderTab getInstance method
 	 *
