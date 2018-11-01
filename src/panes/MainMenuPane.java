@@ -31,9 +31,6 @@ public class MainMenuPane extends BorderPane {
 	 */
 	public MainMenuPane() {
 
-		//Implementing the GUI panes to add into the tabs
-		CustomerInfoPane customerInfoPane = new CustomerInfoPane();
-
 		//create menuBar
 		MenuBar menu = new MenuBar();
 		
@@ -55,9 +52,6 @@ public class MainMenuPane extends BorderPane {
 			//if tab is not already open
 			if(!tabPane.getTabs().contains(newWorkTab)) {
 				tabPane.getTabs().add(newWorkTab);
-
-				//Execute the function to bring the GUI to the NewWorkOrderTab
-				newWorkTab.setContent(customerInfoPane.CustomerInfoGui());
 
 			}
 		});
