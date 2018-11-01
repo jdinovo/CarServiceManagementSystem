@@ -1,6 +1,7 @@
 package tabs;
 
 import javafx.scene.control.Tab;
+import panes.ServiceInfoPane;
 
 /**
  * 

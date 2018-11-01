@@ -1,6 +1,7 @@
 package tabs;
 
 import javafx.scene.control.Tab;
+import panes.CustomerInfoPane;
 
 
 /**
@@ -16,6 +17,8 @@ import javafx.scene.control.Tab;
 public class NewWorkOrderTab extends Tab {
 	
 	private static NewWorkOrderTab tab;
+	//Implementing the GUI panes to add into the tabs
+	private CustomerInfoPane customerInfoPane = new CustomerInfoPane();
 	
 	/**
 	 * 
@@ -28,6 +31,8 @@ public class NewWorkOrderTab extends Tab {
 	 */
 	private NewWorkOrderTab() {
 		this.setText("New Work Order");
+		//Execute the function to bring the GUI to the NewWorkOrderTab
+		this.setContent(customerInfoPane.CustomerInfoGui());
 	}
 	
 	/**

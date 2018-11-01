@@ -31,7 +31,7 @@ public class CustomerInfoPane extends BorderPane {
 
     //Calling the CustomerInfoPane
     VehicleInfoPane vehicleInfoPane = new VehicleInfoPane();
-    MainMenuPane mainMenuPane = new MainMenuPane();
+
 
     /**
      * @author Chris Dias
