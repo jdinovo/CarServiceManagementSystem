@@ -46,18 +46,18 @@ public class MainMenuPane extends BorderPane {
 		StatisticsTab statsTab = StatisticsTab.getInstance();
 		
 		//creating menu items and adding event listeners to them
-		MenuItem newWork = new MenuItem("New Invoice");
+		MenuItem newWork = new MenuItem("New Work Order");
 		newWork.setOnAction(e-> {
 			//if tab is not already open
 			if(!tabPane.getTabs().contains(newWorkTab)) {
 				tabPane.getTabs().add(newWorkTab);
 			}
 		});
-		MenuItem loadWork = new MenuItem("Load Invoice");
+		MenuItem loadWork = new MenuItem("Load Work Order");
 		loadWork.setOnAction(e-> {
 			
 		});
-		MenuItem editWork = new MenuItem("Edit Invoice");
+		MenuItem editWork = new MenuItem("Edit Work Order");
 		editWork.setOnAction(e-> {
 			
 		});
@@ -71,9 +71,13 @@ public class MainMenuPane extends BorderPane {
 		serviceCharts.setOnAction(e-> {
 			
 		});
+		MenuItem genInv = new MenuItem("Generate Invoice");
+		genInv.setOnAction(e-> {
+			
+		});
 		
 		//adding menu items to menus
-		fileMenu.getItems().addAll(newWork, loadWork);
+		fileMenu.getItems().addAll(newWork, loadWork, genInv);
 		editMenu.getItems().addAll(editWork);
 		statsMenu.getItems().addAll(serviceTables, serviceCharts);
 		
