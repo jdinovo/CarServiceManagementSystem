@@ -18,7 +18,7 @@ import tabs.StatisticsTab;
  *
  */
 public class MainMenuPane extends BorderPane {
-
+	
 	/**
 	 * 
 	 * @author James DiNovo
@@ -33,20 +33,20 @@ public class MainMenuPane extends BorderPane {
 
 		//create menuBar
 		MenuBar menu = new MenuBar();
-		
+
 		//create menu choices
 		Menu fileMenu = new Menu("File");
 		Menu editMenu = new Menu("Edit");
 		Menu statsMenu = new Menu("Statistics");
-		
+
 		//creating tabPane
 		TabPane tabPane = new TabPane();
-		
+
 		//create tabs
 		NewWorkOrderTab newWorkTab = NewWorkOrderTab.getInstance();
 		StatisticsTab statsTab = StatisticsTab.getInstance();
 		
-		//creating menu items and adding event listeners to them
+		//Create MenuItems for the 'File' Tab
 		MenuItem newWork = new MenuItem("New Work Order");
 		newWork.setOnAction(e-> {
 			//if tab is not already open
@@ -55,33 +55,31 @@ public class MainMenuPane extends BorderPane {
 
 			}
 		});
-		MenuItem loadWork = new MenuItem("Load Work Order");
-		loadWork.setOnAction(e-> {
+		MenuItem openWork = new MenuItem("Open Work Orders");
+		openWork.setOnAction(e-> {
 			
 		});
-		MenuItem editWork = new MenuItem("Edit Work Order");
-		editWork.setOnAction(e-> {
-			
+		MenuItem closeWork = new MenuItem("Closed Work Orders");
+		closeWork.setOnAction(e-> {
+
 		});
-		MenuItem serviceTables = new MenuItem("Service History");
-		serviceTables.setOnAction(e-> {
-			if(!tabPane.getTabs().contains(statsTab)) {
-				tabPane.getTabs().add(statsTab);
-			}
+
+		//Create MenuItems for the 'Edit' Tab
+		MenuItem editCustInfo = new MenuItem("Edit Customer Information");
+		editCustInfo.setOnAction(e-> {
+
 		});
+
+		//Create MenuItem for the 'Statistics' Tab
 		MenuItem serviceCharts = new MenuItem("Service Charts");
 		serviceCharts.setOnAction(e-> {
 			
 		});
-		MenuItem genInv = new MenuItem("Generate Invoice");
-		genInv.setOnAction(e-> {
-			
-		});
 		
 		//adding menu items to menus
-		fileMenu.getItems().addAll(newWork, loadWork, genInv);
-		editMenu.getItems().addAll(editWork);
-		statsMenu.getItems().addAll(serviceTables, serviceCharts);
+		fileMenu.getItems().addAll(newWork, openWork, closeWork);
+		editMenu.getItems().addAll(editCustInfo);
+		statsMenu.getItems().add(serviceCharts);
 		
 		//adding menus to menubar
 		menu.getMenus().addAll(fileMenu, editMenu, statsMenu);
