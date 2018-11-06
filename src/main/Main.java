@@ -1,6 +1,8 @@
 package main;
+import database.DBConst;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import scenes.LoginScene;
 import scenes.MainMenuScene;
 
 /**
@@ -40,9 +42,13 @@ public class Main extends Application {
 	 */
 	public void start(Stage primaryStage) throws Exception {
 		window = primaryStage;
-		
-		window.setScene(new MainMenuScene());
+		if(DBConst.loginLoad()) {
+			window.setScene(new MainMenuScene());
+		} else {
+			window.setScene(new LoginScene());
+		}
 		window.setTitle("Car Service Management System");
+		window.setResizable(false);
 		window.centerOnScreen();
 		window.show();
 	}
