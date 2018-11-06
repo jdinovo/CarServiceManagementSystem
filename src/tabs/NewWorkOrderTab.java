@@ -31,6 +31,9 @@ public class NewWorkOrderTab extends Tab {
 		this.setText("New Work Order");
 		//Execute the function to bring the GUI to the NewWorkOrderTab
 		this.setContent(new NewWorkOrderPane());
+		this.setOnClosed(e-> {
+			tab = null;
+		});
 	}
 	
 	/**

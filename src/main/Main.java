@@ -1,5 +1,6 @@
 package main;
 import database.DBConst;
+import database.Login;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import scenes.LoginScene;
@@ -41,8 +42,9 @@ public class Main extends Application {
 	 *
 	 */
 	public void start(Stage primaryStage) throws Exception {
+		Login login = new Login();
 		window = primaryStage;
-		if(DBConst.loginLoad()) {
+		if(login.load()) {
 			window.setScene(new MainMenuScene());
 		} else {
 			window.setScene(new LoginScene());

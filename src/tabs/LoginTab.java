@@ -28,6 +28,10 @@ public class LoginTab extends Tab {
     private LoginTab() {
         this.setText("Database Settings");
         this.setContent(new LoginPane());
+        this.setOnCloseRequest(e-> {
+            tab = null;
+        });
+
     }
 
     /**

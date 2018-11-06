@@ -3,8 +3,7 @@ package database;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-import database.DBConst;
-import database.Database;
+import panes.LoginPane;
 
 /**
  * @author James DiNovo
@@ -19,15 +18,14 @@ public class Database {
 	private Connection connection = null;
 	//create private constructor
 	private Database() {
-		//load current credentials 
-		DBConst.loginLoad();
 		if(connection == null) {
 			try {
 				Class.forName("com.mysql.jdbc.Driver");
-				connection = DriverManager.getConnection("jdbc:mysql://php.scweb.ca/" + DBConst.getDbName() + "?useSSL=false", DBConst.getDbUser(), DBConst.getDbPass());
+				connection = DriverManager.getConnection("jdbc:mysql://" + DBConst.getDbHost() + "/" + DBConst.getDbName() + "?useSSL=false", DBConst.getDbUser(), DBConst.getDbPass());
 				System.out.println("Successfully Created Connection");
 			} catch(Exception e) {
 				e.printStackTrace();
+
 			}
 
 		}
@@ -36,7 +34,7 @@ public class Database {
 	/**
 	 * @author James DiNovo
 	 * @date 24.10.2018
-	 * @param nil
+	 * @param
 	 * @version 1.0
 	 * @return instance
 	 *
@@ -53,7 +51,7 @@ public class Database {
 	/**
 	 * @author James DiNovo
 	 * @date 24.10.2018
-	 * @param nil
+	 * @param
 	 * @version 1.0
 	 * @return connection
 	 *

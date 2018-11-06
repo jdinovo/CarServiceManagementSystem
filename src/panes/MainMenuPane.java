@@ -45,14 +45,11 @@ public class MainMenuPane extends BorderPane {
 		//creating tabPane
 		TabPane tabPane = new TabPane();
 
-		//create tabs
-		NewWorkOrderTab newWorkTab = NewWorkOrderTab.getInstance();
-		StatisticsTab statsTab = StatisticsTab.getInstance();
-		LoginTab loginTab = LoginTab.getInstance();
 		
 		//Create MenuItems for the 'File' Tab
 		MenuItem newWork = new MenuItem("New Work Order");
 		newWork.setOnAction(e-> {
+			NewWorkOrderTab newWorkTab = NewWorkOrderTab.getInstance();
 			//if tab is not already open
 			if(!tabPane.getTabs().contains(newWorkTab)) {
 				tabPane.getTabs().add(newWorkTab);
@@ -77,6 +74,7 @@ public class MainMenuPane extends BorderPane {
 		//Create MenuItem for the 'Statistics' Tab
 		MenuItem serviceCharts = new MenuItem("Service Charts");
 		serviceCharts.setOnAction(e-> {
+			StatisticsTab statsTab = StatisticsTab.getInstance();
 			if(!tabPane.getTabs().contains(statsTab)) {
 				tabPane.getTabs().add(statsTab);
 
@@ -86,6 +84,7 @@ public class MainMenuPane extends BorderPane {
 		//Create MenuItem for the 'Login' Tab
 		MenuItem dbLogin = new MenuItem("Database Settings");
 		dbLogin.setOnAction(e-> {
+			LoginTab loginTab = LoginTab.getInstance();
 			if(!tabPane.getTabs().contains(loginTab)) {
 				tabPane.getTabs().add(loginTab);
 

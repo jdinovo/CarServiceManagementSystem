@@ -27,6 +27,9 @@ public class StatisticsTab extends Tab {
 	 */
 	private StatisticsTab() {
 		this.setText("Statistics");
+		this.setOnClosed(e-> {
+			tab = null;
+		});
 	}
 	
 	/**
