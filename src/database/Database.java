@@ -19,6 +19,8 @@ public class Database {
 	private Connection connection = null;
 	//create private constructor
 	private Database() {
+		//load current credentials 
+		DBConst.loginLoad();
 		if(connection == null) {
 			try {
 				Class.forName("com.mysql.jdbc.Driver");
