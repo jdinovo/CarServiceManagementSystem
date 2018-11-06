@@ -1,10 +1,12 @@
 package panes;
 
+import database.DBConst;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
+import tabs.LoginTab;
 import tabs.NewWorkOrderTab;
 import tabs.StatisticsTab;
 
@@ -38,6 +40,7 @@ public class MainMenuPane extends BorderPane {
 		Menu fileMenu = new Menu("File");
 		Menu editMenu = new Menu("Edit");
 		Menu statsMenu = new Menu("Statistics");
+		Menu settingsMenu = new Menu("Settings");
 
 		//creating tabPane
 		TabPane tabPane = new TabPane();
@@ -45,6 +48,7 @@ public class MainMenuPane extends BorderPane {
 		//create tabs
 		NewWorkOrderTab newWorkTab = NewWorkOrderTab.getInstance();
 		StatisticsTab statsTab = StatisticsTab.getInstance();
+		LoginTab loginTab = LoginTab.getInstance();
 		
 		//Create MenuItems for the 'File' Tab
 		MenuItem newWork = new MenuItem("New Work Order");
@@ -73,16 +77,29 @@ public class MainMenuPane extends BorderPane {
 		//Create MenuItem for the 'Statistics' Tab
 		MenuItem serviceCharts = new MenuItem("Service Charts");
 		serviceCharts.setOnAction(e-> {
-			
+			if(!tabPane.getTabs().contains(statsTab)) {
+				tabPane.getTabs().add(statsTab);
+
+			}
+		});
+
+		//Create MenuItem for the 'Login' Tab
+		MenuItem dbLogin = new MenuItem("Database Settings");
+		dbLogin.setOnAction(e-> {
+			if(!tabPane.getTabs().contains(loginTab)) {
+				tabPane.getTabs().add(loginTab);
+
+			}
 		});
 		
 		//adding menu items to menus
 		fileMenu.getItems().addAll(newWork, openWork, closeWork);
 		editMenu.getItems().addAll(editCustInfo);
 		statsMenu.getItems().add(serviceCharts);
+		settingsMenu.getItems().add(dbLogin);
 		
 		//adding menus to menubar
-		menu.getMenus().addAll(fileMenu, editMenu, statsMenu);
+		menu.getMenus().addAll(fileMenu, editMenu, statsMenu, settingsMenu);
 		
 		//adding menubar and tabpane to pane
 		this.setTop(menu);

@@ -17,8 +17,6 @@ import panes.NewWorkOrderPane;
 public class NewWorkOrderTab extends Tab {
 	
 	private static NewWorkOrderTab tab;
-	//Implementing the GUI panes to add into the tabs
-	private NewWorkOrderPane newWorkOrderPane = new NewWorkOrderPane();
 	
 	/**
 	 * 
@@ -29,10 +27,10 @@ public class NewWorkOrderTab extends Tab {
 	 * Constructor for NewWorkOrderTab
 	 *
 	 */
-	public NewWorkOrderTab() {
+	private NewWorkOrderTab() {
 		this.setText("New Work Order");
 		//Execute the function to bring the GUI to the NewWorkOrderTab
-		this.setContent(newWorkOrderPane.newWorkOrderGui());
+		this.setContent(new NewWorkOrderPane());
 	}
 	
 	/**

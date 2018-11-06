@@ -19,30 +19,30 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class NewWorkOrderPane extends Parent {
+public class NewWorkOrderPane extends GridPane {
 
     /**
      * A map that will contain the customer information.
      * In a future update, this will be saved into the database
      */
-    Map<String, String> newCustomerMap = new HashMap<>();
-    String firstNameMap = "";
-    String lastNameMap = "";
-    String addressMap = "";
-    String cityMap = "";
-    String emailMap = "";
-    String postalCodeMap = "";
-    String cellPhoneNumMap = "";
+    private Map<String, String> newCustomerMap = new HashMap<>();
+    private String firstNameMap = "";
+    private String lastNameMap = "";
+    private String addressMap = "";
+    private String cityMap = "";
+    private String emailMap = "";
+    private String postalCodeMap = "";
+    private String cellPhoneNumMap = "";
 
     //Vehicle part
-    String vinNumMap = "";
-    String brandMap = "";
-    String modelMap = "";
-    String yearMap = "";
-    String kilometersMap = "";
+    private String vinNumMap = "";
+    private String brandMap = "";
+    private String modelMap = "";
+    private String yearMap = "";
+    private String kilometersMap = "";
 
     //Service Part
-    String issueMap = "";
+    private String issueMap = "";
     //String servicesMap = "";
 
 
@@ -55,7 +55,7 @@ public class NewWorkOrderPane extends Parent {
      * A function that creates the Customer Information part of the GUI
      * of NewWorkOrder to be used in the New Work Order tab
      */
-    public GridPane newWorkOrderGui() {
+    public NewWorkOrderPane() {
 
         Text textfieldIncomplete = new Text("");
         textfieldIncomplete.setVisible(false);
@@ -65,11 +65,11 @@ public class NewWorkOrderPane extends Parent {
 
 
         //GridPane that contains the entire UI for the Customer Info part of the NewWorkOrder
-        GridPane grid = new GridPane();
-        grid.setAlignment(Pos.CENTER);
-        grid.setPadding(new Insets(10, 10, 10, 10));
-        grid.setVgap(10);
-        grid.setHgap(10);
+
+        this.setAlignment(Pos.CENTER);
+        this.setPadding(new Insets(10, 10, 10, 10));
+        this.setVgap(10);
+        this.setHgap(10);
 
 
         /*
@@ -88,7 +88,7 @@ public class NewWorkOrderPane extends Parent {
         Label firstNameText = new Label("First Name:");
         firstNameText.setFont(Font.font("Times New Roman", 16));
         GridPane.setConstraints(firstNameText, 0, 0);
-        grid.getChildren().add(firstNameText);
+        this.getChildren().add(firstNameText);
 
 
         TextField firstName = new TextField();
@@ -96,85 +96,85 @@ public class NewWorkOrderPane extends Parent {
         firstName.setMaxWidth(300);
         firstName.setAlignment(Pos.TOP_CENTER);
         GridPane.setConstraints(firstName, 1, 0);
-        grid.getChildren().add(firstName);
+        this.getChildren().add(firstName);
 
         //Last Name textfield
         Label lastNameText = new Label("Last Name:");
         lastNameText.setFont(Font.font("Times New Roman", 16));
         GridPane.setConstraints(lastNameText, 0, 1);
-        grid.getChildren().add(lastNameText);
+        this.getChildren().add(lastNameText);
 
         TextField lastName = new TextField();
         arrayOfTextFields.add(lastName);
         lastName.setMaxWidth(300);
         lastName.setAlignment(Pos.TOP_CENTER);
         GridPane.setConstraints(lastName, 1, 1);
-        grid.getChildren().add(lastName);
+        this.getChildren().add(lastName);
 
         //Address
         Label addressText = new Label("Address:");
         addressText.setFont(Font.font("Times New Roman", 16));
         GridPane.setConstraints(addressText, 0, 2);
-        grid.getChildren().add(addressText);
+        this.getChildren().add(addressText);
 
         TextField address = new TextField();
         arrayOfTextFields.add(address);
         address.setMaxWidth(300);
         address.setAlignment(Pos.TOP_CENTER);
         GridPane.setConstraints(address, 1, 2);
-        grid.getChildren().add(address);
+        this.getChildren().add(address);
 
         //City
         Label cityText = new Label("City:");
         cityText.setFont(Font.font("Times New Roman", 16));
         GridPane.setConstraints(cityText, 0, 3);
-        grid.getChildren().add(cityText);
+        this.getChildren().add(cityText);
 
         TextField city = new TextField();
         arrayOfTextFields.add(city);
         city.setMaxWidth(300);
         city.setAlignment(Pos.TOP_CENTER);
         GridPane.setConstraints(city, 1, 3);
-        grid.getChildren().add(city);
+        this.getChildren().add(city);
 
         //Email
         Label emailText = new Label("Email:");
         emailText.setFont(Font.font("Times New Roman", 16));
         GridPane.setConstraints(emailText, 0, 4);
-        grid.getChildren().add(emailText);
+        this.getChildren().add(emailText);
 
         TextField email = new TextField();
         arrayOfTextFields.add(email);
         email.setMaxWidth(300);
         email.setAlignment(Pos.TOP_CENTER);
         GridPane.setConstraints(email, 1, 4);
-        grid.getChildren().add(email);
+        this.getChildren().add(email);
 
         //Postal Code
         Label postalCodeText = new Label("Postal Code:");
         postalCodeText.setFont(Font.font("Times New Roman", 16));
         GridPane.setConstraints(postalCodeText, 0, 5);
-        grid.getChildren().add(postalCodeText);
+        this.getChildren().add(postalCodeText);
 
         TextField postalCode = new TextField();
         arrayOfTextFields.add(postalCode);
         postalCode.setMaxWidth(300);
         postalCode.setAlignment(Pos.TOP_CENTER);
         GridPane.setConstraints(postalCode, 1, 5);
-        grid.getChildren().add(postalCode);
+        this.getChildren().add(postalCode);
 
         //Cell phone number
         Label cellPhoneNumText = new Label("Cell Number:");
         cellPhoneNumText.setFont(Font.font("Times New Roman", 16));
         GridPane.setConstraints(cellPhoneNumText, 0, 6);
-        grid.getChildren().add(cellPhoneNumText);
+        this.getChildren().add(cellPhoneNumText);
 
         TextField cellPhoneNum = new TextField();
         arrayOfTextFields.add(cellPhoneNum);
         cellPhoneNum.setMaxWidth(300);
         address.setAlignment(Pos.TOP_CENTER);
         GridPane.setConstraints(cellPhoneNum, 1, 6);
-        grid.getChildren().add(cellPhoneNum);
+        this.getChildren().add(cellPhoneNum);
 
         /**
          * These are the TextFields that will be asked for
@@ -189,66 +189,66 @@ public class NewWorkOrderPane extends Parent {
         Label vinNumText = new Label("VIN Number:");
         vinNumText.setFont(Font.font("Times New Roman", 16));
         GridPane.setConstraints(vinNumText, 3, 0);
-        grid.getChildren().add(vinNumText);
+        this.getChildren().add(vinNumText);
 
         TextField vinNum = new TextField();
         arrayOfTextFields.add(vinNum);
         vinNum.setMaxWidth(300);
         vinNum.setAlignment(Pos.TOP_CENTER);
         GridPane.setConstraints(vinNum, 4, 0);
-        grid.getChildren().add(vinNum);
+        this.getChildren().add(vinNum);
 
         //Brand textfield
         Label brandText = new Label("Brand:");
         brandText.setFont(Font.font("Times New Roman", 16));
         GridPane.setConstraints(brandText, 3, 1);
-        grid.getChildren().add(brandText);
+        this.getChildren().add(brandText);
 
         TextField brand = new TextField();
         arrayOfTextFields.add(brand);
         brand.setMaxWidth(300);
         brand.setAlignment(Pos.TOP_CENTER);
         GridPane.setConstraints(brand, 4, 1);
-        grid.getChildren().add(brand);
+        this.getChildren().add(brand);
 
         //Model Text
         Label modelText = new Label("Model:");
         modelText.setFont(Font.font("Times New Roman", 16));
         GridPane.setConstraints(modelText, 3, 2);
-        grid.getChildren().add(modelText);
+        this.getChildren().add(modelText);
 
         TextField model = new TextField();
         arrayOfTextFields.add(model);
         model.setMaxWidth(300);
         model.setAlignment(Pos.TOP_CENTER);
         GridPane.setConstraints(model, 4, 2);
-        grid.getChildren().add(model);
+        this.getChildren().add(model);
 
         //Year Text
         Label yearText = new Label("Year:");
         yearText.setFont(Font.font("Times New Roman", 16));
         GridPane.setConstraints(yearText, 3, 3);
-        grid.getChildren().add(yearText);
+        this.getChildren().add(yearText);
 
         TextField year = new TextField();
         arrayOfTextFields.add(year);
         year.setMaxWidth(300);
         year.setAlignment(Pos.TOP_CENTER);
         GridPane.setConstraints(year, 4, 3);
-        grid.getChildren().add(year);
+        this.getChildren().add(year);
 
         //Email
         Label kilometersText = new Label("Kilometers:");
         kilometersText.setFont(Font.font("Times New Roman", 16));
         GridPane.setConstraints(kilometersText, 3, 4);
-        grid.getChildren().add(kilometersText);
+        this.getChildren().add(kilometersText);
 
         TextField kilometers = new TextField();
         arrayOfTextFields.add(kilometers);
         kilometers.setMaxWidth(300);
         kilometers.setAlignment(Pos.TOP_CENTER);
         GridPane.setConstraints(kilometers, 4, 4);
-        grid.getChildren().add(kilometers);
+        this.getChildren().add(kilometers);
 
         /**
          * These are the TextFields that will be asked for
@@ -264,7 +264,7 @@ public class NewWorkOrderPane extends Parent {
         issueText.setFont(Font.font("Times New Roman", 16));
         GridPane.setConstraints(issueText, 0, 9, 3, 3);
         GridPane.setHalignment(issueText, HPos.CENTER);
-        grid.getChildren().add(issueText);
+        this.getChildren().add(issueText);
 
         TextArea issue = new TextArea();
         issue.setMaxWidth(300);
@@ -272,7 +272,7 @@ public class NewWorkOrderPane extends Parent {
         issue.setWrapText(true);
         GridPane.setConstraints(issue, 1, 12, 3, 3);
         GridPane.setHalignment(issue, HPos.CENTER);
-        grid.getChildren().add(issue);
+        this.getChildren().add(issue);
 
 
         /**
@@ -323,7 +323,7 @@ public class NewWorkOrderPane extends Parent {
 
 
                 textfieldIncomplete.setVisible(false);
-                grid.getChildren().remove(textfieldIncomplete);
+                this.getChildren().remove(textfieldIncomplete);
 
                 //Finished the customer info page -
                 // Customer profile is created & work order has been opened for service
@@ -346,15 +346,15 @@ public class NewWorkOrderPane extends Parent {
 
                 //Only add to the screen if the text is not visible
                 if (!textfieldIncomplete.isVisible()) {
-                    grid.getChildren().add(textfieldIncomplete);
+                    this.getChildren().add(textfieldIncomplete);
                 }
                 textfieldIncomplete.setVisible(true);
             }
 
         });
-        grid.getChildren().add(nextButton);
+        this.getChildren().add(nextButton);
 
-        return grid;
+
     }
 
 
