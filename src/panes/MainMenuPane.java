@@ -1,6 +1,6 @@
 package panes;
 
-import database.DBConst;
+import database.Database;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -11,27 +11,30 @@ import tabs.NewWorkOrderTab;
 import tabs.StatisticsTab;
 
 /**
- * 
+ *
+ * MainMenuPane is the pane that launches from MainMenuScene
+ *
  * @author James DiNovo
  * @date 17.10.2018
  * @version 1.2
- * 
- * MainMenuPane is the pane that launches from MainMenuScene
  *
  */
 public class MainMenuPane extends BorderPane {
 	
 	/**
-	 * 
-	 * @author James DiNovo
-	 * @date 17.10.2018
-	 * @version 1.2
-	 * 
+	 *
 	 * Constructor for MainMenuPane contains GUI
 	 * GUI contains a menubar that opens tabs
 	 *
+	 * @author James DiNovo
+	 * @date 17.10.2018
+	 * @version 1.2
+	 *
 	 */
 	public MainMenuPane() {
+
+		//access db
+		Database db = Database.getInstance();
 
 		//create menuBar
 		MenuBar menu = new MenuBar();

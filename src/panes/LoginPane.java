@@ -15,29 +15,27 @@ import javafx.scene.text.Text;
 import main.Main;
 import scenes.MainMenuScene;
 
-import java.sql.Connection;
 import java.util.HashMap;
 
 /**
+ *
+ * LoginPane Contains GUI for DB login
  *
  * @author James DiNovo
  * @date 05.11.2018
  * @version 1.0
  *
- * LoginPane Contains GUI for DB login
- *
  */
 public class LoginPane extends BorderPane {
     private Text error = new Text("");
-    private Connection connection = null;
 
     /**
+     *
+     * Constructor for LoginTab
      *
      * @author James DiNovo
      * @date 05.11.2018
      * @version 1.0
-     *
-     * Constructor for LoginTab
      *
      */
     public LoginPane() {
@@ -60,7 +58,7 @@ public class LoginPane extends BorderPane {
              * @dbPass database password
              */
 
-            Label dbLocText = new Label("Server Location:");
+            Label dbLocText = new Label("Database Host:");
             dbLocText.setFont(Font.font("Times New Roman", 16));
 
             TextField dbLoc = new TextField();
@@ -92,7 +90,7 @@ public class LoginPane extends BorderPane {
             Button loginButton = new Button("Login");
             loginButton.setPrefSize(100, 50);
             loginButton.setOnAction(e -> {
-                error.setText("");
+                error.setVisible(false);
 
                 loginHash.put("DB_HOST", dbLoc.getText().trim());
                 loginHash.put("DB_NAME", dbName.getText().trim());
