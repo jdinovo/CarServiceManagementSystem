@@ -5,23 +5,23 @@ import main.Construct;
 import panes.MainMenuPane;
 
 /**
- * 
+ *
+ * Scene that launches main menu
+ *
  * @author James DiNovo
  * @date 17.10.2018
  * @version 1.0
- * 
- * Scene that launches main menu
  *
  */
 public class MainMenuScene extends Scene {
 
 	/**
-	 * 
+	 *
+	 * Constructor for MainMenuScene which sets MainMenuPane
+	 *
 	 * @author James DiNovo
 	 * @date 17.10.2018
 	 * @version 1.0
-	 * 
-	 * Constructor for MainMenuScene which sets MainMenuPane
 	 *
 	 */
 	public MainMenuScene() {

@@ -5,12 +5,12 @@ import panes.LoginPane;
 
 /**
  *
+ * LoginTab is a tab that contains the GUI for setting Database Login info
+ * It is a singleton class
+ *
  * @author James DiNovo
  * @date 05.11.2018
  * @version 1.0
- *
- * LoginTab is a tab that contains the GUI for setting Database Login info
- * It is a singleton class
  *
  */
 public class LoginTab extends Tab {
@@ -18,26 +18,30 @@ public class LoginTab extends Tab {
 
     /**
      *
+     * Constructor for LoginTab
+     *
      * @author James DiNovo
      * @date 05.11.2018
      * @version 1.0
-     *
-     * Constructor for LoginTab
      *
      */
     private LoginTab() {
         this.setText("Database Settings");
         this.setContent(new LoginPane());
+        this.setOnCloseRequest(e-> {
+            tab = null;
+        });
+
     }
 
     /**
+     *
+     * Login getInstance method
      *
      * @author James DiNovo
      * @date 05.11.2018
      * @version 1.0
      * @return LoginTab()
-     *
-     * Login getInstance method
      *
      */
     public static LoginTab getInstance() {
