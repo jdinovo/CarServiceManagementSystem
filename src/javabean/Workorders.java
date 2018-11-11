@@ -20,6 +20,13 @@ public class Workorders {
 
     }
 
+    /**
+     *
+     * @param id
+     * @param date
+     * @param issue
+     * @param cause
+     */
     public Workorders(int id, String date, String issue, String cause) {
         this.id = id;
         this.date = date;
