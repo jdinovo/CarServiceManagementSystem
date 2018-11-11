@@ -22,6 +22,15 @@ public class Vehicles {
 
     }
 
+    /**
+     *
+     * @param id
+     * @param vin
+     * @param brand
+     * @param model
+     * @param year
+     * @param kilometers
+     */
     public Vehicles(int id, String vin, String brand, String model, String year, String kilometers) {
         this.id = id;
         this.vin = vin;
