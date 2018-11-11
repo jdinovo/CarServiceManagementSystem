@@ -40,50 +40,98 @@ public class Vehicles {
         this.kilometers = kilometers;
     }
 
+    /**
+     *
+     * @return id
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(int id) {
         this.id = id;
     }
 
+    /**
+     *
+     * @return vin
+     */
     public String getVin() {
         return vin;
     }
 
+    /**
+     *
+     * @param vin
+     */
     public void setVin(String vin) {
         this.vin = vin;
     }
 
+    /**
+     *
+     * @return brand
+     */
     public String getBrand() {
         return brand;
     }
 
+    /**
+     *
+     * @param brand
+     */
     public void setBrand(String brand) {
         this.brand = brand;
     }
 
+    /**
+     *
+     * @return model
+     */
     public String getModel() {
         return model;
     }
 
+    /**
+     *
+     * @param model
+     */
     public void setModel(String model) {
         this.model = model;
     }
 
+    /**
+     *
+     * @return year
+     */
     public String getYear() {
         return year;
     }
 
+    /**
+     *
+     * @param year
+     */
     public void setYear(String year) {
         this.year = year;
     }
 
+    /**
+     *
+     * @return kilometers
+     */
     public String getKilometers() {
         return kilometers;
     }
 
+    /**
+     *
+     * @param kilometers
+     */
     public void setKilometers(String kilometers) {
         this.kilometers = kilometers;
     }

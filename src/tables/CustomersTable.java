@@ -23,6 +23,10 @@ public class CustomersTable implements CustomersDAO {
     Database db = Database.getInstance();
     ArrayList<Customers> customers = new ArrayList<Customers>();
 
+    /**
+     *
+     * @return customers
+     */
     @Override
     public ArrayList<Customers> getAllCustomers() {
         String query = "SELECT * FROM " + DBConst.TABLE_CUSTOMERS;
@@ -47,6 +51,11 @@ public class CustomersTable implements CustomersDAO {
         return customers;
     }
 
+    /**
+     *
+     * @param customerID
+     * @return customer
+     */
     @Override
     public Customers getCustomer(int customerID) {
         String query = "SELECT * FROM " + DBConst.TABLE_CUSTOMERS + " WHERE " + DBConst.CUSTOMER_COLUMN_ID + " = " + customerID;
@@ -68,6 +77,10 @@ public class CustomersTable implements CustomersDAO {
         return customer;
     }
 
+    /**
+     *
+     * @param customer
+     */
     @Override
     public void updateCustomer(Customers customer) {
         String query = "UPDATE " + DBConst.TABLE_CUSTOMERS + " SET "  +
@@ -87,6 +100,10 @@ public class CustomersTable implements CustomersDAO {
         }
     }
 
+    /**
+     *
+     * @param customer
+     */
     @Override
     public void deleteCustomer(Customers customer) {
         String query = "DELET FROM " + DBConst.TABLE_CUSTOMERS + " WHERE " + DBConst.CUSTOMER_COLUMN_ID + " = " + customer.getId();
@@ -97,6 +114,10 @@ public class CustomersTable implements CustomersDAO {
         }
     }
 
+    /**
+     *
+     * @param customer
+     */
     @Override
     public void createCustomer(Customers customer) {
         String query = "INSERT INTO " + DBConst.TABLE_CUSTOMERS +

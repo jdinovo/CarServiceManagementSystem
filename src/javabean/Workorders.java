@@ -34,34 +34,66 @@ public class Workorders {
         this.cause = cause;
     }
 
+    /**
+     *
+     * @return id
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(int id) {
         this.id = id;
     }
 
+    /**
+     *
+     * @return date
+     */
     public String getDate() {
         return date;
     }
 
+    /**
+     *
+     * @param date
+     */
     public void setDate(String date) {
         this.date = date;
     }
 
+    /**
+     *
+     * @return issue
+     */
     public String getIssue() {
         return issue;
     }
 
+    /**
+     *
+     * @param issue
+     */
     public void setIssue(String issue) {
         this.issue = issue;
     }
 
+    /**
+     *
+     * @return cause
+     */
     public String getCause() {
         return cause;
     }
 
+    /**
+     *
+     * @param cause
+     */
     public void setCause(String cause) {
         this.cause = cause;
     }

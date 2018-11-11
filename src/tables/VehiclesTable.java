@@ -23,6 +23,10 @@ public class VehiclesTable implements VehiclesDAO {
     Database db = Database.getInstance();
     ArrayList<Vehicles> vehicles = new ArrayList<Vehicles>();
 
+    /**
+     *
+     * @return vehicles
+     */
     @Override
     public ArrayList<Vehicles> getAllVehicles() {
         String query = "SELECT * FROM " + DBConst.TABLE_VEHICLES;
@@ -45,6 +49,11 @@ public class VehiclesTable implements VehiclesDAO {
         return vehicles;
     }
 
+    /**
+     *
+     * @param vehicleID
+     * @return vehicle
+     */
     @Override
     public Vehicles getVehicle(int vehicleID) {
         String query = "SELECT * FROM " + DBConst.TABLE_VEHICLES + " WHERE " + DBConst.VEHICLE_COLUMN_ID + " = " + vehicleID;
@@ -64,6 +73,10 @@ public class VehiclesTable implements VehiclesDAO {
         return vehicle;
     }
 
+    /**
+     *
+     * @param vehicle
+     */
     @Override
     public void updateVehicle(Vehicles vehicle) {
         String query = "UPDATE " + DBConst.TABLE_VEHICLES + " SET "  +
@@ -81,6 +94,10 @@ public class VehiclesTable implements VehiclesDAO {
         }
     }
 
+    /**
+     *
+     * @param vehicle
+     */
     @Override
     public void deleteVehicle(Vehicles vehicle) {
         String query = "DELET FROM " + DBConst.TABLE_VEHICLES + " WHERE " + DBConst.VEHICLE_COLUMN_ID + " = " + vehicle.getId();
@@ -91,6 +108,10 @@ public class VehiclesTable implements VehiclesDAO {
         }
     }
 
+    /**
+     *
+     * @param vehicle
+     */
     @Override
     public void createVehicle(Vehicles vehicle) {
         String query = "INSERT INTO " + DBConst.TABLE_VEHICLES +

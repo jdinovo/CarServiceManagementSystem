@@ -23,6 +23,10 @@ public class WorkordersTable implements WorkordersDAO {
     Database db = Database.getInstance();
     ArrayList<Workorders> workorders = new ArrayList<Workorders>();
 
+    /**
+     *
+     * @return workorders
+     */
     @Override
     public ArrayList<Workorders> getAllWorkorders() {
         String query = "SELECT * FROM " + DBConst.TABLE_WORKORDERS;
@@ -43,6 +47,11 @@ public class WorkordersTable implements WorkordersDAO {
         return workorders;
     }
 
+    /**
+     *
+     * @param workorderID
+     * @return workorder
+     */
     @Override
     public Workorders getWorkorder(int workorderID) {
         String query = "SELECT * FROM " + DBConst.TABLE_WORKORDERS + " WHERE " + DBConst.WORKORDERS_COLUMN_ID + " = " + workorderID;
@@ -60,6 +69,10 @@ public class WorkordersTable implements WorkordersDAO {
         return workorder;
     }
 
+    /**
+     *
+     * @param workorder
+     */
     @Override
     public void updateWorkorder(Workorders workorder) {
         String query = "UPDATE " + DBConst.TABLE_WORKORDERS + " SET "  +
@@ -75,6 +88,10 @@ public class WorkordersTable implements WorkordersDAO {
         }
     }
 
+    /**
+     *
+     * @param workorder
+     */
     @Override
     public void deleteWorkorder(Workorders workorder) {
         String query = "DELET FROM " + DBConst.TABLE_WORKORDERS + " WHERE " + DBConst.WORKORDERS_COLUMN_ID + " = " + workorder.getId();
@@ -85,6 +102,10 @@ public class WorkordersTable implements WorkordersDAO {
         }
     }
 
+    /**
+     * 
+     * @param workorder
+     */
     @Override
     public void createWorkorder(Workorders workorder) {
         String query = "INSERT INTO " + DBConst.TABLE_WORKORDERS +
