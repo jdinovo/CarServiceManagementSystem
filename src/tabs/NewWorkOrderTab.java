@@ -1,6 +1,7 @@
 package tabs;
 
 import javafx.scene.control.Tab;
+import panes.NewWorkOrderPane;
 
 
 /**
@@ -28,6 +29,11 @@ public class NewWorkOrderTab extends Tab {
 	 */
 	private NewWorkOrderTab() {
 		this.setText("New Work Order");
+		//Execute the function to bring the GUI to the NewWorkOrderTab
+		this.setContent(new NewWorkOrderPane());
+		this.setOnClosed(e-> {
+			tab = null;
+		});
 	}
 	
 	/**
@@ -43,6 +49,13 @@ public class NewWorkOrderTab extends Tab {
 	public static NewWorkOrderTab getInstance() {
 		if(tab == null) {
 			tab = new NewWorkOrderTab();
+		}
+		return tab;
+	}
+
+	public static NewWorkOrderTab closeInstance() {
+		if (tab != null) {
+			tab.getTabPane().getTabs().remove(tab);
 		}
 		return tab;
 	}

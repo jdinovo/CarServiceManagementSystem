@@ -1,6 +1,5 @@
 # DB info ignore
-src/database/DBConst.java
-bin/database/DBConst.class
+Login.dat
 
 # General
 .DS_Store
