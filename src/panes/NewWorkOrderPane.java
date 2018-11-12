@@ -3,12 +3,15 @@ package panes;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -63,14 +66,23 @@ public class NewWorkOrderPane extends GridPane {
         //Array of Textfields
         ArrayList<TextField> arrayOfTextFields = new ArrayList<>();
 
-
         //GridPane that contains the entire UI for the Customer Info part of the NewWorkOrder
 
         this.setAlignment(Pos.CENTER);
         this.setPadding(new Insets(10, 10, 10, 10));
-        this.setVgap(10);
+        this.setVgap(20);
         this.setHgap(10);
 
+        ColumnConstraints col1 = new ColumnConstraints();
+        col1.setPercentWidth(50);
+        ColumnConstraints col2 = new ColumnConstraints();
+        col2.setPercentWidth(50);
+//        ColumnConstraints col3 = new ColumnConstraints();
+//        col3.setPercentWidth(20);
+//        ColumnConstraints col4 = new ColumnConstraints();
+//        col4.setPercentWidth(30);
+
+        this.getColumnConstraints().addAll(col1,col2);
 
         /*
          * These are the TextFields that will be asked for
@@ -87,94 +99,87 @@ public class NewWorkOrderPane extends GridPane {
         //First Name textfield
         Label firstNameText = new Label("First Name:");
         firstNameText.setFont(Font.font("Times New Roman", 16));
-        GridPane.setConstraints(firstNameText, 0, 0);
-        this.getChildren().add(firstNameText);
+        GridPane.setHalignment(firstNameText, HPos.LEFT);
+        this.add(firstNameText, 0, 0, 1, 1);
 
 
         TextField firstName = new TextField();
         arrayOfTextFields.add(firstName);
-        firstName.setMaxWidth(300);
-        firstName.setAlignment(Pos.TOP_CENTER);
-        GridPane.setConstraints(firstName, 1, 0);
-        this.getChildren().add(firstName);
+        firstName.setMaxWidth(250);
+        GridPane.setHalignment(firstName, HPos.RIGHT);
+        this.add(firstName, 0, 0, 1, 1);
 
         //Last Name textfield
         Label lastNameText = new Label("Last Name:");
         lastNameText.setFont(Font.font("Times New Roman", 16));
-        GridPane.setConstraints(lastNameText, 0, 1);
-        this.getChildren().add(lastNameText);
+        GridPane.setHalignment(lastNameText, HPos.LEFT);
+        this.add(lastNameText, 0, 1, 1, 1);
 
         TextField lastName = new TextField();
         arrayOfTextFields.add(lastName);
-        lastName.setMaxWidth(300);
-        lastName.setAlignment(Pos.TOP_CENTER);
-        GridPane.setConstraints(lastName, 1, 1);
-        this.getChildren().add(lastName);
+        lastName.setMaxWidth(250);
+        GridPane.setHalignment(lastName, HPos.RIGHT);
+        this.add(lastName, 0, 1, 1, 1);
 
         //Address
         Label addressText = new Label("Address:");
         addressText.setFont(Font.font("Times New Roman", 16));
-        GridPane.setConstraints(addressText, 0, 2);
-        this.getChildren().add(addressText);
+        GridPane.setHalignment(addressText, HPos.LEFT);
+        this.add(addressText, 0, 2, 1, 1);
 
         TextField address = new TextField();
         arrayOfTextFields.add(address);
-        address.setMaxWidth(300);
-        address.setAlignment(Pos.TOP_CENTER);
-        GridPane.setConstraints(address, 1, 2);
-        this.getChildren().add(address);
+        address.setMaxWidth(250);
+        GridPane.setHalignment(address, HPos.RIGHT);
+        this.add(address, 0, 2, 1, 1);
 
         //City
         Label cityText = new Label("City:");
         cityText.setFont(Font.font("Times New Roman", 16));
-        GridPane.setConstraints(cityText, 0, 3);
-        this.getChildren().add(cityText);
+        GridPane.setHalignment(cityText, HPos.LEFT);
+        this.add(cityText, 0, 3, 1, 1);
 
         TextField city = new TextField();
         arrayOfTextFields.add(city);
-        city.setMaxWidth(300);
-        city.setAlignment(Pos.TOP_CENTER);
-        GridPane.setConstraints(city, 1, 3);
-        this.getChildren().add(city);
+        city.setMaxWidth(250);
+        GridPane.setHalignment(city, HPos.RIGHT);
+        this.add(city, 0, 3, 1, 1);
 
         //Email
         Label emailText = new Label("Email:");
         emailText.setFont(Font.font("Times New Roman", 16));
-        GridPane.setConstraints(emailText, 0, 4);
-        this.getChildren().add(emailText);
+        GridPane.setHalignment(emailText, HPos.LEFT);
+        this.add(emailText, 0, 4, 1, 1);
 
         TextField email = new TextField();
         arrayOfTextFields.add(email);
-        email.setMaxWidth(300);
-        email.setAlignment(Pos.TOP_CENTER);
-        GridPane.setConstraints(email, 1, 4);
-        this.getChildren().add(email);
+        email.setMaxWidth(250);
+        GridPane.setHalignment(email, HPos.RIGHT);
+        this.add(email, 0, 4, 1, 1);
 
         //Postal Code
         Label postalCodeText = new Label("Postal Code:");
         postalCodeText.setFont(Font.font("Times New Roman", 16));
-        GridPane.setConstraints(postalCodeText, 0, 5);
-        this.getChildren().add(postalCodeText);
+        GridPane.setHalignment(postalCodeText, HPos.LEFT);
+        this.add(postalCodeText, 0, 5, 1, 1);
 
         TextField postalCode = new TextField();
         arrayOfTextFields.add(postalCode);
-        postalCode.setMaxWidth(300);
-        postalCode.setAlignment(Pos.TOP_CENTER);
-        GridPane.setConstraints(postalCode, 1, 5);
-        this.getChildren().add(postalCode);
+        postalCode.setMaxWidth(250);
+        GridPane.setHalignment(postalCode, HPos.RIGHT);
+        this.add(postalCode, 0, 5, 1, 1);
 
         //Cell phone number
         Label cellPhoneNumText = new Label("Cell Number:");
         cellPhoneNumText.setFont(Font.font("Times New Roman", 16));
-        GridPane.setConstraints(cellPhoneNumText, 0, 6);
-        this.getChildren().add(cellPhoneNumText);
+        GridPane.setHalignment(cellPhoneNumText, HPos.LEFT);
+        this.add(cellPhoneNumText, 0, 6, 1, 1);
 
         TextField cellPhoneNum = new TextField();
         arrayOfTextFields.add(cellPhoneNum);
-        cellPhoneNum.setMaxWidth(300);
-        address.setAlignment(Pos.TOP_CENTER);
-        GridPane.setConstraints(cellPhoneNum, 1, 6);
-        this.getChildren().add(cellPhoneNum);
+        cellPhoneNum.setMaxWidth(250);
+        GridPane.setHalignment(cellPhoneNum, HPos.RIGHT);
+        this.add(cellPhoneNum, 0, 6, 1, 1);
 
         /**
          * These are the TextFields that will be asked for
@@ -188,67 +193,62 @@ public class NewWorkOrderPane extends GridPane {
         //Vin num textfield
         Label vinNumText = new Label("VIN Number:");
         vinNumText.setFont(Font.font("Times New Roman", 16));
-        GridPane.setConstraints(vinNumText, 3, 0);
-        this.getChildren().add(vinNumText);
+        GridPane.setHalignment(vinNumText, HPos.LEFT);
+        this.add(vinNumText, 1, 0, 1, 1);
 
         TextField vinNum = new TextField();
         arrayOfTextFields.add(vinNum);
-        vinNum.setMaxWidth(300);
-        vinNum.setAlignment(Pos.TOP_CENTER);
-        GridPane.setConstraints(vinNum, 4, 0);
-        this.getChildren().add(vinNum);
+        vinNum.setMaxWidth(250);
+        GridPane.setHalignment(vinNum, HPos.RIGHT);
+        this.add(vinNum, 1, 0, 1, 1);
 
         //Brand textfield
         Label brandText = new Label("Brand:");
         brandText.setFont(Font.font("Times New Roman", 16));
-        GridPane.setConstraints(brandText, 3, 1);
-        this.getChildren().add(brandText);
+        GridPane.setHalignment(brandText, HPos.LEFT);
+        this.add(brandText, 1, 1, 1, 1);
 
         TextField brand = new TextField();
         arrayOfTextFields.add(brand);
-        brand.setMaxWidth(300);
-        brand.setAlignment(Pos.TOP_CENTER);
-        GridPane.setConstraints(brand, 4, 1);
-        this.getChildren().add(brand);
+        brand.setMaxWidth(250);
+        GridPane.setHalignment(brand, HPos.RIGHT);
+        this.add(brand, 1, 1, 1, 1);
 
         //Model Text
         Label modelText = new Label("Model:");
         modelText.setFont(Font.font("Times New Roman", 16));
-        GridPane.setConstraints(modelText, 3, 2);
-        this.getChildren().add(modelText);
+        GridPane.setHalignment(modelText, HPos.LEFT);
+        this.add(modelText, 1, 2, 1, 1);
 
         TextField model = new TextField();
         arrayOfTextFields.add(model);
-        model.setMaxWidth(300);
-        model.setAlignment(Pos.TOP_CENTER);
-        GridPane.setConstraints(model, 4, 2);
-        this.getChildren().add(model);
+        model.setMaxWidth(250);
+        GridPane.setHalignment(model, HPos.RIGHT);
+        this.add(model, 1, 2, 1, 1);
 
         //Year Text
         Label yearText = new Label("Year:");
         yearText.setFont(Font.font("Times New Roman", 16));
-        GridPane.setConstraints(yearText, 3, 3);
-        this.getChildren().add(yearText);
+        GridPane.setHalignment(yearText, HPos.LEFT);
+        this.add(yearText, 1, 3, 1, 1);
 
         TextField year = new TextField();
         arrayOfTextFields.add(year);
-        year.setMaxWidth(300);
-        year.setAlignment(Pos.TOP_CENTER);
-        GridPane.setConstraints(year, 4, 3);
-        this.getChildren().add(year);
+        year.setMaxWidth(250);
+        GridPane.setHalignment(year, HPos.RIGHT);
+        this.add(year,  1, 3, 1, 1);
 
         //Email
         Label kilometersText = new Label("Kilometers:");
         kilometersText.setFont(Font.font("Times New Roman", 16));
-        GridPane.setConstraints(kilometersText, 3, 4);
-        this.getChildren().add(kilometersText);
+        GridPane.setHalignment(kilometersText, HPos.LEFT);
+        this.add(kilometersText, 1, 4, 1, 1);
 
         TextField kilometers = new TextField();
         arrayOfTextFields.add(kilometers);
-        kilometers.setMaxWidth(300);
-        kilometers.setAlignment(Pos.TOP_CENTER);
-        GridPane.setConstraints(kilometers, 4, 4);
-        this.getChildren().add(kilometers);
+        kilometers.setMaxWidth(250);
+        GridPane.setHalignment(kilometers, HPos.RIGHT);
+        this.add(kilometers, 1, 4, 1, 1);
 
         /**
          * These are the TextFields that will be asked for
@@ -262,25 +262,26 @@ public class NewWorkOrderPane extends GridPane {
 
         Label issueText = new Label("In detail, please write the issue the customer is having with their vehicle:");
         issueText.setFont(Font.font("Times New Roman", 16));
-        GridPane.setConstraints(issueText, 0, 9, 3, 3);
+        this.add(issueText, 0, 8, 2,2);
+        GridPane.setValignment(issueText, VPos.CENTER);
         GridPane.setHalignment(issueText, HPos.CENTER);
-        this.getChildren().add(issueText);
 
         TextArea issue = new TextArea();
         issue.setMaxWidth(300);
-        issue.setMaxSize(400,400);
+        issue.setMaxSize(400,200);
         issue.setWrapText(true);
-        GridPane.setConstraints(issue, 1, 12, 3, 3);
+        this.add(issue, 0, 10, 2, 2);
+        GridPane.setValignment(issue, VPos.CENTER);
         GridPane.setHalignment(issue, HPos.CENTER);
-        this.getChildren().add(issue);
-
 
         /**
          * When the next button is pressed, save the textfield answers
          * into the Map strings.
          */
         Button nextButton = new Button("Complete Form");
-        GridPane.setConstraints(nextButton, 2, 19);
+        this.add(nextButton, 0, 12, 2, 1);
+        GridPane.setValignment(nextButton, VPos.CENTER);
+        GridPane.setHalignment(nextButton, HPos.CENTER);
         nextButton.setOnMouseClicked(e->{
 
             //If none of the textfields are empty, save the answers into the string
@@ -341,7 +342,9 @@ public class NewWorkOrderPane extends GridPane {
             } else {
                 // If one of the textfields are empty, let the user know which textfield is empty
                 textfieldIncomplete.setText("You have an empty textfield");
-                GridPane.setConstraints(textfieldIncomplete, 2, 17);
+                GridPane.setConstraints(textfieldIncomplete, 0, 13, 2, 2);
+                GridPane.setValignment(textfieldIncomplete, VPos.CENTER);
+                GridPane.setHalignment(textfieldIncomplete, HPos.CENTER);
                 textfieldIncomplete.setFill(Color.RED);
 
                 //Only add to the screen if the text is not visible
@@ -352,11 +355,8 @@ public class NewWorkOrderPane extends GridPane {
             }
 
         });
-        this.getChildren().add(nextButton);
-
 
     }
-
 
 
 }
