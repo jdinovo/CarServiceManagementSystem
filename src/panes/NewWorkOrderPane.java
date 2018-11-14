@@ -18,7 +18,7 @@ import tabs.NewWorkOrderTab;
 
 import java.util.*;
 
-import static database.Const.TEXTFIELD_WIDTH_SIZE;
+import static main.Const.TEXTFIELD_WIDTH_SIZE;
 
 /**
  * NewWorkOrderPane is the form where employees
