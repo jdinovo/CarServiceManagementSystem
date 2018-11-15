@@ -39,7 +39,8 @@ public class WorkordersTable implements WorkordersDAO {
                 workorders.add(new Workorders(data.getInt(DBConst.WORKORDERS_COLUMN_ID),
                         data.getString(DBConst.WORKORDERS_COLUMN_DATE),
                         data.getString(DBConst.WORKORDERS_COLUMN_ISSUE),
-                        data.getString(DBConst.WORKORDERS_COLUMN_CAUSE)));
+                        data.getString(DBConst.WORKORDERS_COLUMN_CAUSE),
+                        data.getString(DBConst.WORKORDERS_COLUMN_CORRECTION)));
             }
         } catch(SQLException e) {
             e.printStackTrace();
@@ -62,7 +63,8 @@ public class WorkordersTable implements WorkordersDAO {
             workorder = new Workorders(data.getInt(DBConst.WORKORDERS_COLUMN_ID),
                     data.getString(DBConst.WORKORDERS_COLUMN_DATE),
                     data.getString(DBConst.WORKORDERS_COLUMN_ISSUE),
-                    data.getString(DBConst.WORKORDERS_COLUMN_CAUSE));
+                    data.getString(DBConst.WORKORDERS_COLUMN_CAUSE),
+                    data.getString(DBConst.WORKORDERS_COLUMN_CORRECTION));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -78,7 +80,8 @@ public class WorkordersTable implements WorkordersDAO {
         String query = "UPDATE " + DBConst.TABLE_WORKORDERS + " SET "  +
                 DBConst.WORKORDERS_COLUMN_DATE + " " + workorder.getDate() + ", " +
                 DBConst.WORKORDERS_COLUMN_ISSUE + " " + workorder.getIssue() + ", " +
-                DBConst.WORKORDERS_COLUMN_CAUSE+ " " + workorder.getCause() +
+                DBConst.WORKORDERS_COLUMN_CAUSE+ " " + workorder.getCause() + ", " +
+                DBConst.WORKORDERS_COLUMN_CORRECTION + " " + workorder.getCorrection() +
                 " WHERE " + DBConst.WORKORDERS_COLUMN_ID + " = " + workorder.getId();
         try {
             Statement updateItem = db.getConnection().createStatement();
@@ -111,10 +114,12 @@ public class WorkordersTable implements WorkordersDAO {
         String query = "INSERT INTO " + DBConst.TABLE_WORKORDERS +
                 " (" + DBConst.WORKORDERS_COLUMN_DATE + ", " +
                 DBConst.WORKORDERS_COLUMN_ISSUE + ", " +
-                DBConst.WORKORDERS_COLUMN_CAUSE + ") VALUES ('" +
+                DBConst.WORKORDERS_COLUMN_CAUSE + ", " +
+                DBConst.WORKORDERS_COLUMN_CORRECTION + ") VALUES ('" +
                 workorder.getDate() + "','" +
                 workorder.getIssue() + "','" +
-                workorder.getCause() + "')";
+                workorder.getCause() + "','" +
+                workorder.getCorrection() + "')";
         try {
             db.getConnection().createStatement().execute(query);
         } catch (SQLException e) {

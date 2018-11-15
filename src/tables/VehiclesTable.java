@@ -41,7 +41,8 @@ public class VehiclesTable implements VehiclesDAO {
                         data.getString(DBConst.VEHICLE_COLUMN_BRAND),
                         data.getString(DBConst.VEHICLE_COLUMN_MODEL),
                         data.getString(DBConst.VEHICLE_COLUMN_YEAR),
-                        data.getString(DBConst.VEHICLE_COLUMN_KM)));
+                        data.getString(DBConst.VEHICLE_COLUMN_KM),
+                        data.getInt(DBConst.VEHICLE_COLUMN_WORKORDERS)));
             }
         } catch(SQLException e) {
             e.printStackTrace();
@@ -66,7 +67,8 @@ public class VehiclesTable implements VehiclesDAO {
                     data.getString(DBConst.VEHICLE_COLUMN_BRAND),
                     data.getString(DBConst.VEHICLE_COLUMN_MODEL),
                     data.getString(DBConst.VEHICLE_COLUMN_YEAR),
-                    data.getString(DBConst.VEHICLE_COLUMN_KM));
+                    data.getString(DBConst.VEHICLE_COLUMN_KM),
+                    data.getInt(DBConst.VEHICLE_COLUMN_WORKORDERS));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -84,7 +86,8 @@ public class VehiclesTable implements VehiclesDAO {
                 DBConst.VEHICLE_COLUMN_BRAND + " " + vehicle.getBrand() + ", " +
                 DBConst.VEHICLE_COLUMN_MODEL + " " + vehicle.getModel() + ", " +
                 DBConst.VEHICLE_COLUMN_YEAR + " " + vehicle.getYear() + ", " +
-                DBConst.VEHICLE_COLUMN_KM + " " + vehicle.getKilometers() +
+                DBConst.VEHICLE_COLUMN_KM + " " + vehicle.getKilometers() + ", " +
+                DBConst.VEHICLE_COLUMN_WORKORDERS + " " + vehicle.getWorkorders() +
                 " WHERE " + DBConst.VEHICLE_COLUMN_ID + " = " + vehicle.getId();
         try {
             Statement updateItem = db.getConnection().createStatement();
@@ -119,12 +122,14 @@ public class VehiclesTable implements VehiclesDAO {
                 DBConst.VEHICLE_COLUMN_BRAND + ", " +
                 DBConst.VEHICLE_COLUMN_MODEL + ", " +
                 DBConst.VEHICLE_COLUMN_YEAR + ", " +
-                DBConst.VEHICLE_COLUMN_KM + ", " + ") VALUES ('" +
+                DBConst.VEHICLE_COLUMN_KM + ", " +
+                DBConst.VEHICLE_COLUMN_WORKORDERS + ") VALUES ('" +
                 vehicle.getVin() + "','" +
                 vehicle.getBrand() + "','" +
                 vehicle.getModel() + "','" +
                 vehicle.getYear() + "','" +
-                vehicle.getKilometers() + "')";
+                vehicle.getKilometers() + "','" +
+                vehicle.getWorkorders() + "')";
         try {
             db.getConnection().createStatement().execute(query);
         } catch (SQLException e) {
