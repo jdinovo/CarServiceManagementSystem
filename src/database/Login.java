@@ -124,6 +124,7 @@ public class Login {
         Connection connection = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
+            DriverManager.setLoginTimeout(5);
             connection = DriverManager.getConnection("jdbc:mysql://" + dbHost + "/" + dbName + "?useSSL=false", dbUser, dbPass);
             connection.close();
             connection = null;
