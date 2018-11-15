@@ -30,6 +30,7 @@ public class Vehicles {
      * @param model
      * @param year
      * @param kilometers
+     * @param workorders
      */
     public Vehicles(String vin, String brand, String model, String year, String kilometers, int workorders) {
         this.vin = vin;
@@ -48,6 +49,7 @@ public class Vehicles {
      * @param model
      * @param year
      * @param kilometers
+     * @param workorders
      */
     public Vehicles(int id, String vin, String brand, String model, String year, String kilometers, int workorders) {
         this.id = id;
@@ -155,10 +157,18 @@ public class Vehicles {
         this.kilometers = kilometers;
     }
 
+    /**
+     *
+     * @return workorders
+     */
     public int getWorkorders() {
         return workorders;
     }
 
+    /**
+     *
+     * @param workorders
+     */
     public void setWorkorders(int workorders) {
         this.workorders = workorders;
     }
