@@ -34,6 +34,7 @@ public class Customers {
      * @param postalCode
      * @param phoneNumber
      * @param email
+     * @param vehicles
      */
     public Customers(String firstName, String lastName, String address, String city, String postalCode, String phoneNumber, String email, int vehicles) {
         this.firstName = firstName;
@@ -56,6 +57,7 @@ public class Customers {
      * @param postalCode
      * @param phoneNumber
      * @param email
+     * @param vehicles
      */
     public Customers(int id, String firstName, String lastName, String address, String city, String postalCode, String phoneNumber, String email, int vehicles) {
         this.id = id;
@@ -197,10 +199,18 @@ public class Customers {
         this.email = email;
     }
 
+    /**
+     *
+     * @return vehicles
+     */
     public int getVehicles() {
         return vehicles;
     }
 
+    /**
+     *
+     * @param vehicles
+     */
     public void setVehicles(int vehicles) {
         this.vehicles = vehicles;
     }
