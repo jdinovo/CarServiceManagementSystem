@@ -15,9 +15,22 @@ public class Workorders {
     private String date;
     private String issue;
     private String cause;
+    private String correction;
 
     public Workorders() {
 
+    }
+
+    /**
+     * @param date
+     * @param issue
+     * @param cause
+     */
+    public Workorders(String date, String issue) {
+        this.date = date;
+        this.issue = issue;
+        this.cause = "";
+        this.correction = "";
     }
 
     /**
@@ -27,11 +40,12 @@ public class Workorders {
      * @param issue
      * @param cause
      */
-    public Workorders(int id, String date, String issue, String cause) {
+    public Workorders(int id, String date, String issue, String cause, String correction) {
         this.id = id;
         this.date = date;
         this.issue = issue;
         this.cause = cause;
+        this.correction = correction;
     }
 
     /**
@@ -96,5 +110,21 @@ public class Workorders {
      */
     public void setCause(String cause) {
         this.cause = cause;
+    }
+
+    /**
+     *
+     * @return correction
+     */
+    public String getCorrection() {
+        return correction;
+    }
+
+    /**
+     *
+     * @param correction
+     */
+    public void setCorrection(String correction) {
+        this.correction = correction;
     }
 }

@@ -3,6 +3,9 @@ package panes;
 
 import form.FormAnswers;
 import form.VehicleChoice;
+import javabean.Customers;
+import javabean.Vehicles;
+import javabean.Workorders;
 import javafx.collections.FXCollections;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -14,6 +17,9 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import tables.CustomersTable;
+import tables.VehiclesTable;
+import tables.WorkordersTable;
 import tabs.NewWorkOrderTab;
 
 import java.util.*;
@@ -42,6 +48,11 @@ public class NewWorkOrderPane extends GridPane {
     //ComboBoxes for the form
     private ComboBox<String> comboBrand = new ComboBox<>();
     private ComboBox<String> comboModel = new ComboBox<>();
+
+    //Get Access to the tables
+    CustomersTable custTable = new CustomersTable();
+    VehiclesTable vehTable = new VehiclesTable();
+    WorkordersTable workTable = new WorkordersTable();
 
     /**
      * @author Chris Dias
@@ -290,68 +301,111 @@ public class NewWorkOrderPane extends GridPane {
 
         nextButton.setOnMouseClicked(e->{
             try {
-            if (firstName.getText().isEmpty()) {
-                textfieldIncomplete.setVisible(true);
-            } else if (lastName.getText().isEmpty()) {
-                textfieldIncomplete.setVisible(true);
-            } else if (address.getText().isEmpty()) {
-                textfieldIncomplete.setVisible(true);
-            } else if (city.getText().isEmpty()) {
-                textfieldIncomplete.setVisible(true);
-            } else if (email.getText().isEmpty()) {
-                textfieldIncomplete.setVisible(true);
-            } else if (postalCode.getText().isEmpty()) {
-                textfieldIncomplete.setVisible(true);
-            } else if (phoneNum.getText().isEmpty()) {
-                textfieldIncomplete.setVisible(true);
-            } else if (vinNum.getText().isEmpty()) {
-                textfieldIncomplete.setVisible(true);
-            } else if (comboBrand.getValue().isEmpty()) {
-                textfieldIncomplete.setVisible(true);
-            } else if (comboModel.getValue().isEmpty()) {
-                textfieldIncomplete.setVisible(true);
-            } else if (year.getText().isEmpty()) {
-                textfieldIncomplete.setVisible(true);
-            } else if (kilometers.getText().isEmpty()) {
-                textfieldIncomplete.setVisible(true);
-            } else if (issue.getText().isEmpty()) {
-                textfieldIncomplete.setVisible(true);
-            } else {
+                emailText.setTextFill(Color.BLACK);
+                postalCodeText.setTextFill(Color.BLACK);
+                phoneNumText.setTextFill(Color.BLACK);
+                vinNumText.setTextFill(Color.BLACK);
+                yearText.setTextFill(Color.BLACK);
+                issueText.setTextFill(Color.BLACK);
+                textfieldIncomplete.setText("You have an empty textfield! Please fill out the entire form!");
+                if (firstName.getText().isEmpty()) {
+                    textfieldIncomplete.setVisible(true);
+                } else if (lastName.getText().isEmpty()) {
+                    textfieldIncomplete.setVisible(true);
+                } else if (address.getText().isEmpty()) {
+                    textfieldIncomplete.setVisible(true);
+                } else if (city.getText().isEmpty()) {
+                    textfieldIncomplete.setVisible(true);
+                } else if (email.getText().isEmpty()) {
+                    textfieldIncomplete.setVisible(true);
+                } else if (postalCode.getText().isEmpty()) {
+                    textfieldIncomplete.setVisible(true);
+                } else if (phoneNum.getText().isEmpty()) {
+                    textfieldIncomplete.setVisible(true);
+                } else if (vinNum.getText().isEmpty()) {
+                    textfieldIncomplete.setVisible(true);
+                } else if (comboBrand.getValue().isEmpty()) {
+                    textfieldIncomplete.setVisible(true);
+                } else if (comboModel.getValue().isEmpty()) {
+                    textfieldIncomplete.setVisible(true);
+                } else if (year.getText().isEmpty()) {
+                    textfieldIncomplete.setVisible(true);
+                } else if (kilometers.getText().isEmpty()) {
+                    textfieldIncomplete.setVisible(true);
+                } else if (issue.getText().isEmpty()) {
+                    textfieldIncomplete.setVisible(true);
+                } else if (!email.getText().matches("^[\\w!#$%&’*+/=?`{|}~^-]+(?:\\.[\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$")) {
+                    textfieldIncomplete.setText("Please make sure email follows example@company.com");
+                    textfieldIncomplete.setVisible(true);
+                    emailText.setTextFill(Color.RED);
+                } else if (postalCode.getText().length() > 6) {
+                    textfieldIncomplete.setText("Please make sure your postal code follows A0B1C0");
+                    textfieldIncomplete.setVisible(true);
+                    postalCodeText.setTextFill(Color.RED);
+                } else if (phoneNum.getText().length() > 15 || !phoneNum.getText().matches("\\(\\d{3}\\)\\d{3}-?\\d{4}")) {
+                    textfieldIncomplete.setText("Please make sure your phone number follows (555)555-5555");
+                    textfieldIncomplete.setVisible(true);
+                    phoneNumText.setTextFill(Color.RED);
+                } else if (vinNum.getText().length() > 17) {
+                    textfieldIncomplete.setText("VIN cannot be longer than 17 characters");
+                    textfieldIncomplete.setVisible(true);
+                    vinNumText.setTextFill(Color.RED);
+                } else if (year.getText().length() > 4) {
+                    textfieldIncomplete.setText("Year cannot be longer than 4 digits");
+                    textfieldIncomplete.setVisible(true);
+                    yearText.setTextFill(Color.RED);
+                } else if (issue.getText().length() > 250) {
+                    textfieldIncomplete.setText("Issue description must be no longer than 250 characters");
+                    textfieldIncomplete.setVisible(true);
+                    issueText.setTextFill(Color.RED);
+                } else {
 
-                //Instantiate the FormAnswers class
-                FormAnswers formAnswers = new FormAnswers();
+                    //Instantiate the FormAnswers class
+                    FormAnswers formAnswers = new FormAnswers();
 
-                //Populate the formAnswers Map
-                formAnswers.setFirstNameMap(firstName.getText());
-                formAnswers.setLastNameMap(lastName.getText());
-                formAnswers.setAddressMap(address.getText());
-                formAnswers.setCityMap(city.getText());
-                formAnswers.setEmailMap(email.getText());
-                formAnswers.setPostalCodeMap(postalCode.getText());
-                formAnswers.setPhoneNumMap(phoneNum.getText());
-                formAnswers.setVinNumMap(vinNum.getText());
-                formAnswers.setBrandMap(comboBrand.getValue());
-                formAnswers.setModelMap(comboModel.getValue());
-                formAnswers.setYearMap(year.getText());
-                formAnswers.setKilometersMap(kilometers.getText());
-                formAnswers.setIssueMap(issue.getText());
+                    //Populate the formAnswers Map
+                    formAnswers.setFirstNameMap(firstName.getText().trim());
+                    formAnswers.setLastNameMap(lastName.getText().trim());
+                    formAnswers.setAddressMap(address.getText().trim());
+                    formAnswers.setCityMap(city.getText().trim());
+                    formAnswers.setEmailMap(email.getText().trim());
+                    formAnswers.setPostalCodeMap(postalCode.getText().trim());
+                    formAnswers.setPhoneNumMap(phoneNum.getText().trim());
+                    formAnswers.setVinNumMap(vinNum.getText().trim());
+                    formAnswers.setBrandMap(comboBrand.getValue());
+                    formAnswers.setModelMap(comboModel.getValue());
+                    formAnswers.setYearMap(year.getText().trim());
+                    formAnswers.setKilometersMap(kilometers.getText().trim());
+                    formAnswers.setIssueMap(issue.getText().trim());
 
-                textfieldIncomplete.setVisible(false);
+                    textfieldIncomplete.setVisible(false);
 
-                //Finished the customer info page -
-                // Customer profile is created & work order has been opened for service
-                //Now opens up the open current issue tab
-                System.out.println(formAnswers);
+                    //Finished the customer info page -
+                    // Customer profile is created & work order has been opened for service
+                    //Now opens up the open current issue tab
+                    System.out.println(formAnswers);
 
-                //Delete response in textfields and close the tab
-                for (TextField answer : arrayOfTextFields) {
-                    answer.setText("");
+                    java.sql.Date sqlDate = new java.sql.Date(new Date().getTime());
+                    Workorders workorder = new Workorders(sqlDate.toString(), formAnswers.getIssueMap());
+                    workTable.createWorkorder(workorder);
+                    ArrayList<Workorders> workorderArray = workTable.getAllWorkorders();
+
+                    Vehicles vehicle = new Vehicles(formAnswers.getVinNumMap(), formAnswers.getBrandMap(), formAnswers.getModelMap(), formAnswers.getYearMap(), formAnswers.getKilometersMap(), workorderArray.get(workorderArray.size() - 1).getId());
+                    vehTable.createVehicle(vehicle);
+                    ArrayList<Vehicles> vehicleArray = vehTable.getAllVehicles();
+
+                    Customers customer = new Customers(formAnswers.getFirstNameMap(), formAnswers.getLastNameMap(), formAnswers.getAddressMap(), formAnswers.getCityMap(), formAnswers.getPostalCodeMap(), formAnswers.getPhoneNumMap(), formAnswers.getEmailMap(), vehicleArray.get(vehicleArray.size() - 1).getId());
+                    custTable.createCustomer(customer);
+
+                    //Delete response in textfields and close the tab
+                    for (TextField answer : arrayOfTextFields) {
+                        answer.setText("");
+                    }
+                    comboBrand.setValue(null);
+                    comboModel.setValue(null);
+                    issue.setText("");
+                    NewWorkOrderTab.closeInstance();
                 }
-                comboBrand.setValue(null);
-                comboModel.setValue(null);
-                issue.setText("");
-                NewWorkOrderTab.closeInstance();
-            }
             } catch (NullPointerException f) {
                 System.out.println("A textfield is empty");
                 textfieldIncomplete.setVisible(true);

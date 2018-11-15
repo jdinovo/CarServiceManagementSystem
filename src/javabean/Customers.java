@@ -19,9 +19,32 @@ public class Customers {
     private String postalCode;
     private String phoneNumber;
     private String email;
+    private int vehicles;
 
     public Customers() {
 
+    }
+
+    /**
+     *
+     * @param firstName
+     * @param lastName
+     * @param address
+     * @param city
+     * @param postalCode
+     * @param phoneNumber
+     * @param email
+     * @param vehicles
+     */
+    public Customers(String firstName, String lastName, String address, String city, String postalCode, String phoneNumber, String email, int vehicles) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.city = city;
+        this.postalCode = postalCode;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.vehicles = vehicles;
     }
 
     /**
@@ -34,8 +57,9 @@ public class Customers {
      * @param postalCode
      * @param phoneNumber
      * @param email
+     * @param vehicles
      */
-    public Customers(int id, String firstName, String lastName, String address, String city, String postalCode, String phoneNumber, String email) {
+    public Customers(int id, String firstName, String lastName, String address, String city, String postalCode, String phoneNumber, String email, int vehicles) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -44,6 +68,7 @@ public class Customers {
         this.postalCode = postalCode;
         this.phoneNumber = phoneNumber;
         this.email = email;
+        this.vehicles = vehicles;
     }
 
     /**
@@ -172,6 +197,22 @@ public class Customers {
      */
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    /**
+     *
+     * @return vehicles
+     */
+    public int getVehicles() {
+        return vehicles;
+    }
+
+    /**
+     *
+     * @param vehicles
+     */
+    public void setVehicles(int vehicles) {
+        this.vehicles = vehicles;
     }
 }
 
