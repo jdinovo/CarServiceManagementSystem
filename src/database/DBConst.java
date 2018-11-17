@@ -43,6 +43,7 @@ public class DBConst {
 	public static final String WORKORDERS_COLUMN_ISSUE = "issue";
 	public static final String WORKORDERS_COLUMN_CAUSE = "cause";
 	public static final String WORKORDERS_COLUMN_CORRECTION = "correction";
+	public static final String WORKORDERS_COLUMN_CLOSED = "closed";
 
 	//Create the database tables
 	public static final String CREATE_TABLE_CUSTOMERS =
@@ -80,6 +81,7 @@ public class DBConst {
 					WORKORDERS_COLUMN_ISSUE + " VARCHAR(255), " +
 					WORKORDERS_COLUMN_CAUSE + " VARCHAR(255), " +
 					WORKORDERS_COLUMN_CORRECTION + " VARCHAR(255), " +
+					WORKORDERS_COLUMN_CLOSED + " BOOLEAN, " +
 					"PRIMARY KEY(" + WORKORDERS_COLUMN_ID +")" +
 					");";
 

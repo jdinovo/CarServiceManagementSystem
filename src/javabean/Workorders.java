@@ -16,6 +16,7 @@ public class Workorders {
     private String issue;
     private String cause;
     private String correction;
+    private int closed;
 
     public Workorders() {
 
@@ -24,13 +25,13 @@ public class Workorders {
     /**
      * @param date
      * @param issue
-     * @param cause
      */
     public Workorders(String date, String issue) {
         this.date = date;
         this.issue = issue;
         this.cause = "";
         this.correction = "";
+        this.closed = 0;
     }
 
     /**
@@ -40,12 +41,13 @@ public class Workorders {
      * @param issue
      * @param cause
      */
-    public Workorders(int id, String date, String issue, String cause, String correction) {
+    public Workorders(int id, String date, String issue, String cause, String correction, int closed) {
         this.id = id;
         this.date = date;
         this.issue = issue;
         this.cause = cause;
         this.correction = correction;
+        this.closed = closed;
     }
 
     /**
@@ -126,5 +128,21 @@ public class Workorders {
      */
     public void setCorrection(String correction) {
         this.correction = correction;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public int getClosed() {
+        return closed;
+    }
+
+    /**
+     *
+     * @param closed
+     */
+    public void setClosed(int closed) {
+        this.closed = closed;
     }
 }
