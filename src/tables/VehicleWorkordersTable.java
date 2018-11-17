@@ -10,6 +10,15 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+/**
+ *
+ * Represents vehicle workorder table
+ *
+ * @author James DiNovo
+ * @date 17.11.2018
+ * @version 1.0
+ *
+ */
 public class VehicleWorkordersTable implements VehicleWorkordersDAO {
     Database db = Database.getInstance();
     ArrayList<VehicleWorkorders> vehicleWorkorders = new ArrayList<>();

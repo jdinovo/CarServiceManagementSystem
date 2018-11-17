@@ -10,6 +10,15 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+/**
+ *
+ * Represents customer vehicle table
+ *
+ * @author James DiNovo
+ * @date 17.11.2018
+ * @version 1.0
+ *
+ */
 public class CustomerVehiclesTable implements CustomerVehiclesDAO {
     Database db = Database.getInstance();
     ArrayList<CustomerVehicles> customerVehicles = new ArrayList<>();

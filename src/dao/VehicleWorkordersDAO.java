@@ -1,10 +1,18 @@
 package dao;
 
 import javabean.VehicleWorkorders;
-import tables.VehiclesTable;
 
 import java.util.ArrayList;
 
+/**
+ *
+ * Vehicle workorder interface
+ *
+ * @author James DiNovo
+ * @date 17.11.2018
+ * @version 1.0
+ *
+ */
 public interface VehicleWorkordersDAO {
     public ArrayList<VehicleWorkorders> getAllVehicleWorkorders();
     public ArrayList<VehicleWorkorders> getVehicleWorkorders(int vehicleId);
