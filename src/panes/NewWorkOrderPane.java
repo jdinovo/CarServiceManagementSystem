@@ -3,9 +3,7 @@ package panes;
 
 import form.FormAnswers;
 import form.VehicleChoice;
-import javabean.Customers;
-import javabean.Vehicles;
-import javabean.Workorders;
+import javabean.*;
 import javafx.collections.FXCollections;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -17,9 +15,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import tables.CustomersTable;
-import tables.VehiclesTable;
-import tables.WorkordersTable;
+import tables.*;
 import tabs.NewWorkOrderTab;
 
 import java.util.*;
@@ -53,6 +49,8 @@ public class NewWorkOrderPane extends GridPane {
     CustomersTable custTable = new CustomersTable();
     VehiclesTable vehTable = new VehiclesTable();
     WorkordersTable workTable = new WorkordersTable();
+    CustomerVehiclesTable custVehTable = new CustomerVehiclesTable();
+    VehicleWorkordersTable vehWorkTable = new VehicleWorkordersTable();
 
     /**
      * @author Chris Dias
@@ -390,12 +388,19 @@ public class NewWorkOrderPane extends GridPane {
                     workTable.createWorkorder(workorder);
                     ArrayList<Workorders> workorderArray = workTable.getAllWorkorders();
 
-                    Vehicles vehicle = new Vehicles(formAnswers.getVinNumMap(), formAnswers.getBrandMap(), formAnswers.getModelMap(), formAnswers.getYearMap(), formAnswers.getKilometersMap(), workorderArray.get(workorderArray.size() - 1).getId());
+                    Vehicles vehicle = new Vehicles(formAnswers.getVinNumMap(), formAnswers.getBrandMap(), formAnswers.getModelMap(), formAnswers.getYearMap(), formAnswers.getKilometersMap());
                     vehTable.createVehicle(vehicle);
                     ArrayList<Vehicles> vehicleArray = vehTable.getAllVehicles();
 
-                    Customers customer = new Customers(formAnswers.getFirstNameMap(), formAnswers.getLastNameMap(), formAnswers.getAddressMap(), formAnswers.getCityMap(), formAnswers.getPostalCodeMap(), formAnswers.getPhoneNumMap(), formAnswers.getEmailMap(), vehicleArray.get(vehicleArray.size() - 1).getId());
+                    Customers customer = new Customers(formAnswers.getFirstNameMap(), formAnswers.getLastNameMap(), formAnswers.getAddressMap(), formAnswers.getCityMap(), formAnswers.getPostalCodeMap(), formAnswers.getPhoneNumMap(), formAnswers.getEmailMap());
                     custTable.createCustomer(customer);
+                    ArrayList<Customers> customerArray = custTable.getAllCustomers();
+
+                    CustomerVehicles customerVehicle = new CustomerVehicles(customerArray.get(customerArray.size() - 1).getId(), vehicleArray.get(vehicleArray.size() - 1).getId());
+                    custVehTable.createCustomerVehicle(customerVehicle);
+
+                    VehicleWorkorders vehicleWorkorder = new VehicleWorkorders(vehicleArray.get(vehicleArray.size() - 1).getId(), workorderArray.get(workorderArray.size() - 1).getId());
+                    vehWorkTable.createVehicleWorkorder(vehicleWorkorder);
 
                     //Delete response in textfields and close the tab
                     for (TextField answer : arrayOfTextFields) {

@@ -100,7 +100,7 @@ public class WorkordersTable implements WorkordersDAO {
      */
     @Override
     public void deleteWorkorder(Workorders workorder) {
-        String query = "DELET FROM " + DBConst.TABLE_WORKORDERS + " WHERE " + DBConst.WORKORDERS_COLUMN_ID + " = " + workorder.getId();
+        String query = "DELETE FROM " + DBConst.TABLE_WORKORDERS + " WHERE " + DBConst.WORKORDERS_COLUMN_ID + " = " + workorder.getId();
         try {
             db.getConnection().createStatement().execute(query);
         } catch (SQLException e) {
