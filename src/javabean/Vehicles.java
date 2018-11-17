@@ -17,7 +17,6 @@ public class Vehicles {
     private String model;
     private String year;
     private String kilometers;
-    private int workorders;
 
     public Vehicles() {
 
@@ -32,13 +31,12 @@ public class Vehicles {
      * @param kilometers
      * @param workorders
      */
-    public Vehicles(String vin, String brand, String model, String year, String kilometers, int workorders) {
+    public Vehicles(String vin, String brand, String model, String year, String kilometers) {
         this.vin = vin;
         this.brand = brand;
         this.model = model;
         this.year = year;
         this.kilometers = kilometers;
-        this.workorders = workorders;
     }
 
     /**
@@ -51,14 +49,13 @@ public class Vehicles {
      * @param kilometers
      * @param workorders
      */
-    public Vehicles(int id, String vin, String brand, String model, String year, String kilometers, int workorders) {
+    public Vehicles(int id, String vin, String brand, String model, String year, String kilometers) {
         this.id = id;
         this.vin = vin;
         this.brand = brand;
         this.model = model;
         this.year = year;
         this.kilometers = kilometers;
-        this.workorders = workorders;
     }
 
     /**
@@ -157,19 +154,4 @@ public class Vehicles {
         this.kilometers = kilometers;
     }
 
-    /**
-     *
-     * @return workorders
-     */
-    public int getWorkorders() {
-        return workorders;
-    }
-
-    /**
-     *
-     * @param workorders
-     */
-    public void setWorkorders(int workorders) {
-        this.workorders = workorders;
-    }
 }

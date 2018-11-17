@@ -43,8 +43,7 @@ public class CustomersTable implements CustomersDAO {
                         data.getString(DBConst.CUSTOMER_COLUMN_CITY),
                         data.getString(DBConst.CUSTOMER_COLUMN_POSTAL),
                         data.getString(DBConst.CUSTOMER_COLUMN_PHONE),
-                        data.getString(DBConst.CUSTOMER_COLUMN_EMAIL),
-                        data.getInt(DBConst.CUSTOMER_COLUMN_VEHICLES)));
+                        data.getString(DBConst.CUSTOMER_COLUMN_EMAIL)));
             }
         } catch(SQLException e) {
             e.printStackTrace();
@@ -71,8 +70,7 @@ public class CustomersTable implements CustomersDAO {
                     data.getString(DBConst.CUSTOMER_COLUMN_CITY),
                     data.getString(DBConst.CUSTOMER_COLUMN_POSTAL),
                     data.getString(DBConst.CUSTOMER_COLUMN_PHONE),
-                    data.getString(DBConst.CUSTOMER_COLUMN_EMAIL),
-                    data.getInt(DBConst.CUSTOMER_COLUMN_VEHICLES));
+                    data.getString(DBConst.CUSTOMER_COLUMN_EMAIL));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -93,7 +91,6 @@ public class CustomersTable implements CustomersDAO {
                 DBConst.CUSTOMER_COLUMN_POSTAL + " " + customer.getPostalCode() + ", " +
                 DBConst.CUSTOMER_COLUMN_PHONE + " " + customer.getPhoneNumber() + ", " +
                 DBConst.CUSTOMER_COLUMN_EMAIL + " " + customer.getEmail() + ", " +
-                DBConst.CUSTOMER_COLUMN_VEHICLES + " " + customer.getVehicles() + ", " +
                 " WHERE " + DBConst.CUSTOMER_COLUMN_ID + " = " + customer.getId();
         try {
             Statement updateItem = db.getConnection().createStatement();
@@ -109,7 +106,7 @@ public class CustomersTable implements CustomersDAO {
      */
     @Override
     public void deleteCustomer(Customers customer) {
-        String query = "DELET FROM " + DBConst.TABLE_CUSTOMERS + " WHERE " + DBConst.CUSTOMER_COLUMN_ID + " = " + customer.getId();
+        String query = "DELETE FROM " + DBConst.TABLE_CUSTOMERS + " WHERE " + DBConst.CUSTOMER_COLUMN_ID + " = " + customer.getId();
         try {
             db.getConnection().createStatement().execute(query);
         } catch (SQLException e) {
@@ -130,16 +127,14 @@ public class CustomersTable implements CustomersDAO {
                 DBConst.CUSTOMER_COLUMN_CITY + ", " +
                 DBConst.CUSTOMER_COLUMN_POSTAL + ", " +
                 DBConst.CUSTOMER_COLUMN_PHONE + ", " +
-                DBConst.CUSTOMER_COLUMN_EMAIL + "," +
-                DBConst.CUSTOMER_COLUMN_VEHICLES + ") VALUES ('" +
+                DBConst.CUSTOMER_COLUMN_EMAIL + ") VALUES ('" +
                 customer.getFirstName() + "','" +
                 customer.getLastName() + "','" +
                 customer.getAddress() + "','" +
                 customer.getCity() + "','" +
                 customer.getPostalCode() + "','" +
                 customer.getPhoneNumber() + "','" +
-                customer.getEmail() + "','" +
-                customer.getVehicles() + "')";
+                customer.getEmail() + "')";
         try {
             db.getConnection().createStatement().execute(query);
         } catch (SQLException e) {
