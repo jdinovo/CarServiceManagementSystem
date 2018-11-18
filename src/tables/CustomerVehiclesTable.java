@@ -56,11 +56,21 @@ public class CustomerVehiclesTable implements CustomerVehiclesDAO {
 
     /**
      *
-     * @param customerID
+     * @param vehicleID
      * @return customer
      */
     @Override
-    public ArrayList<CustomerVehicles> getCustomerVehicles(int customerID) {
+    public ArrayList<CustomerVehicles> getCustomerVehicles(int vehicleID) {
+        String query = "SELECT * FROM " + DBConst.TABLE_CUSTOMER_VEHICLES + " WHERE " + DBConst.CUSTOMER_VEHICLES_COLUMN_VEHICLE_ID + " = " + vehicleID;
+        return getCustomerVehiclesDB(query);
+    }
+
+    /**
+     *
+     * @param customerID
+     * @return customerVehicles
+     */
+    public ArrayList<CustomerVehicles> getVehicleCustomers(int customerID) {
         String query = "SELECT * FROM " + DBConst.TABLE_CUSTOMER_VEHICLES + " WHERE " + DBConst.CUSTOMER_VEHICLES_COLUMN_CUSTOMER_ID + " = " + customerID;
         return getCustomerVehiclesDB(query);
     }
@@ -72,8 +82,8 @@ public class CustomerVehiclesTable implements CustomerVehiclesDAO {
     @Override
     public void updateCustomerVehicle(CustomerVehicles customerVehicle) {
         String query = "UPDATE " + DBConst.TABLE_CUSTOMER_VEHICLES + " SET "  +
-                DBConst.CUSTOMER_VEHICLES_COLUMN_CUSTOMER_ID + " " + customerVehicle.getCustomerid() + ", " +
-                DBConst.CUSTOMER_VEHICLES_COLUMN_VEHICLE_ID + " " + customerVehicle.getVehicleid() + ", " +
+                DBConst.CUSTOMER_VEHICLES_COLUMN_CUSTOMER_ID + " = " + customerVehicle.getCustomerid() + ", " +
+                DBConst.CUSTOMER_VEHICLES_COLUMN_VEHICLE_ID + " = " + customerVehicle.getVehicleid() + ", " +
                 " WHERE " + DBConst.CUSTOMER_VEHICLES_COLUMN_CUSTOMER_ID + " = " + customerVehicle.getCustomerid() + " AND " + DBConst.CUSTOMER_VEHICLES_COLUMN_VEHICLE_ID + " = " + customerVehicle.getVehicleid();
         try {
             Statement updateItem = db.getConnection().createStatement();
@@ -89,7 +99,20 @@ public class CustomerVehiclesTable implements CustomerVehiclesDAO {
      */
     @Override
     public void deleteCustomerVehicle(CustomerVehicles customerVehicle) {
-        String query = "DELETE FROM " + DBConst.TABLE_CUSTOMER_VEHICLES + " WHERE " + DBConst.CUSTOMER_VEHICLES_COLUMN_CUSTOMER_ID + " = " + customerVehicle.getCustomerid() + " AND " + DBConst.CUSTOMER_VEHICLES_COLUMN_VEHICLE_ID + " = " + customerVehicle.getVehicleid();
+        String query = "DELETE FROM " + DBConst.TABLE_CUSTOMER_VEHICLES + " WHERE " + DBConst.CUSTOMER_VEHICLES_COLUMN_CUSTOMER_ID + " = " + customerVehicle.getCustomerid();
+        try {
+            db.getConnection().createStatement().execute(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     *
+     * @param customerVehicle
+     */
+    public void deleteVehicleCustomer(CustomerVehicles customerVehicle) {
+        String query = "DELETE FROM " + DBConst.TABLE_CUSTOMER_VEHICLES + " WHERE " + DBConst.CUSTOMER_VEHICLES_COLUMN_VEHICLE_ID + " = " + customerVehicle.getVehicleid();
         try {
             db.getConnection().createStatement().execute(query);
         } catch (SQLException e) {

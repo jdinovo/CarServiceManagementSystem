@@ -33,7 +33,6 @@ public class Customers {
      * @param postalCode
      * @param phoneNumber
      * @param email
-     * @param vehicles
      */
     public Customers(String firstName, String lastName, String address, String city, String postalCode, String phoneNumber, String email) {
         this.firstName = firstName;
@@ -55,7 +54,6 @@ public class Customers {
      * @param postalCode
      * @param phoneNumber
      * @param email
-     * @param vehicles
      */
     public Customers(int id, String firstName, String lastName, String address, String city, String postalCode, String phoneNumber, String email) {
         this.id = id;

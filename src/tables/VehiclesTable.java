@@ -20,8 +20,11 @@ import java.util.ArrayList;
  */
 
 public class VehiclesTable implements VehiclesDAO {
-    Database db = Database.getInstance();
-    ArrayList<Vehicles> vehicles = new ArrayList<Vehicles>();
+    private Database db = Database.getInstance();
+    private ArrayList<Vehicles> vehicles = new ArrayList<Vehicles>();
+
+    private CustomerVehiclesTable customerVehiclesTable = new CustomerVehiclesTable();
+    private VehicleWorkordersTable vehicleWorkordersTable = new VehicleWorkordersTable();
 
     /**
      *
@@ -61,6 +64,7 @@ public class VehiclesTable implements VehiclesDAO {
         try {
             Statement getItem = db.getConnection().createStatement();
             ResultSet data = getItem.executeQuery(query);
+            data.first();
             vehicle = new Vehicles(data.getInt(DBConst.VEHICLE_COLUMN_ID),
                     data.getString(DBConst.VEHICLE_COLUMN_VIN),
                     data.getString(DBConst.VEHICLE_COLUMN_BRAND),
@@ -84,11 +88,11 @@ public class VehiclesTable implements VehiclesDAO {
                 DBConst.VEHICLE_COLUMN_BRAND + " " + vehicle.getBrand() + ", " +
                 DBConst.VEHICLE_COLUMN_MODEL + " " + vehicle.getModel() + ", " +
                 DBConst.VEHICLE_COLUMN_YEAR + " " + vehicle.getYear() + ", " +
-                DBConst.VEHICLE_COLUMN_KM + " " + vehicle.getKilometers() + ", " +
+                DBConst.VEHICLE_COLUMN_KM + " " + vehicle.getKilometers() +
                 " WHERE " + DBConst.VEHICLE_COLUMN_ID + " = " + vehicle.getId();
         try {
             Statement updateItem = db.getConnection().createStatement();
-            updateItem.executeQuery(query);
+            updateItem.execute(query);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -101,6 +105,16 @@ public class VehiclesTable implements VehiclesDAO {
     @Override
     public void deleteVehicle(Vehicles vehicle) {
         String query = "DELETE FROM " + DBConst.TABLE_VEHICLES + " WHERE " + DBConst.VEHICLE_COLUMN_ID + " = " + vehicle.getId();
+        System.out.println(vehicle.getId());
+        vehicleWorkordersTable.getVehicleWorkorders(vehicle.getId()).forEach(e-> {
+            System.out.println("Vehicle work orders" + vehicle.getId());
+            vehicleWorkordersTable.deleteVehicleWorkorders(e);
+        });
+        System.out.println(customerVehiclesTable.getCustomerVehicles(vehicle.getId()));
+        customerVehiclesTable.getCustomerVehicles(vehicle.getId()).forEach(e-> {
+            System.out.println("Customer Vehicles" + vehicle.getId());
+            customerVehiclesTable.deleteVehicleCustomer(e);
+        });
         try {
             db.getConnection().createStatement().execute(query);
         } catch (SQLException e) {

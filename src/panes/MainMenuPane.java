@@ -6,6 +6,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
+import tabs.EditCustInfoTab;
 import tabs.LoginTab;
 import tabs.NewWorkOrderTab;
 import tabs.StatisticsTab;
@@ -71,7 +72,11 @@ public class MainMenuPane extends BorderPane {
 		//Create MenuItems for the 'Edit' Tab
 		MenuItem editCustInfo = new MenuItem("Edit Customer Information");
 		editCustInfo.setOnAction(e-> {
+			EditCustInfoTab editInfoTab = EditCustInfoTab.getInstance();
+			if(!tabPane.getTabs().contains(editInfoTab)) {
+				tabPane.getTabs().add(editInfoTab);
 
+			}
 		});
 
 		//Create MenuItem for the 'Statistics' Tab

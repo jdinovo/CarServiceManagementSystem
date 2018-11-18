@@ -82,4 +82,28 @@ public class VehicleWorkordersTable implements VehicleWorkordersDAO {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void updateVehicleWorkorders(VehicleWorkorders vehicleWorkorder) {
+        String query = "UPDATE " + DBConst.TABLE_VEHICLE_WORKORDERS + " SET "  +
+                DBConst.VEHICLE_WORKORDERS_COLUMN_VEHICLE_ID + " = " + vehicleWorkorder.getVehicleID() + ", " +
+                DBConst.VEHICLE_WORKORDERS_COLUMN_WORKORDER_ID + " = " + vehicleWorkorder.getWorkorderID() + ", " +
+                " WHERE " + DBConst.VEHICLE_WORKORDERS_COLUMN_VEHICLE_ID + " = " + vehicleWorkorder.getVehicleID() + " AND " + DBConst.VEHICLE_WORKORDERS_COLUMN_WORKORDER_ID + " = " + vehicleWorkorder.getWorkorderID();
+        try {
+            Statement updateItem = db.getConnection().createStatement();
+            updateItem.executeQuery(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void deleteVehicleWorkorders(VehicleWorkorders vehicleWorkorder) {
+        String query = "DELETE FROM " + DBConst.TABLE_VEHICLE_WORKORDERS + " WHERE " + DBConst.VEHICLE_WORKORDERS_COLUMN_VEHICLE_ID + " = " + vehicleWorkorder.getVehicleID();
+        try {
+            db.getConnection().createStatement().execute(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

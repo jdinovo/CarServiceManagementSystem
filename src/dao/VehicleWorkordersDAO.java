@@ -17,4 +17,6 @@ public interface VehicleWorkordersDAO {
     public ArrayList<VehicleWorkorders> getAllVehicleWorkorders();
     public ArrayList<VehicleWorkorders> getVehicleWorkorders(int vehicleId);
     public void createVehicleWorkorder(VehicleWorkorders vehicleWorkorder);
+    public void updateVehicleWorkorders(VehicleWorkorders vehicleWorkorder);
+    public void deleteVehicleWorkorders(VehicleWorkorders vehicleWorkorder);
 }

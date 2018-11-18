@@ -30,7 +30,7 @@ public class CustomersTable implements CustomersDAO {
     @Override
     public ArrayList<Customers> getAllCustomers() {
         String query = "SELECT * FROM " + DBConst.TABLE_CUSTOMERS;
-        customers = new ArrayList<Customers>();
+        customers = new ArrayList<>();
         try {
             Statement getItems = db.getConnection().createStatement();
             ResultSet data = getItems.executeQuery(query);
@@ -84,17 +84,17 @@ public class CustomersTable implements CustomersDAO {
     @Override
     public void updateCustomer(Customers customer) {
         String query = "UPDATE " + DBConst.TABLE_CUSTOMERS + " SET "  +
-                DBConst.CUSTOMER_COLUMN_FNAME + " " + customer.getFirstName() + ", " +
-                DBConst.CUSTOMER_COLUMN_LNAME + " " + customer.getLastName() + ", " +
-                DBConst.CUSTOMER_COLUMN_ADDR + " " + customer.getAddress() + ", " +
-                DBConst.CUSTOMER_COLUMN_CITY + " " + customer.getCity() + ", " +
-                DBConst.CUSTOMER_COLUMN_POSTAL + " " + customer.getPostalCode() + ", " +
-                DBConst.CUSTOMER_COLUMN_PHONE + " " + customer.getPhoneNumber() + ", " +
-                DBConst.CUSTOMER_COLUMN_EMAIL + " " + customer.getEmail() + ", " +
-                " WHERE " + DBConst.CUSTOMER_COLUMN_ID + " = " + customer.getId();
+                DBConst.CUSTOMER_COLUMN_FNAME + " = '" + customer.getFirstName() + "', " +
+                DBConst.CUSTOMER_COLUMN_LNAME + " = '" + customer.getLastName() + "', " +
+                DBConst.CUSTOMER_COLUMN_ADDR + " = '" + customer.getAddress() + "', " +
+                DBConst.CUSTOMER_COLUMN_CITY + " = '" + customer.getCity() + "', " +
+                DBConst.CUSTOMER_COLUMN_POSTAL + " = '" + customer.getPostalCode() + "', " +
+                DBConst.CUSTOMER_COLUMN_PHONE + " = '" + customer.getPhoneNumber() + "', " +
+                DBConst.CUSTOMER_COLUMN_EMAIL + " = '" + customer.getEmail() +
+                "' WHERE " + DBConst.CUSTOMER_COLUMN_ID + " = " + customer.getId();
         try {
             Statement updateItem = db.getConnection().createStatement();
-            updateItem.executeQuery(query);
+            updateItem.execute(query);
         } catch (SQLException e) {
             e.printStackTrace();
         }
