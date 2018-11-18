@@ -50,6 +50,16 @@ public class EditCustInfoTab extends Tab {
         return tab;
     }
 
+    /**
+     *
+     * closes instance of EditCustInfoTab
+     *
+     * @author James DiNovo
+     * @date 17.11.2018
+     * @version 1.0
+     * @return EditCustInfoTab()
+     *
+     */
     public static EditCustInfoTab closeInstance() {
         if (tab != null) {
             tab.getTabPane().getTabs().remove(tab);

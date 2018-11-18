@@ -25,8 +25,13 @@ public class VehicleWorkordersTable implements VehicleWorkordersDAO {
 
     /**
      *
+     *
+     * @author James DiNovo
+     * @date 18.11.2018
+     * @version 1.0
      * @param query
-     * @return
+     * @return ArrayList of workorders
+     *
      */
     private ArrayList<VehicleWorkorders> getVehicleWorkordersDB(String query) {
         vehicleWorkorders = new ArrayList<>();
@@ -45,7 +50,12 @@ public class VehicleWorkordersTable implements VehicleWorkordersDAO {
 
     /**
      *
-     * @return
+     *
+     * @author James DiNovo
+     * @date 18.11.2018
+     * @version 1.0
+     * @return ArrayList of workorders
+     *
      */
     @Override
     public ArrayList<VehicleWorkorders> getAllVehicleWorkorders() {
@@ -56,8 +66,11 @@ public class VehicleWorkordersTable implements VehicleWorkordersDAO {
 
     /**
      *
-     * @param vehicleID
-     * @return
+     * @author James DiNovo
+     * @date 18.11.2018
+     * @version 1.0
+     * @param vehicleID the id of the vehicle you want to retrieve
+     * @return ArrayList of workorders
      */
     @Override
     public ArrayList<VehicleWorkorders> getVehicleWorkorders(int vehicleID) {
@@ -66,7 +79,9 @@ public class VehicleWorkordersTable implements VehicleWorkordersDAO {
     }
 
     /**
-     *
+     * @author James DiNovo
+     * @date 18.11.2018
+     * @version 1.0
      * @param vehicleWorkorder
      */
     @Override
@@ -83,6 +98,12 @@ public class VehicleWorkordersTable implements VehicleWorkordersDAO {
         }
     }
 
+    /**
+     * @author James DiNovo
+     * @date 17.11.2018
+     * @version 1.0
+     * @param vehicleWorkorder
+     */
     @Override
     public void updateVehicleWorkorders(VehicleWorkorders vehicleWorkorder) {
         String query = "UPDATE " + DBConst.TABLE_VEHICLE_WORKORDERS + " SET "  +
@@ -97,6 +118,15 @@ public class VehicleWorkordersTable implements VehicleWorkordersDAO {
         }
     }
 
+    /**
+     *
+     * deletes workorder from DB
+     *
+     * @author James DiNovo
+     * @date 17.11.2018
+     * @version 1.0
+     * @param vehicleWorkorder
+     */
     @Override
     public void deleteVehicleWorkorders(VehicleWorkorders vehicleWorkorder) {
         String query = "DELETE FROM " + DBConst.TABLE_VEHICLE_WORKORDERS + " WHERE " + DBConst.VEHICLE_WORKORDERS_COLUMN_VEHICLE_ID + " = " + vehicleWorkorder.getVehicleID();

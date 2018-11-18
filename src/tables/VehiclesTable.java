@@ -84,12 +84,12 @@ public class VehiclesTable implements VehiclesDAO {
     @Override
     public void updateVehicle(Vehicles vehicle) {
         String query = "UPDATE " + DBConst.TABLE_VEHICLES + " SET "  +
-                DBConst.VEHICLE_COLUMN_VIN + " " + vehicle.getVin() + ", " +
-                DBConst.VEHICLE_COLUMN_BRAND + " " + vehicle.getBrand() + ", " +
-                DBConst.VEHICLE_COLUMN_MODEL + " " + vehicle.getModel() + ", " +
-                DBConst.VEHICLE_COLUMN_YEAR + " " + vehicle.getYear() + ", " +
-                DBConst.VEHICLE_COLUMN_KM + " " + vehicle.getKilometers() +
-                " WHERE " + DBConst.VEHICLE_COLUMN_ID + " = " + vehicle.getId();
+                DBConst.VEHICLE_COLUMN_VIN + " = '" + vehicle.getVin() + "', " +
+                DBConst.VEHICLE_COLUMN_BRAND + " = '" + vehicle.getBrand() + "', " +
+                DBConst.VEHICLE_COLUMN_MODEL + " = '" + vehicle.getModel() + "', " +
+                DBConst.VEHICLE_COLUMN_YEAR + " = '" + vehicle.getYear() + "', " +
+                DBConst.VEHICLE_COLUMN_KM + " = '" + vehicle.getKilometers() +
+                "' WHERE " + DBConst.VEHICLE_COLUMN_ID + " = " + vehicle.getId();
         try {
             Statement updateItem = db.getConnection().createStatement();
             updateItem.execute(query);

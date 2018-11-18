@@ -14,7 +14,6 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 import tables.CustomerVehiclesTable;
 import tables.CustomersTable;
 import tables.VehiclesTable;
@@ -23,6 +22,14 @@ import java.util.*;
 
 import static main.Const.TEXTFIELD_WIDTH_SIZE;
 
+/**
+ *
+ * Contains edit customer information gui
+ *
+ * @author James DiNovo
+ * @date 17.11.2018
+ * @version 1.0
+ */
 public class EditCustInfoPane extends BorderPane {
     //Importing the vehicleMap
     private Map<String, List<String>> vehicleMap = VehicleChoice.getVehicleModel();
@@ -32,6 +39,7 @@ public class EditCustInfoPane extends BorderPane {
     private ComboBox<String> comboModel = new ComboBox<>();
 
     private Customers customer = new Customers();
+    private Vehicles vehicle = new Vehicles();
     private ArrayList<Customers> customers;
     private ArrayList<CustomerVehicles> customerVehicles = new ArrayList<>();
     private ArrayList<Vehicles> vehicles = new ArrayList<>();
@@ -105,9 +113,9 @@ public class EditCustInfoPane extends BorderPane {
          ***********************************************************/
 
         HBox hBox = new HBox();
-        VBox vBox1 = new VBox();
-        VBox vBox2 = new VBox();
-        VBox vBox3 = new VBox();
+        VBox updateCustomerBox = new VBox();
+        VBox addVehicleBox = new VBox();
+        VBox vehicleList = new VBox();
 
         //Customer info title
         Text customerInfo = new Text("Customer Information");
@@ -258,10 +266,11 @@ public class EditCustInfoPane extends BorderPane {
 
         });
 
-        Button addVehicle = new Button("Add Vehicle");
+        Button addVehicle = new Button("Add");
+        Button updateVehicle = new Button("Update");
         Button add = new Button("Add");
         Button cancel = new Button("Cancel");
-        Button delVehicle = new Button("Delete Vehicle");
+        Button delVehicle = new Button("Delete");
         delVehicle.setOnAction(e-> {
             Vehicles vehicle = vehicleListView.getSelectionModel().getSelectedItem();
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -269,15 +278,16 @@ public class EditCustInfoPane extends BorderPane {
             alert.setHeaderText("");
             alert.setGraphic(null);
             alert.setContentText("Are you sure you want to delete this vehicle?");
-
-            if (alert.showAndWait().get() == ButtonType.OK) {
-                vehTable.deleteVehicle(vehicle);
-                customerVehicles = custVehTable.getVehicleCustomers(customer.getId());
-                vehicles.clear();
-                customerVehicles.forEach(n -> {
-                    vehicles.add(vehTable.getVehicle(n.getVehicleid()));
-                });
-                vehicleListView.setItems(FXCollections.observableArrayList(vehicles));
+            if(!vehicleListView.getSelectionModel().isEmpty()) {
+                if (alert.showAndWait().get() == ButtonType.OK) {
+                    vehTable.deleteVehicle(vehicle);
+                    customerVehicles = custVehTable.getVehicleCustomers(customer.getId());
+                    vehicles.clear();
+                    customerVehicles.forEach(n -> {
+                        vehicles.add(vehTable.getVehicle(n.getVehicleid()));
+                    });
+                    vehicleListView.setItems(FXCollections.observableArrayList(vehicles));
+                }
             }
         });
 
@@ -285,30 +295,31 @@ public class EditCustInfoPane extends BorderPane {
         Text vehListViewText = new Text("Vehicle Information");
         vehListViewText.setFont(Font.font("Times New Roman", 20));
 
-        vBox1.getChildren().addAll(customerInfo, firstNameText, firstName, lastNameText, lastName, addressText, address, cityText, city, postalCodeText, postalCode, emailText, email, phoneNumText, phoneNum, updateCust);
-        vBox1.setSpacing(5);
-        //vBox1.setBorder(new Border());
+        updateCustomerBox.getChildren().addAll(customerInfo, firstNameText, firstName, lastNameText, lastName, addressText, address, cityText, city, postalCodeText, postalCode, emailText, email, phoneNumText, phoneNum, updateCust);
+        updateCustomerBox.setSpacing(5);
+        //updateCustomerBox.setBorder(new Border());
 
         HBox addVehicleButtons = new HBox();
         addVehicleButtons.getChildren().addAll(add, cancel);
+        addVehicleButtons.setAlignment(Pos.CENTER);
         addVehicleButtons.setSpacing(10);
-        vBox2.getChildren().addAll(vehicleInfo, vinNumText, vinNum, brandText, comboBrand, modelText, comboModel, yearText, year, kilometersText, kilometers, addVehicleButtons);
-        vBox2.setSpacing(10);
-        vBox2.setVisible(false);
+        addVehicleBox.getChildren().addAll(vehicleInfo, vinNumText, vinNum, brandText, comboBrand, modelText, comboModel, yearText, year, kilometersText, kilometers, addVehicleButtons);
+        addVehicleBox.setSpacing(10);
+        addVehicleBox.setVisible(false);
 
-        vBox3.getChildren().addAll(vehListViewText, vehicleListView, addVehicle, delVehicle);
+        HBox vehicleListButtons = new HBox(addVehicle, updateVehicle, delVehicle);
+        vehicleListButtons.setSpacing(10);
+        vehicleListButtons.setAlignment(Pos.CENTER);
+        vehicleList.getChildren().addAll(vehListViewText, vehicleListView, vehicleListButtons);
 
-        hBox.getChildren().addAll(vBox1, vBox3, vBox2);
+        hBox.getChildren().addAll(updateCustomerBox, vehicleList, addVehicleBox);
         //hBox.setAlignment(Pos.CENTER);
         hBox.setSpacing(25);
         hBox.setPadding(new Insets(10, 10, 10, 10));
         hBox.setVisible(false);
 
         addVehicle.setOnAction(e-> {
-            vehicleInfo.setText("Add Vehicle");
-            vBox2.setVisible(true);
-        });
-        cancel.setOnAction(e-> {
+            vehicleInfo.setText("Add New Vehicle");
             vinNumText.setTextFill(Color.BLACK);
             yearText.setTextFill(Color.BLACK);
             brandText.setTextFill(Color.BLACK);
@@ -319,15 +330,16 @@ public class EditCustInfoPane extends BorderPane {
             comboModel.setValue("");
             year.setText("");
             kilometers.setText("");
-            vBox2.setVisible(false);
+            addVehicleBox.setVisible(true);
+            warning.setVisible(false);
+            add.setText("Add");
+        });
+        cancel.setOnAction(e-> {
+            addVehicleBox.setVisible(false);
+            warning.setVisible(false);
         });
 
         add.setOnAction(e-> {
-            vinNumText.setTextFill(Color.BLACK);
-            yearText.setTextFill(Color.BLACK);
-            brandText.setTextFill(Color.BLACK);
-            modelText.setTextFill(Color.BLACK);
-            kilometersText.setTextFill(Color.BLACK);
             if(vinNum.getText().isEmpty()) {
                 warning.setText("VIN cannot be left empty");
                 warning.setVisible(true);
@@ -361,19 +373,43 @@ public class EditCustInfoPane extends BorderPane {
                 warning.setVisible(true);
                 kilometersText.setTextFill(Color.RED);
             } else {
-                vehTable.createVehicle(new Vehicles(vinNum.getText().trim(), comboBrand.getValue(), comboModel.getValue(), year.getText().trim(), kilometers.getText().trim()));
-                ArrayList<Vehicles> vehArray = vehTable.getAllVehicles();
-                custVehTable.createCustomerVehicle(new CustomerVehicles(customer.getId(), vehArray.get(vehArray.size() - 1).getId()));
-                vinNum.setText("");
-                comboBrand.setValue("");
-                comboModel.setValue("");
-                year.setText("");
-                kilometers.setText("");
+                if(add.getText().equals("Add")) {
+                    vehTable.createVehicle(new Vehicles(vinNum.getText().trim(), comboBrand.getValue(), comboModel.getValue(), year.getText().trim(), kilometers.getText().trim()));
+                    ArrayList<Vehicles> vehArray = vehTable.getAllVehicles();
+                    custVehTable.createCustomerVehicle(new CustomerVehicles(customer.getId(), vehArray.get(vehArray.size() - 1).getId()));
 
-                vehicles.add(vehTable.getVehicle(vehArray.get(vehArray.size() - 1).getId()));
+                    vehicles.add(vehTable.getVehicle(vehArray.get(vehArray.size() - 1).getId()));
+                } else {
+                    vehicle.setVin(vinNum.getText().trim());
+                    vehicle.setBrand(comboBrand.getValue());
+                    vehicle.setModel(comboModel.getValue());
+                    vehicle.setYear(year.getText().trim());
+                    vehicle.setKilometers(kilometers.getText().trim());
+                    vehTable.updateVehicle(vehicle);
+                }
 
                 vehicleListView.setItems(FXCollections.observableArrayList(vehicles));
-                vBox2.setVisible(false);
+                addVehicleBox.setVisible(false);
+                warning.setVisible(false);
+            }
+        });
+
+        updateVehicle.setOnAction(e-> {
+            if(!vehicleListView.getSelectionModel().isEmpty()) {
+                vehicle = vehicleListView.getSelectionModel().getSelectedItem();
+                vinNum.setText(vehicle.getVin());
+                comboBrand.setValue(vehicle.getBrand());
+                comboModel.setValue(vehicle.getModel());
+                year.setText(vehicle.getYear());
+                kilometers.setText(vehicle.getKilometers());
+                vinNumText.setTextFill(Color.BLACK);
+                yearText.setTextFill(Color.BLACK);
+                brandText.setTextFill(Color.BLACK);
+                modelText.setTextFill(Color.BLACK);
+                kilometersText.setTextFill(Color.BLACK);
+                add.setText("Update");
+                vehicleInfo.setText("Update Vehicle");
+                addVehicleBox.setVisible(true);
                 warning.setVisible(false);
             }
         });
@@ -397,14 +433,17 @@ public class EditCustInfoPane extends BorderPane {
                     phoneNum.setText(customer.getPhoneNumber());
                     vehicleListView.setItems(FXCollections.observableArrayList(vehicles));
                     hBox.setVisible(true);
+                    addVehicleBox.setVisible(false);
+                    warning.setVisible(false);
                 }
             });
             return row ;
         });
 
+        hBox.setAlignment(Pos.CENTER);
         this.setTop(tableView);
-        this.setCenter(hBox);
-        this.setBottom(warning);
+        this.setCenter(warning);
+        this.setBottom(hBox);
         this.setPadding(new Insets(10, 10, 10, 10));
 
 
