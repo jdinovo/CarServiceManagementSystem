@@ -6,6 +6,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
+import tabs.EditCustInfoTab;
 import tabs.LoginTab;
 import tabs.NewWorkOrderTab;
 import tabs.StatisticsTab;
@@ -47,7 +48,6 @@ public class MainMenuPane extends BorderPane {
 
 		//creating tabPane
 		TabPane tabPane = new TabPane();
-
 		
 		//Create MenuItems for the 'File' Tab
 		MenuItem newWork = new MenuItem("New Work Order");
@@ -56,7 +56,7 @@ public class MainMenuPane extends BorderPane {
 			//if tab is not already open
 			if(!tabPane.getTabs().contains(newWorkTab)) {
 				tabPane.getTabs().add(newWorkTab);
-
+				tabPane.getSelectionModel().select(newWorkTab);
 			}
 		});
 		MenuItem openWork = new MenuItem("Open Work Orders");
@@ -71,7 +71,11 @@ public class MainMenuPane extends BorderPane {
 		//Create MenuItems for the 'Edit' Tab
 		MenuItem editCustInfo = new MenuItem("Edit Customer Information");
 		editCustInfo.setOnAction(e-> {
-
+			EditCustInfoTab editInfoTab = EditCustInfoTab.getInstance();
+			if(!tabPane.getTabs().contains(editInfoTab)) {
+				tabPane.getTabs().add(editInfoTab);
+				tabPane.getSelectionModel().select(editInfoTab);
+			}
 		});
 
 		//Create MenuItem for the 'Statistics' Tab
@@ -80,7 +84,7 @@ public class MainMenuPane extends BorderPane {
 			StatisticsTab statsTab = StatisticsTab.getInstance();
 			if(!tabPane.getTabs().contains(statsTab)) {
 				tabPane.getTabs().add(statsTab);
-
+				tabPane.getSelectionModel().select(statsTab);
 			}
 		});
 
@@ -90,7 +94,7 @@ public class MainMenuPane extends BorderPane {
 			LoginTab loginTab = LoginTab.getInstance();
 			if(!tabPane.getTabs().contains(loginTab)) {
 				tabPane.getTabs().add(loginTab);
-
+				tabPane.getSelectionModel().select(loginTab);
 			}
 		});
 		

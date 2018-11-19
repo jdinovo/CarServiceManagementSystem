@@ -17,9 +17,27 @@ public class Vehicles {
     private String model;
     private String year;
     private String kilometers;
+    private int deleted;
 
     public Vehicles() {
 
+    }
+
+    /**
+     *
+     * @param vin
+     * @param brand
+     * @param model
+     * @param year
+     * @param kilometers
+     */
+    public Vehicles(String vin, String brand, String model, String year, String kilometers) {
+        this.vin = vin;
+        this.brand = brand;
+        this.model = model;
+        this.year = year;
+        this.kilometers = kilometers;
+        this.deleted = 0;
     }
 
     /**
@@ -31,13 +49,14 @@ public class Vehicles {
      * @param year
      * @param kilometers
      */
-    public Vehicles(int id, String vin, String brand, String model, String year, String kilometers) {
+    public Vehicles(int id, String vin, String brand, String model, String year, String kilometers, int deleted) {
         this.id = id;
         this.vin = vin;
         this.brand = brand;
         this.model = model;
         this.year = year;
         this.kilometers = kilometers;
+        this.deleted = deleted;
     }
 
     /**
@@ -134,5 +153,26 @@ public class Vehicles {
      */
     public void setKilometers(String kilometers) {
         this.kilometers = kilometers;
+    }
+
+    /**
+     *
+     * @return deleted
+     */
+    public int getDeleted() {
+        return deleted;
+    }
+
+    /**
+     *
+     * @param deleted
+     */
+    public void setDeleted(int deleted) {
+        this.deleted = deleted;
+    }
+
+    @Override
+    public String toString() {
+        return this.brand + " " + this.model + " " + this.year;
     }
 }

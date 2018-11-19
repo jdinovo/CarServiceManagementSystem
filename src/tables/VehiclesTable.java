@@ -20,16 +20,18 @@ import java.util.ArrayList;
  */
 
 public class VehiclesTable implements VehiclesDAO {
-    Database db = Database.getInstance();
-    ArrayList<Vehicles> vehicles = new ArrayList<Vehicles>();
+    private Database db = Database.getInstance();
+    private ArrayList<Vehicles> vehicles = new ArrayList<Vehicles>();
+
+//    private CustomerVehiclesTable customerVehiclesTable = new CustomerVehiclesTable();
+//    private VehicleWorkordersTable vehicleWorkordersTable = new VehicleWorkordersTable();
 
     /**
      *
-     * @return vehicles
+     * @param query
+     * @return ArrayList
      */
-    @Override
-    public ArrayList<Vehicles> getAllVehicles() {
-        String query = "SELECT * FROM " + DBConst.TABLE_VEHICLES;
+    private ArrayList<Vehicles> getAllFromDB(String query) {
         vehicles = new ArrayList<Vehicles>();
         try {
             Statement getItems = db.getConnection().createStatement();
@@ -41,12 +43,32 @@ public class VehiclesTable implements VehiclesDAO {
                         data.getString(DBConst.VEHICLE_COLUMN_BRAND),
                         data.getString(DBConst.VEHICLE_COLUMN_MODEL),
                         data.getString(DBConst.VEHICLE_COLUMN_YEAR),
-                        data.getString(DBConst.VEHICLE_COLUMN_KM)));
+                        data.getString(DBConst.VEHICLE_COLUMN_KM),
+                        data.getInt(DBConst.VEHICLE_COLUMN_DELETED)));
             }
         } catch(SQLException e) {
             e.printStackTrace();
         }
         return vehicles;
+    }
+
+    /**
+     *
+     * @return vehicles
+     */
+    @Override
+    public ArrayList<Vehicles> getAllVehicles() {
+        String query = "SELECT * FROM " + DBConst.TABLE_VEHICLES;
+        return getAllFromDB(query);
+    }
+
+    /**
+     *
+     * @return vehicles
+     */
+    public ArrayList<Vehicles> getAllActiveVehicles() {
+        String query = "SELECT * FROM " + DBConst.TABLE_VEHICLES + " WHERE " + DBConst.VEHICLE_COLUMN_DELETED + " = '0'";
+        return getAllFromDB(query);
     }
 
     /**
@@ -61,12 +83,14 @@ public class VehiclesTable implements VehiclesDAO {
         try {
             Statement getItem = db.getConnection().createStatement();
             ResultSet data = getItem.executeQuery(query);
+            data.first();
             vehicle = new Vehicles(data.getInt(DBConst.VEHICLE_COLUMN_ID),
                     data.getString(DBConst.VEHICLE_COLUMN_VIN),
                     data.getString(DBConst.VEHICLE_COLUMN_BRAND),
                     data.getString(DBConst.VEHICLE_COLUMN_MODEL),
                     data.getString(DBConst.VEHICLE_COLUMN_YEAR),
-                    data.getString(DBConst.VEHICLE_COLUMN_KM));
+                    data.getString(DBConst.VEHICLE_COLUMN_KM),
+                    data.getInt(DBConst.VEHICLE_COLUMN_DELETED));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -80,15 +104,15 @@ public class VehiclesTable implements VehiclesDAO {
     @Override
     public void updateVehicle(Vehicles vehicle) {
         String query = "UPDATE " + DBConst.TABLE_VEHICLES + " SET "  +
-                DBConst.VEHICLE_COLUMN_VIN + " " + vehicle.getVin() + ", " +
-                DBConst.VEHICLE_COLUMN_BRAND + " " + vehicle.getBrand() + ", " +
-                DBConst.VEHICLE_COLUMN_MODEL + " " + vehicle.getModel() + ", " +
-                DBConst.VEHICLE_COLUMN_YEAR + " " + vehicle.getYear() + ", " +
-                DBConst.VEHICLE_COLUMN_KM + " " + vehicle.getKilometers() +
-                " WHERE " + DBConst.VEHICLE_COLUMN_ID + " = " + vehicle.getId();
+                DBConst.VEHICLE_COLUMN_VIN + " = '" + vehicle.getVin() + "', " +
+                DBConst.VEHICLE_COLUMN_BRAND + " = '" + vehicle.getBrand() + "', " +
+                DBConst.VEHICLE_COLUMN_MODEL + " = '" + vehicle.getModel() + "', " +
+                DBConst.VEHICLE_COLUMN_YEAR + " = '" + vehicle.getYear() + "', " +
+                DBConst.VEHICLE_COLUMN_KM + " = '" + vehicle.getKilometers() +
+                "' WHERE " + DBConst.VEHICLE_COLUMN_ID + " = " + vehicle.getId();
         try {
             Statement updateItem = db.getConnection().createStatement();
-            updateItem.executeQuery(query);
+            updateItem.execute(query);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -100,7 +124,18 @@ public class VehiclesTable implements VehiclesDAO {
      */
     @Override
     public void deleteVehicle(Vehicles vehicle) {
-        String query = "DELET FROM " + DBConst.TABLE_VEHICLES + " WHERE " + DBConst.VEHICLE_COLUMN_ID + " = " + vehicle.getId();
+//        String query = "DELETE FROM " + DBConst.TABLE_VEHICLES + " WHERE " + DBConst.VEHICLE_COLUMN_ID + " = " + vehicle.getId();
+//        System.out.println(vehicle.getId());
+//        vehicleWorkordersTable.getVehicleWorkorders(vehicle.getId()).forEach(e-> {
+//            System.out.println("Vehicle work orders" + vehicle.getId());
+//            vehicleWorkordersTable.deleteVehicleWorkorders(e);
+//        });
+//        System.out.println(customerVehiclesTable.getCustomerVehicles(vehicle.getId()));
+//        customerVehiclesTable.getCustomerVehicles(vehicle.getId()).forEach(e-> {
+//            System.out.println("Customer Vehicles" + vehicle.getId());
+//            customerVehiclesTable.deleteVehicleCustomer(e);
+//        });
+        String query = "UPDATE " + DBConst.TABLE_VEHICLES + " SET " + DBConst.VEHICLE_COLUMN_DELETED + " = '1'" + " WHERE " + DBConst.VEHICLE_COLUMN_ID + " = " + vehicle.getId();
         try {
             db.getConnection().createStatement().execute(query);
         } catch (SQLException e) {
@@ -119,12 +154,14 @@ public class VehiclesTable implements VehiclesDAO {
                 DBConst.VEHICLE_COLUMN_BRAND + ", " +
                 DBConst.VEHICLE_COLUMN_MODEL + ", " +
                 DBConst.VEHICLE_COLUMN_YEAR + ", " +
-                DBConst.VEHICLE_COLUMN_KM + ", " + ") VALUES ('" +
+                DBConst.VEHICLE_COLUMN_KM + ", " +
+                DBConst.VEHICLE_COLUMN_DELETED + ") VALUES ('" +
                 vehicle.getVin() + "','" +
                 vehicle.getBrand() + "','" +
                 vehicle.getModel() + "','" +
                 vehicle.getYear() + "','" +
-                vehicle.getKilometers() + "')";
+                vehicle.getKilometers() + "','" +
+                vehicle.getDeleted() + "')";
         try {
             db.getConnection().createStatement().execute(query);
         } catch (SQLException e) {

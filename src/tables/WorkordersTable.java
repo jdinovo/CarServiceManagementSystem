@@ -39,7 +39,9 @@ public class WorkordersTable implements WorkordersDAO {
                 workorders.add(new Workorders(data.getInt(DBConst.WORKORDERS_COLUMN_ID),
                         data.getString(DBConst.WORKORDERS_COLUMN_DATE),
                         data.getString(DBConst.WORKORDERS_COLUMN_ISSUE),
-                        data.getString(DBConst.WORKORDERS_COLUMN_CAUSE)));
+                        data.getString(DBConst.WORKORDERS_COLUMN_CAUSE),
+                        data.getString(DBConst.WORKORDERS_COLUMN_CORRECTION),
+                        data.getInt(DBConst.WORKORDERS_COLUMN_CLOSED)));
             }
         } catch(SQLException e) {
             e.printStackTrace();
@@ -62,7 +64,9 @@ public class WorkordersTable implements WorkordersDAO {
             workorder = new Workorders(data.getInt(DBConst.WORKORDERS_COLUMN_ID),
                     data.getString(DBConst.WORKORDERS_COLUMN_DATE),
                     data.getString(DBConst.WORKORDERS_COLUMN_ISSUE),
-                    data.getString(DBConst.WORKORDERS_COLUMN_CAUSE));
+                    data.getString(DBConst.WORKORDERS_COLUMN_CAUSE),
+                    data.getString(DBConst.WORKORDERS_COLUMN_CORRECTION),
+                    data.getInt(DBConst.WORKORDERS_COLUMN_CLOSED));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -78,7 +82,9 @@ public class WorkordersTable implements WorkordersDAO {
         String query = "UPDATE " + DBConst.TABLE_WORKORDERS + " SET "  +
                 DBConst.WORKORDERS_COLUMN_DATE + " " + workorder.getDate() + ", " +
                 DBConst.WORKORDERS_COLUMN_ISSUE + " " + workorder.getIssue() + ", " +
-                DBConst.WORKORDERS_COLUMN_CAUSE+ " " + workorder.getCause() +
+                DBConst.WORKORDERS_COLUMN_CAUSE+ " " + workorder.getCause() + ", " +
+                DBConst.WORKORDERS_COLUMN_CORRECTION + " " + workorder.getCorrection() +
+                DBConst.WORKORDERS_COLUMN_CLOSED + " " + workorder.getClosed() +
                 " WHERE " + DBConst.WORKORDERS_COLUMN_ID + " = " + workorder.getId();
         try {
             Statement updateItem = db.getConnection().createStatement();
@@ -94,7 +100,7 @@ public class WorkordersTable implements WorkordersDAO {
      */
     @Override
     public void deleteWorkorder(Workorders workorder) {
-        String query = "DELET FROM " + DBConst.TABLE_WORKORDERS + " WHERE " + DBConst.WORKORDERS_COLUMN_ID + " = " + workorder.getId();
+        String query = "DELETE FROM " + DBConst.TABLE_WORKORDERS + " WHERE " + DBConst.WORKORDERS_COLUMN_ID + " = " + workorder.getId();
         try {
             db.getConnection().createStatement().execute(query);
         } catch (SQLException e) {
@@ -111,10 +117,14 @@ public class WorkordersTable implements WorkordersDAO {
         String query = "INSERT INTO " + DBConst.TABLE_WORKORDERS +
                 " (" + DBConst.WORKORDERS_COLUMN_DATE + ", " +
                 DBConst.WORKORDERS_COLUMN_ISSUE + ", " +
-                DBConst.WORKORDERS_COLUMN_CAUSE + ") VALUES ('" +
+                DBConst.WORKORDERS_COLUMN_CAUSE + ", " +
+                DBConst.WORKORDERS_COLUMN_CORRECTION + ", " +
+                DBConst.WORKORDERS_COLUMN_CLOSED + ") VALUES ('" +
                 workorder.getDate() + "','" +
                 workorder.getIssue() + "','" +
-                workorder.getCause() + "')";
+                workorder.getCause() + "','" +
+                workorder.getCorrection() + "','" +
+                workorder.getClosed() + "')";
         try {
             db.getConnection().createStatement().execute(query);
         } catch (SQLException e) {
