@@ -150,6 +150,7 @@ public class EditCustInfoPane extends BorderPane {
 
         //First Name TextField
         TextField firstName = new TextField();
+        firstName.setPromptText("First Name");
         firstName.setMaxWidth(TEXTFIELD_WIDTH_SIZE);
 
 
@@ -159,6 +160,7 @@ public class EditCustInfoPane extends BorderPane {
 
         //Last Name textField
         TextField lastName = new TextField();
+        lastName.setPromptText("Last Name");
         lastName.setMaxWidth(TEXTFIELD_WIDTH_SIZE);
 
 
@@ -168,6 +170,7 @@ public class EditCustInfoPane extends BorderPane {
 
         //Address Textfield
         TextField address = new TextField();
+        address.setPromptText("Address");
         address.setMaxWidth(TEXTFIELD_WIDTH_SIZE);
 
 
@@ -177,6 +180,7 @@ public class EditCustInfoPane extends BorderPane {
 
         //City Textfield
         TextField city = new TextField();
+        city.setPromptText("City");
         city.setMaxWidth(TEXTFIELD_WIDTH_SIZE);
 
         //Province Label
@@ -193,6 +197,7 @@ public class EditCustInfoPane extends BorderPane {
 
         //Email Textfield
         TextField email = new TextField();
+        email.setPromptText("example@company.com");
         email.setMaxWidth(TEXTFIELD_WIDTH_SIZE);
 
 
@@ -202,6 +207,7 @@ public class EditCustInfoPane extends BorderPane {
 
         //Postal Code Textfield
         TextField postalCode = new TextField();
+        postalCode.setPromptText("A1B2C3");
         postalCode.setMaxWidth(TEXTFIELD_WIDTH_SIZE);
 
 
@@ -211,6 +217,7 @@ public class EditCustInfoPane extends BorderPane {
 
         //Phone number textfield
         TextField phoneNum = new TextField();
+        phoneNum.setPromptText("(555)555-5555");
         phoneNum.setMaxWidth(TEXTFIELD_WIDTH_SIZE);
 
         //Vehicle info title
@@ -223,6 +230,7 @@ public class EditCustInfoPane extends BorderPane {
 
         //Vin Number textfield
         TextField vinNum = new TextField();
+        vinNum.setPromptText("Vehicle Identification Number");
         vinNum.setMaxWidth(TEXTFIELD_WIDTH_SIZE);
 
         //Brand label
@@ -257,6 +265,7 @@ public class EditCustInfoPane extends BorderPane {
         yearText.setFont(Font.font("Times New Roman", 16));
 
         TextField year = new TextField();
+        year.setPromptText("Vehicle Year");
         year.setMaxWidth(TEXTFIELD_WIDTH_SIZE);
 
         //Email
@@ -264,6 +273,7 @@ public class EditCustInfoPane extends BorderPane {
         kilometersText.setFont(Font.font("Times New Roman", 16));
 
         TextField kilometers = new TextField();
+        kilometers.setPromptText("Vehicle Kilometers");
         kilometers.setMaxWidth(TEXTFIELD_WIDTH_SIZE);
 
         Button updateCust = new Button("Update Info");
