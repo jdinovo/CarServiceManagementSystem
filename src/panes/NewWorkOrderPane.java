@@ -2,6 +2,7 @@ package panes;
 
 
 import form.FormAnswers;
+import form.ProvinceChoice;
 import form.VehicleChoice;
 import javabean.*;
 import javafx.collections.FXCollections;
@@ -34,9 +35,10 @@ public class NewWorkOrderPane extends GridPane {
 
     //Importing the vehicleMap
     Map<String, List<String>> vehicleMap = VehicleChoice.getVehicleModel();
+    ArrayList<String> provinceMap = ProvinceChoice.getProvinceModel();
 
     //Instantiate the FormAnswers class
-    Map<String, String> newCustomerMap = new HashMap<>();
+    //Map<String, String> newCustomerMap = new HashMap<>();
 
     //Array of Textfields
     ArrayList<TextField> arrayOfTextFields = new ArrayList<>();
@@ -44,6 +46,7 @@ public class NewWorkOrderPane extends GridPane {
     //ComboBoxes for the form
     private ComboBox<String> comboBrand = new ComboBox<>();
     private ComboBox<String> comboModel = new ComboBox<>();
+    private ComboBox<String> comboProvince = new ComboBox<>();
 
     //Get Access to the tables
     CustomersTable custTable = new CustomersTable();
@@ -79,7 +82,7 @@ public class NewWorkOrderPane extends GridPane {
         //A string that appears when a an answer is empty
         Text textfieldIncomplete = new Text("You have an empty textfield!");
 
-        GridPane.setConstraints(textfieldIncomplete, 0, 13, 2, 2);
+        GridPane.setConstraints(textfieldIncomplete, 0, 14, 2, 2);
         GridPane.setValignment(textfieldIncomplete, VPos.CENTER);
         GridPane.setHalignment(textfieldIncomplete, HPos.CENTER);
         textfieldIncomplete.setFill(Color.RED);
@@ -108,6 +111,7 @@ public class NewWorkOrderPane extends GridPane {
         this.add(firstNameText, 0, 0, 1, 1);
         //First Name TextField
         TextField firstName = new TextField();
+        firstName.setPromptText("First Name");
         arrayOfTextFields.add(firstName);
         firstName.setMaxWidth(TEXTFIELD_WIDTH_SIZE);
         GridPane.setHalignment(firstName, HPos.CENTER);
@@ -120,6 +124,7 @@ public class NewWorkOrderPane extends GridPane {
         this.add(lastNameText, 0, 1, 1, 1);
         //Last Name textField
         TextField lastName = new TextField();
+        lastName.setPromptText("Last Name");
         arrayOfTextFields.add(lastName);
         lastName.setMaxWidth(TEXTFIELD_WIDTH_SIZE);
         GridPane.setHalignment(lastName, HPos.CENTER);
@@ -132,6 +137,7 @@ public class NewWorkOrderPane extends GridPane {
         this.add(addressText, 0, 2, 1, 1);
         //Address Textfield
         TextField address = new TextField();
+        address.setPromptText("Ex) # Street Name St.");
         arrayOfTextFields.add(address);
         address.setMaxWidth(TEXTFIELD_WIDTH_SIZE);
         GridPane.setHalignment(address, HPos.CENTER);
@@ -144,46 +150,62 @@ public class NewWorkOrderPane extends GridPane {
         this.add(cityText, 0, 3, 1, 1);
         //City Textfield
         TextField city = new TextField();
+        city.setPromptText("City Name");
         arrayOfTextFields.add(city);
         city.setMaxWidth(TEXTFIELD_WIDTH_SIZE);
         GridPane.setHalignment(city, HPos.CENTER);
         this.add(city, 0, 3, 1, 1);
 
+        //Province label
+        Label provinceText = new Label("Province:");
+        provinceText.setFont(Font.font("Times New Roman", 16));
+        GridPane.setHalignment(provinceText, HPos.LEFT);
+        this.add(provinceText, 0, 4, 1, 1);
+        //Province ComboBox
+        comboProvince.setMaxWidth(TEXTFIELD_WIDTH_SIZE);
+        //Set the drop down menu to the vehicleMap's key values
+        comboProvince.setItems(FXCollections.observableArrayList(provinceMap));
+        GridPane.setHalignment(comboProvince, HPos.CENTER);
+        this.add(comboProvince, 0, 4, 1, 1);
+
         //Email Label
         Label emailText = new Label("Email:");
         emailText.setFont(Font.font("Times New Roman", 16));
         GridPane.setHalignment(emailText, HPos.LEFT);
-        this.add(emailText, 0, 4, 1, 1);
+        this.add(emailText, 0, 5, 1, 1);
         //Email Textfield
         TextField email = new TextField();
+        email.setPromptText("Ex) emailname@hotmail.com");
         arrayOfTextFields.add(email);
         email.setMaxWidth(TEXTFIELD_WIDTH_SIZE);
         GridPane.setHalignment(email, HPos.CENTER);
-        this.add(email, 0, 4, 1, 1);
+        this.add(email, 0, 5, 1, 1);
 
         //Postal Code Label
         Label postalCodeText = new Label("Postal Code:");
         postalCodeText.setFont(Font.font("Times New Roman", 16));
         GridPane.setHalignment(postalCodeText, HPos.LEFT);
-        this.add(postalCodeText, 0, 5, 1, 1);
+        this.add(postalCodeText, 0, 6, 1, 1);
         //Postal Code Textfield
         TextField postalCode = new TextField();
+        postalCode.setPromptText("Ex) A9AA9A");
         arrayOfTextFields.add(postalCode);
         postalCode.setMaxWidth(TEXTFIELD_WIDTH_SIZE);
         GridPane.setHalignment(postalCode, HPos.CENTER);
-        this.add(postalCode, 0, 5, 1, 1);
+        this.add(postalCode, 0, 6, 1, 1);
 
         //Phone number Label
         Label phoneNumText = new Label("Phone Number:");
         phoneNumText.setFont(Font.font("Times New Roman", 16));
         GridPane.setHalignment(phoneNumText, HPos.LEFT);
-        this.add(phoneNumText, 0, 6, 1, 1);
+        this.add(phoneNumText, 0, 7, 1, 1);
         //Phone number textfield
         TextField phoneNum = new TextField();
+        phoneNum.setPromptText("Ex) (555)555-5555");
         arrayOfTextFields.add(phoneNum);
         phoneNum.setMaxWidth(TEXTFIELD_WIDTH_SIZE);
         GridPane.setHalignment(phoneNum, HPos.CENTER);
-        this.add(phoneNum, 0, 6, 1, 1);
+        this.add(phoneNum, 0, 7, 1, 1);
 
         /**
          * @author Chris Dias
@@ -206,6 +228,7 @@ public class NewWorkOrderPane extends GridPane {
         this.add(vinNumText, 1, 0, 1, 1);
         //Vin Number textfield
         TextField vinNum = new TextField();
+        vinNum.setPromptText("Vin Number");
         arrayOfTextFields.add(vinNum);
         vinNum.setMaxWidth(TEXTFIELD_WIDTH_SIZE);
         GridPane.setHalignment(vinNum, HPos.CENTER);
@@ -247,6 +270,7 @@ public class NewWorkOrderPane extends GridPane {
         this.add(yearText, 1, 3, 1, 1);
 
         TextField year = new TextField();
+        year.setPromptText("Year");
         arrayOfTextFields.add(year);
         year.setMaxWidth(TEXTFIELD_WIDTH_SIZE);
         GridPane.setHalignment(year, HPos.CENTER);
@@ -259,6 +283,7 @@ public class NewWorkOrderPane extends GridPane {
         this.add(kilometersText, 1, 4, 1, 1);
 
         TextField kilometers = new TextField();
+        kilometers.setPromptText("Number of Kilometers");
         arrayOfTextFields.add(kilometers);
         kilometers.setMaxWidth(TEXTFIELD_WIDTH_SIZE);
         GridPane.setHalignment(kilometers, HPos.CENTER);
@@ -276,15 +301,16 @@ public class NewWorkOrderPane extends GridPane {
 
         Label issueText = new Label("In detail, please write the issue the customer is having with their vehicle:");
         issueText.setFont(Font.font("Times New Roman", 16));
-        this.add(issueText, 0, 8, 2,2);
+        this.add(issueText, 0, 9, 2,2);
         GridPane.setValignment(issueText, VPos.CENTER);
         GridPane.setHalignment(issueText, HPos.CENTER);
 
         TextArea issue = new TextArea();
+        issue.setPromptText("Explain issue with the vehicle");
         issue.setMaxWidth(300);
         issue.setMaxSize(400,200);
         issue.setWrapText(true);
-        this.add(issue, 0, 10, 2, 2);
+        this.add(issue, 0, 11, 2, 2);
         GridPane.setValignment(issue, VPos.CENTER);
         GridPane.setHalignment(issue, HPos.CENTER);
 
@@ -293,7 +319,7 @@ public class NewWorkOrderPane extends GridPane {
          * into the Map strings.
          */
         Button nextButton = new Button("Complete Form");
-        this.add(nextButton, 0, 12, 2, 1);
+        this.add(nextButton, 0, 13, 2, 1);
         GridPane.setValignment(nextButton, VPos.CENTER);
         GridPane.setHalignment(nextButton, HPos.CENTER);
 
@@ -313,6 +339,8 @@ public class NewWorkOrderPane extends GridPane {
                 } else if (address.getText().isEmpty()) {
                     textfieldIncomplete.setVisible(true);
                 } else if (city.getText().isEmpty()) {
+                    textfieldIncomplete.setVisible(true);
+                } else if (!comboProvince.getValue().isEmpty()) {
                     textfieldIncomplete.setVisible(true);
                 } else if (email.getText().isEmpty()) {
                     textfieldIncomplete.setVisible(true);
