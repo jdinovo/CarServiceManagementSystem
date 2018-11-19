@@ -61,20 +61,25 @@ public class EditCustInfoPane extends BorderPane {
         customers = custTable.getAllCustomers();
 
         //create and show pop up to get phone number to query db with
-        TextInputDialog dialog = new TextInputDialog("(555)555-5555");
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.getEditor().setPromptText("(555)555-5555");
+
         dialog.setTitle("Find Customer");
         dialog.setHeaderText("Enter the customer's phone number and click OK to find their information.\nClick CANCEL to see all customers.");
         dialog.setContentText("Phone Number:");
+        dialog.getDialogPane().lookupButton(ButtonType.OK).requestFocus();
 
         dialog.showAndWait().ifPresent(n-> {
             final String number = n.trim();
             System.out.println("phone number: " + number);
-            customers.clear();
-            custTable.getAllCustomers().forEach(e -> {
-                if (e.getPhoneNumber().equals(number)) {
-                    customers.add(e);
-                }
-            });
+            if(!number.isEmpty()) {
+                customers.clear();
+                custTable.getAllCustomers().forEach(e -> {
+                    if (e.getPhoneNumber().equals(number)) {
+                        customers.add(e);
+                    }
+                });
+            }
         });
 
         TableView<Customers> tableView = new TableView<>();
@@ -155,6 +160,13 @@ public class EditCustInfoPane extends BorderPane {
         //City Textfield
         TextField city = new TextField();
         city.setMaxWidth(TEXTFIELD_WIDTH_SIZE);
+
+        //Province Label
+        Label provinceText = new Label("Province:");
+        provinceText.setFont(Font.font("Times New Roman", 16));
+
+        //Province Textfield
+        //comboProvince.setMaxWidth(TEXTFIELD_WIDTH_SIZE);
 
         //Email Label
         Label emailText = new Label("Email:");
@@ -267,7 +279,6 @@ public class EditCustInfoPane extends BorderPane {
         });
 
         Button addVehicle = new Button("Add");
-        Button updateVehicle = new Button("Update");
         Button add = new Button("Add");
         Button cancel = new Button("Cancel");
         Button delVehicle = new Button("Delete");
@@ -307,7 +318,7 @@ public class EditCustInfoPane extends BorderPane {
         addVehicleBox.setSpacing(10);
         addVehicleBox.setVisible(false);
 
-        HBox vehicleListButtons = new HBox(addVehicle, updateVehicle, delVehicle);
+        HBox vehicleListButtons = new HBox(addVehicle, delVehicle);
         vehicleListButtons.setSpacing(10);
         vehicleListButtons.setAlignment(Pos.CENTER);
         vehicleList.getChildren().addAll(vehListViewText, vehicleListView, vehicleListButtons);
@@ -394,7 +405,7 @@ public class EditCustInfoPane extends BorderPane {
             }
         });
 
-        updateVehicle.setOnAction(e-> {
+        vehicleListView.setOnMouseClicked(e-> {
             if(!vehicleListView.getSelectionModel().isEmpty()) {
                 vehicle = vehicleListView.getSelectionModel().getSelectedItem();
                 vinNum.setText(vehicle.getVin());

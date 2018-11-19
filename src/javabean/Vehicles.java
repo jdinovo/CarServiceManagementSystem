@@ -29,7 +29,6 @@ public class Vehicles {
      * @param model
      * @param year
      * @param kilometers
-     * @param workorders
      */
     public Vehicles(String vin, String brand, String model, String year, String kilometers) {
         this.vin = vin;
@@ -47,7 +46,6 @@ public class Vehicles {
      * @param model
      * @param year
      * @param kilometers
-     * @param workorders
      */
     public Vehicles(int id, String vin, String brand, String model, String year, String kilometers) {
         this.id = id;
@@ -154,4 +152,8 @@ public class Vehicles {
         this.kilometers = kilometers;
     }
 
+    @Override
+    public String toString() {
+        return this.brand + " " + this.model + " " + this.year;
+    }
 }
