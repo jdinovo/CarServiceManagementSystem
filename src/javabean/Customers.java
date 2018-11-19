@@ -16,9 +16,11 @@ public class Customers {
     private String lastName;
     private String address;
     private String city;
+    private String province;
     private String postalCode;
     private String phoneNumber;
     private String email;
+    private int deleted;
 
     public Customers() {
 
@@ -30,18 +32,21 @@ public class Customers {
      * @param lastName
      * @param address
      * @param city
+     * @param province
      * @param postalCode
      * @param phoneNumber
      * @param email
      */
-    public Customers(String firstName, String lastName, String address, String city, String postalCode, String phoneNumber, String email) {
+    public Customers(String firstName, String lastName, String address, String city, String province, String postalCode, String phoneNumber, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
         this.city = city;
+        this.province = province;
         this.postalCode = postalCode;
         this.phoneNumber = phoneNumber;
         this.email = email;
+        this.deleted = 0;
     }
 
     /**
@@ -51,19 +56,23 @@ public class Customers {
      * @param lastName
      * @param address
      * @param city
+     * @param province
      * @param postalCode
      * @param phoneNumber
      * @param email
+     * @param deleted
      */
-    public Customers(int id, String firstName, String lastName, String address, String city, String postalCode, String phoneNumber, String email) {
+    public Customers(int id, String firstName, String lastName, String address, String city, String province, String postalCode, String phoneNumber, String email, int deleted) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
         this.city = city;
+        this.province = province;
         this.postalCode = postalCode;
         this.phoneNumber = phoneNumber;
         this.email = email;
+        this.deleted = deleted;
     }
 
     /**
@@ -148,6 +157,22 @@ public class Customers {
 
     /**
      *
+     * @return province
+     */
+    public String getProvince() {
+        return province;
+    }
+
+    /**
+     *
+     * @param province
+     */
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    /**
+     *
      * @return postalCode
      */
     public String getPostalCode() {
@@ -194,5 +219,20 @@ public class Customers {
         this.email = email;
     }
 
+    /**
+     *
+     * @return deleted
+     */
+    public int getDeleted() {
+        return deleted;
+    }
+
+    /**
+     *
+     * @param deleted
+     */
+    public void setDeleted(int deleted) {
+        this.deleted = deleted;
+    }
 }
 

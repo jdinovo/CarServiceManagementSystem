@@ -18,6 +18,7 @@ public class FormAnswers {
     private String lastNameMap = "";
     private String addressMap = "";
     private String cityMap = "";
+    private String provinceMap = "";
     private String emailMap = "";
     private String postalCodeMap = "";
     private String phoneNumMap = "";
@@ -80,6 +81,14 @@ public class FormAnswers {
 
     public void setCityMap(String cityMap) {
         this.cityMap = cityMap;
+    }
+
+    public String getProvinceMap() {
+        return provinceMap;
+    }
+
+    public void setProvinceMap(String provinceMap) {
+        this.provinceMap = provinceMap;
     }
 
     public String getEmailMap() {
@@ -162,6 +171,7 @@ public class FormAnswers {
                 ", lastNameMap='" + lastNameMap + '\'' +
                 ", addressMap='" + addressMap + '\'' +
                 ", cityMap='" + cityMap + '\'' +
+                ", provinceMap='" + provinceMap + '\'' +
                 ", emailMap='" + emailMap + '\'' +
                 ", postalCodeMap='" + postalCodeMap + '\'' +
                 ", phoneNumMap='" + phoneNumMap + '\'' +

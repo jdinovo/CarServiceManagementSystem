@@ -1,10 +1,12 @@
 package panes;
 
 import com.mysql.jdbc.StringUtils;
+import form.ProvinceChoice;
 import form.VehicleChoice;
 import javabean.CustomerVehicles;
 import javabean.Customers;
 import javabean.Vehicles;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -33,10 +35,12 @@ import static main.Const.TEXTFIELD_WIDTH_SIZE;
 public class EditCustInfoPane extends BorderPane {
     //Importing the vehicleMap
     private Map<String, List<String>> vehicleMap = VehicleChoice.getVehicleModel();
+    ArrayList<String> provinceMap = ProvinceChoice.getProvinceModel();
 
     //ComboBoxes for the form
     private ComboBox<String> comboBrand = new ComboBox<>();
     private ComboBox<String> comboModel = new ComboBox<>();
+    private ComboBox<String> comboProvince = new ComboBox<>();
 
     private Customers customer = new Customers();
     private Vehicles vehicle = new Vehicles();
@@ -58,7 +62,7 @@ public class EditCustInfoPane extends BorderPane {
         VehiclesTable vehTable = new VehiclesTable();
         CustomerVehiclesTable custVehTable = new CustomerVehiclesTable();
 
-        customers = custTable.getAllCustomers();
+        customers = custTable.getAllActiveCustomers();
 
         //create and show pop up to get phone number to query db with
         TextInputDialog dialog = new TextInputDialog();
@@ -69,12 +73,23 @@ public class EditCustInfoPane extends BorderPane {
         dialog.setContentText("Phone Number:");
         dialog.getDialogPane().lookupButton(ButtonType.OK).requestFocus();
 
-        dialog.showAndWait().ifPresent(n-> {
+
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                dialog.getDialogPane().lookupButton(ButtonType.OK).requestFocus();
+            }
+        });
+
+        Optional<String> result = dialog.showAndWait();
+
+
+        result.ifPresent(n-> {
             final String number = n.trim();
             System.out.println("phone number: " + number);
             if(!number.isEmpty()) {
                 customers.clear();
-                custTable.getAllCustomers().forEach(e -> {
+                custTable.getAllActiveCustomers().forEach(e -> {
                     if (e.getPhoneNumber().equals(number)) {
                         customers.add(e);
                     }
@@ -88,7 +103,7 @@ public class EditCustInfoPane extends BorderPane {
         tableView.setEditable(false);
         tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         tableView.setFixedCellSize(25);
-        tableView.setPrefHeight(200);
+        tableView.setPrefHeight(150);
 
         TableColumn<Customers, String> firstNameCol = new TableColumn<>("First Name");
         firstNameCol.setCellValueFactory(new PropertyValueFactory<>("firstName"));
@@ -102,6 +117,9 @@ public class EditCustInfoPane extends BorderPane {
         TableColumn<Customers, String> cityCol = new TableColumn<>("City");
         cityCol.setCellValueFactory(new PropertyValueFactory<>("city"));
 
+        TableColumn<Customers, String> provinceCol = new TableColumn<>("Province");
+        provinceCol.setCellValueFactory(new PropertyValueFactory<>("province"));
+
         TableColumn<Customers, String> postalCol = new TableColumn<>("Postal Code");
         postalCol.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
 
@@ -111,7 +129,7 @@ public class EditCustInfoPane extends BorderPane {
         TableColumn<Customers, String> emailCol = new TableColumn<>("Email");
         emailCol.setCellValueFactory(new PropertyValueFactory<>("email"));
 
-        tableView.getColumns().addAll(firstNameCol, lastNameCol, addressCol, cityCol, postalCol, phoneCol, emailCol);
+        tableView.getColumns().addAll(firstNameCol, lastNameCol, addressCol, cityCol, provinceCol, postalCol, phoneCol, emailCol);
 
         /**********************************************************
          * EDIT FORM
@@ -166,7 +184,8 @@ public class EditCustInfoPane extends BorderPane {
         provinceText.setFont(Font.font("Times New Roman", 16));
 
         //Province Textfield
-        //comboProvince.setMaxWidth(TEXTFIELD_WIDTH_SIZE);
+        comboProvince.setItems(FXCollections.observableArrayList(provinceMap));
+        comboProvince.setMaxWidth(TEXTFIELD_WIDTH_SIZE);
 
         //Email Label
         Label emailText = new Label("Email:");
@@ -214,6 +233,9 @@ public class EditCustInfoPane extends BorderPane {
         comboBrand.setMaxWidth(TEXTFIELD_WIDTH_SIZE);
         //Set the drop down menu to the vehicleMap's key values
         comboBrand.setItems(FXCollections.observableArrayList(vehicleMap.keySet()));
+        comboBrand.setOnMouseClicked(e-> {
+            comboModel.setValue("");
+        });
         comboModel.setOnMouseClicked(e->{
             for (Map.Entry<String, List<String>> pair : vehicleMap.entrySet()) {
                 if(pair.getKey().equals(comboBrand.getValue())) {
@@ -246,10 +268,40 @@ public class EditCustInfoPane extends BorderPane {
 
         Button updateCust = new Button("Update Info");
         updateCust.setOnAction(e-> {
+            firstNameText.setTextFill(Color.BLACK);
+            lastNameText.setTextFill(Color.BLACK);
+            addressText.setTextFill(Color.BLACK);
+            cityText.setTextFill(Color.BLACK);
+            provinceText.setTextFill(Color.BLACK);
             emailText.setTextFill(Color.BLACK);
             postalCodeText.setTextFill(Color.BLACK);
             phoneNumText.setTextFill(Color.BLACK);
-            if (!email.getText().matches("^[\\w!#$%&’*+/=?`{|}~^-]+(?:\\.[\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$")) {
+            warning.setText("You have an empty textfield! Please fill out the entire form!");
+            if (firstName.getText().isEmpty()) {
+                firstNameText.setTextFill(Color.RED);
+                warning.setVisible(true);
+            } else if (lastName.getText().isEmpty()) {
+                lastNameText.setTextFill(Color.RED);
+                warning.setVisible(true);
+            } else if (address.getText().isEmpty()) {
+                addressText.setTextFill(Color.RED);
+                warning.setVisible(true);
+            } else if (city.getText().isEmpty()) {
+                cityText.setTextFill(Color.RED);
+                warning.setVisible(true);
+            } else if (comboProvince.getValue().isEmpty()) {
+                provinceText.setTextFill(Color.RED);
+                warning.setVisible(true);
+            } else if (email.getText().isEmpty()) {
+                emailText.setTextFill(Color.RED);
+                warning.setVisible(true);
+            } else if (postalCode.getText().isEmpty()) {
+                postalCodeText.setTextFill(Color.RED);
+                warning.setVisible(true);
+            } else if (phoneNum.getText().isEmpty()) {
+                phoneNumText.setTextFill(Color.RED);
+                warning.setVisible(true);
+            } else if (!email.getText().matches("^[\\w!#$%&’*+/=?`{|}~^-]+(?:\\.[\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$")) {
                 warning.setText("Please make sure email follows example@company.com");
                 warning.setVisible(true);
                 emailText.setTextFill(Color.RED);
@@ -262,11 +314,11 @@ public class EditCustInfoPane extends BorderPane {
                 warning.setVisible(true);
                 phoneNumText.setTextFill(Color.RED);
             } else {
-
                 customer.setFirstName(firstName.getText().trim());
                 customer.setLastName(lastName.getText().trim());
                 customer.setAddress(address.getText().trim());
                 customer.setCity(city.getText().trim());
+                customer.setProvince(comboProvince.getValue());
                 customer.setPostalCode(postalCode.getText().trim());
                 customer.setEmail(email.getText().trim());
                 customer.setPhoneNumber(phoneNum.getText().trim());
@@ -278,10 +330,10 @@ public class EditCustInfoPane extends BorderPane {
 
         });
 
-        Button addVehicle = new Button("Add");
+        Button addVehicle = new Button("Add New Vehicle");
         Button add = new Button("Add");
         Button cancel = new Button("Cancel");
-        Button delVehicle = new Button("Delete");
+        Button delVehicle = new Button("Delete Vehicle");
         delVehicle.setOnAction(e-> {
             Vehicles vehicle = vehicleListView.getSelectionModel().getSelectedItem();
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -295,18 +347,27 @@ public class EditCustInfoPane extends BorderPane {
                     customerVehicles = custVehTable.getVehicleCustomers(customer.getId());
                     vehicles.clear();
                     customerVehicles.forEach(n -> {
-                        vehicles.add(vehTable.getVehicle(n.getVehicleid()));
+                        Vehicles vehicleHolder = vehTable.getVehicle(n.getVehicleid());
+                        if(vehicleHolder.getDeleted() == 0) {
+                            vehicles.add(vehicleHolder);
+                        }
+                        addVehicleBox.setVisible(false);
                     });
                     vehicleListView.setItems(FXCollections.observableArrayList(vehicles));
                 }
             }
         });
+        Button deleteCustomer = new Button("Delete Customer");
 
         //Vehicle list view title
         Text vehListViewText = new Text("Vehicle Information");
         vehListViewText.setFont(Font.font("Times New Roman", 20));
 
-        updateCustomerBox.getChildren().addAll(customerInfo, firstNameText, firstName, lastNameText, lastName, addressText, address, cityText, city, postalCodeText, postalCode, emailText, email, phoneNumText, phoneNum, updateCust);
+        HBox custInfoButtons = new HBox();
+        custInfoButtons.setSpacing(10);
+        custInfoButtons.setAlignment(Pos.CENTER);
+        custInfoButtons.getChildren().addAll(updateCust, deleteCustomer);
+        updateCustomerBox.getChildren().addAll(customerInfo, firstNameText, firstName, lastNameText, lastName, addressText, address, cityText, city, provinceText, comboProvince, postalCodeText, postalCode, emailText, email, phoneNumText, phoneNum, custInfoButtons);
         updateCustomerBox.setSpacing(5);
         //updateCustomerBox.setBorder(new Border());
 
@@ -328,6 +389,21 @@ public class EditCustInfoPane extends BorderPane {
         hBox.setSpacing(25);
         hBox.setPadding(new Insets(10, 10, 10, 10));
         hBox.setVisible(false);
+
+        deleteCustomer.setOnAction(e-> {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation Dialog");
+            alert.setHeaderText("");
+            alert.setGraphic(null);
+            alert.setContentText("Are you sure you want to delete this customer?");
+            if (alert.showAndWait().get() == ButtonType.OK) {
+                custTable.deleteCustomer(customer);
+                customers.clear();
+                customers = custTable.getAllActiveCustomers();
+                hBox.setVisible(false);
+            }
+
+        });
 
         addVehicle.setOnAction(e-> {
             vehicleInfo.setText("Add New Vehicle");
@@ -355,6 +431,14 @@ public class EditCustInfoPane extends BorderPane {
                 warning.setText("VIN cannot be left empty");
                 warning.setVisible(true);
                 vinNumText.setTextFill(Color.RED);
+            } else if (comboBrand.getValue().isEmpty()) {
+                warning.setText("You must select a brand");
+                warning.setVisible(true);
+                brandText.setTextFill(Color.RED);
+            } else if (comboModel.getValue().isEmpty()) {
+                warning.setText("You must select a model");
+                warning.setVisible(true);
+                modelText.setTextFill(Color.RED);
             } else if (year.getText().isEmpty()) {
                 warning.setText("Year cannot be left empty");
                 warning.setVisible(true);
@@ -363,15 +447,7 @@ public class EditCustInfoPane extends BorderPane {
                 warning.setText("Kilometers cannot be left empty");
                 warning.setVisible(true);
                 kilometersText.setTextFill(Color.RED);
-            } else if (comboBrand.getSelectionModel().isEmpty()) {
-                warning.setText("You must select a brand");
-                warning.setVisible(true);
-                brandText.setTextFill(Color.RED);
-            } else if (comboModel.getSelectionModel().isEmpty()) {
-                warning.setText("You must select a model");
-                warning.setVisible(true);
-                modelText.setTextFill(Color.RED);
-            } else if (vinNum.getText().length() > 17) {
+            }  else if (vinNum.getText().length() > 17) {
                 warning.setText("VIN cannot be longer than 17 characters");
                 warning.setVisible(true);
                 vinNumText.setTextFill(Color.RED);
@@ -399,6 +475,14 @@ public class EditCustInfoPane extends BorderPane {
                     vehTable.updateVehicle(vehicle);
                 }
 
+                customerVehicles = custVehTable.getVehicleCustomers(customer.getId());
+                vehicles.clear();
+                customerVehicles.forEach(n-> {
+                    Vehicles vehicleHolder = vehTable.getVehicle(n.getVehicleid());
+                    if(vehicleHolder.getDeleted() == 0) {
+                        vehicles.add(vehicleHolder);
+                    }
+                });
                 vehicleListView.setItems(FXCollections.observableArrayList(vehicles));
                 addVehicleBox.setVisible(false);
                 warning.setVisible(false);
@@ -433,12 +517,16 @@ public class EditCustInfoPane extends BorderPane {
                     customerVehicles = custVehTable.getVehicleCustomers(customer.getId());
                     vehicles.clear();
                     customerVehicles.forEach(e-> {
-                        vehicles.add(vehTable.getVehicle(e.getVehicleid()));
+                        Vehicles vehicleHolder = vehTable.getVehicle(e.getVehicleid());
+                        if(vehicleHolder.getDeleted() == 0) {
+                            vehicles.add(vehicleHolder);
+                        }
                     });
                     firstName.setText(customer.getFirstName());
                     lastName.setText(customer.getLastName());
                     address.setText(customer.getAddress());
                     city.setText(customer.getCity());
+                    comboProvince.setValue(customer.getProvince());
                     postalCode.setText(customer.getPostalCode());
                     email.setText(customer.getEmail());
                     phoneNum.setText(customer.getPhoneNumber());
