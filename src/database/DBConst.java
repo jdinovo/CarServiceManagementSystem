@@ -25,9 +25,11 @@ public class DBConst {
 	public static final String CUSTOMER_COLUMN_LNAME = "last_name";
 	public static final String CUSTOMER_COLUMN_ADDR = "address";
 	public static final String CUSTOMER_COLUMN_CITY = "city";
+	public static final String CUSTOMER_COLUMN_PROVINCE = "province";
 	public static final String CUSTOMER_COLUMN_POSTAL = "postal_code";
 	public static final String CUSTOMER_COLUMN_PHONE = "phone_number";
 	public static final String CUSTOMER_COLUMN_EMAIL = "email";
+	public static final String CUSTOMER_COLUMN_DELETED = "deleted";
 
 	public static final String TABLE_VEHICLES = "vehicles";
 	public static final String VEHICLE_COLUMN_ID = "id";
@@ -36,6 +38,7 @@ public class DBConst {
 	public static final String VEHICLE_COLUMN_MODEL = "model";
 	public static final String VEHICLE_COLUMN_YEAR = "year";
 	public static final String VEHICLE_COLUMN_KM = "kilometers";
+	public static final String VEHICLE_COLUMN_DELETED = "deleted";
 
 	public static final String TABLE_WORKORDERS = "work_orders";
 	public static final String WORKORDERS_COLUMN_ID = "id";
@@ -61,9 +64,11 @@ public class DBConst {
 					CUSTOMER_COLUMN_LNAME + " VARCHAR(50), " +
 					CUSTOMER_COLUMN_ADDR + " VARCHAR(100), " +
 					CUSTOMER_COLUMN_CITY + " VARCHAR(50), " +
+					CUSTOMER_COLUMN_PROVINCE + " VARCHAR(15), " +
 					CUSTOMER_COLUMN_POSTAL + " CHAR(6), " +
 					CUSTOMER_COLUMN_PHONE + " VARCHAR(15), " +
 					CUSTOMER_COLUMN_EMAIL + " VARCHAR(50), " +
+					CUSTOMER_COLUMN_DELETED + " BOOLEAN, " +
 					"PRIMARY KEY(" + CUSTOMER_COLUMN_ID + ")" +
 					");";
 
@@ -75,6 +80,7 @@ public class DBConst {
 					VEHICLE_COLUMN_MODEL + " VARCHAR(50), " +
 					VEHICLE_COLUMN_YEAR + " CHAR(4), " +
 					VEHICLE_COLUMN_KM + " int, " +
+					VEHICLE_COLUMN_DELETED + " BOOLEAN, " +
 					"PRIMARY KEY(" + VEHICLE_COLUMN_ID +")" +
 					");";
 
@@ -82,8 +88,8 @@ public class DBConst {
 			"CREATE TABLE " + TABLE_CUSTOMER_VEHICLES + " (" +
 					CUSTOMER_VEHICLES_COLUMN_CUSTOMER_ID + " int NOT NULL, " +
 					CUSTOMER_VEHICLES_COLUMN_VEHICLE_ID + " int NOT NULL, " +
-					" FOREIGN KEY (" + CUSTOMER_VEHICLES_COLUMN_CUSTOMER_ID + ") REFERENCES " + TABLE_CUSTOMERS + " (" + CUSTOMER_COLUMN_ID + ") ON DELETE RESTRICT ON UPDATE CASCADE, " +
-					" FOREIGN KEY (" + CUSTOMER_VEHICLES_COLUMN_VEHICLE_ID + ") REFERENCES " + TABLE_VEHICLES + " (" + VEHICLE_COLUMN_ID + ") ON DELETE RESTRICT ON UPDATE CASCADE, " +
+					" FOREIGN KEY (" + CUSTOMER_VEHICLES_COLUMN_CUSTOMER_ID + ") REFERENCES " + TABLE_CUSTOMERS + " (" + CUSTOMER_COLUMN_ID + "), " +
+					" FOREIGN KEY (" + CUSTOMER_VEHICLES_COLUMN_VEHICLE_ID + ") REFERENCES " + TABLE_VEHICLES + " (" + VEHICLE_COLUMN_ID + "), " +
 					"PRIMARY KEY(" + CUSTOMER_VEHICLES_COLUMN_CUSTOMER_ID + ", " + CUSTOMER_VEHICLES_COLUMN_VEHICLE_ID + ")" +
 					");";
 
@@ -102,8 +108,8 @@ public class DBConst {
 			"CREATE TABLE " + TABLE_VEHICLE_WORKORDERS + " (" +
 					VEHICLE_WORKORDERS_COLUMN_VEHICLE_ID + " int NOT NULL, " +
 					VEHICLE_WORKORDERS_COLUMN_WORKORDER_ID + " int NOT NULL, " +
-					" FOREIGN KEY (" + VEHICLE_WORKORDERS_COLUMN_VEHICLE_ID + ") REFERENCES " + TABLE_VEHICLES + " (" + VEHICLE_COLUMN_ID + ") ON DELETE RESTRICT ON UPDATE CASCADE, " +
-					" FOREIGN KEY (" + VEHICLE_WORKORDERS_COLUMN_WORKORDER_ID + ") REFERENCES " + TABLE_WORKORDERS + " (" + WORKORDERS_COLUMN_ID + ") ON DELETE RESTRICT ON UPDATE CASCADE, " +
+					" FOREIGN KEY (" + VEHICLE_WORKORDERS_COLUMN_VEHICLE_ID + ") REFERENCES " + TABLE_VEHICLES + " (" + VEHICLE_COLUMN_ID + "), " +
+					" FOREIGN KEY (" + VEHICLE_WORKORDERS_COLUMN_WORKORDER_ID + ") REFERENCES " + TABLE_WORKORDERS + " (" + WORKORDERS_COLUMN_ID + "), " +
 					"PRIMARY KEY(" + VEHICLE_WORKORDERS_COLUMN_VEHICLE_ID + ", " + VEHICLE_WORKORDERS_COLUMN_WORKORDER_ID + ")" +
 					");";
 

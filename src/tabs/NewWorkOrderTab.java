@@ -5,13 +5,13 @@ import panes.NewWorkOrderPane;
 
 
 /**
+ *
+ * NewWorkOrderTab is a tab that contains the GUI for creating a new work order
+ * It is a singleton class
  * 
  * @author James DiNovo
  * @date 29.10.2018
  * @version 1.0
- * 
- * NewWorkOrderTab is a tab that contains the GUI for creating a new work order
- * It is a singleton class
  *
  */
 public class NewWorkOrderTab extends Tab {
@@ -19,12 +19,12 @@ public class NewWorkOrderTab extends Tab {
 	private static NewWorkOrderTab tab;
 	
 	/**
+	 *
+	 * Constructor for NewWorkOrderTab
 	 * 
 	 * @author James DiNovo
 	 * @date 29.10.2018
 	 * @version 1.0
-	 * 
-	 * Constructor for NewWorkOrderTab
 	 *
 	 */
 	private NewWorkOrderTab() {
@@ -37,13 +37,13 @@ public class NewWorkOrderTab extends Tab {
 	}
 	
 	/**
+	 *
+	 * NewWorkOrderTab getInstance method
 	 * 
 	 * @author James DiNovo
 	 * @date 29.10.2018
 	 * @version 1.0
 	 * @return NewWorkOrder()
-	 * 
-	 * NewWorkOrderTab getInstance method
 	 *
 	 */
 	public static NewWorkOrderTab getInstance() {

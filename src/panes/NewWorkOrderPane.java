@@ -1,6 +1,7 @@
 package panes;
 
 
+import com.mysql.jdbc.StringUtils;
 import form.FormAnswers;
 import form.ProvinceChoice;
 import form.VehicleChoice;
@@ -243,6 +244,9 @@ public class NewWorkOrderPane extends GridPane {
         comboBrand.setMaxWidth(TEXTFIELD_WIDTH_SIZE);
         //Set the drop down menu to the vehicleMap's key values
         comboBrand.setItems(FXCollections.observableArrayList(vehicleMap.keySet()));
+        comboBrand.setOnAction(e->{
+            comboModel.setValue("");
+        });
         comboModel.setOnMouseClicked(e->{
             for (Map.Entry<String, List<String>> pair : vehicleMap.entrySet()) {
                 if(pair.getKey().equals(comboBrand.getValue())) {
@@ -340,7 +344,7 @@ public class NewWorkOrderPane extends GridPane {
                     textfieldIncomplete.setVisible(true);
                 } else if (city.getText().isEmpty()) {
                     textfieldIncomplete.setVisible(true);
-                } else if (!comboProvince.getValue().isEmpty()) {
+                } else if (comboProvince.getValue().isEmpty()) {
                     textfieldIncomplete.setVisible(true);
                 } else if (email.getText().isEmpty()) {
                     textfieldIncomplete.setVisible(true);
@@ -376,10 +380,14 @@ public class NewWorkOrderPane extends GridPane {
                     textfieldIncomplete.setText("VIN cannot be longer than 17 characters");
                     textfieldIncomplete.setVisible(true);
                     vinNumText.setTextFill(Color.RED);
-                } else if (year.getText().length() > 4) {
+                } else if (year.getText().length() > 4 || !StringUtils.isStrictlyNumeric(year.getText())) {
                     textfieldIncomplete.setText("Year cannot be longer than 4 digits");
                     textfieldIncomplete.setVisible(true);
                     yearText.setTextFill(Color.RED);
+                } else if (!StringUtils.isStrictlyNumeric(kilometers.getText())) {
+                    textfieldIncomplete.setText("Kilometers may only be numeric");
+                    textfieldIncomplete.setVisible(true);
+                    kilometersText.setTextFill(Color.RED);
                 } else if (issue.getText().length() > 250) {
                     textfieldIncomplete.setText("Issue description must be no longer than 250 characters");
                     textfieldIncomplete.setVisible(true);
@@ -400,6 +408,7 @@ public class NewWorkOrderPane extends GridPane {
                     formAnswers.setVinNumMap(vinNum.getText().trim());
                     formAnswers.setBrandMap(comboBrand.getValue());
                     formAnswers.setModelMap(comboModel.getValue());
+                    formAnswers.setProvinceMap(comboProvince.getValue());
                     formAnswers.setYearMap(year.getText().trim());
                     formAnswers.setKilometersMap(kilometers.getText().trim());
                     formAnswers.setIssueMap(issue.getText().trim());
@@ -420,7 +429,7 @@ public class NewWorkOrderPane extends GridPane {
                     vehTable.createVehicle(vehicle);
                     ArrayList<Vehicles> vehicleArray = vehTable.getAllVehicles();
 
-                    Customers customer = new Customers(formAnswers.getFirstNameMap(), formAnswers.getLastNameMap(), formAnswers.getAddressMap(), formAnswers.getCityMap(), formAnswers.getPostalCodeMap(), formAnswers.getPhoneNumMap(), formAnswers.getEmailMap());
+                    Customers customer = new Customers(formAnswers.getFirstNameMap(), formAnswers.getLastNameMap(), formAnswers.getAddressMap(), formAnswers.getCityMap(), formAnswers.getProvinceMap(), formAnswers.getPostalCodeMap(), formAnswers.getPhoneNumMap(), formAnswers.getEmailMap());
                     custTable.createCustomer(customer);
                     ArrayList<Customers> customerArray = custTable.getAllCustomers();
 
@@ -434,6 +443,7 @@ public class NewWorkOrderPane extends GridPane {
                     for (TextField answer : arrayOfTextFields) {
                         answer.setText("");
                     }
+
                     comboBrand.setValue(null);
                     comboModel.setValue(null);
                     issue.setText("");
