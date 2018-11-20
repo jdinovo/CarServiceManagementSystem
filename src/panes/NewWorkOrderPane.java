@@ -38,9 +38,6 @@ public class NewWorkOrderPane extends GridPane {
     Map<String, List<String>> vehicleMap = VehicleChoice.getVehicleModel();
     ArrayList<String> provinceMap = ProvinceChoice.getProvinceModel();
 
-    //Instantiate the FormAnswers class
-    //Map<String, String> newCustomerMap = new HashMap<>();
-
     //Array of Textfields
     ArrayList<TextField> arrayOfTextFields = new ArrayList<>();
 
@@ -336,59 +333,57 @@ public class NewWorkOrderPane extends GridPane {
                 yearText.setTextFill(Color.BLACK);
                 issueText.setTextFill(Color.BLACK);
                 textfieldIncomplete.setText("You have an empty textfield! Please fill out the entire form!");
-                if (firstName.getText().isEmpty()) {
+                if (firstName.getText().trim().isEmpty()) {
                     textfieldIncomplete.setVisible(true);
-                } else if (lastName.getText().isEmpty()) {
+                } else if (lastName.getText().trim().isEmpty()) {
                     textfieldIncomplete.setVisible(true);
-                } else if (address.getText().isEmpty()) {
+                } else if (address.getText().trim().isEmpty()) {
                     textfieldIncomplete.setVisible(true);
-                } else if (city.getText().isEmpty()) {
+                } else if (city.getText().trim().isEmpty()) {
                     textfieldIncomplete.setVisible(true);
-                } else if (comboProvince.getValue().isEmpty()) {
+                } else if (email.getText().trim().isEmpty()) {
                     textfieldIncomplete.setVisible(true);
-                } else if (email.getText().isEmpty()) {
+                } else if (postalCode.getText().trim().isEmpty()) {
                     textfieldIncomplete.setVisible(true);
-                } else if (postalCode.getText().isEmpty()) {
+                } else if (phoneNum.getText().trim().isEmpty()) {
                     textfieldIncomplete.setVisible(true);
-                } else if (phoneNum.getText().isEmpty()) {
+                } else if (vinNum.getText().trim().isEmpty()) {
                     textfieldIncomplete.setVisible(true);
-                } else if (vinNum.getText().isEmpty()) {
+                } else if (comboBrand.getValue().trim().isEmpty()) {
                     textfieldIncomplete.setVisible(true);
-                } else if (comboBrand.getValue().isEmpty()) {
+                } else if (comboModel.getValue().trim().isEmpty()) {
                     textfieldIncomplete.setVisible(true);
-                } else if (comboModel.getValue().isEmpty()) {
+                } else if (year.getText().trim().isEmpty()) {
                     textfieldIncomplete.setVisible(true);
-                } else if (year.getText().isEmpty()) {
+                } else if (kilometers.getText().trim().isEmpty()) {
                     textfieldIncomplete.setVisible(true);
-                } else if (kilometers.getText().isEmpty()) {
+                } else if (issue.getText().trim().isEmpty()) {
                     textfieldIncomplete.setVisible(true);
-                } else if (issue.getText().isEmpty()) {
-                    textfieldIncomplete.setVisible(true);
-                } else if (!email.getText().matches("^[\\w!#$%&’*+/=?`{|}~^-]+(?:\\.[\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$")) {
+                } else if (!email.getText().trim().matches("^[\\w!#$%&’*+/=?`{|}~^-]+(?:\\.[\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$")) {
                     textfieldIncomplete.setText("Please make sure email follows example@company.com");
                     textfieldIncomplete.setVisible(true);
                     emailText.setTextFill(Color.RED);
-                } else if (postalCode.getText().length() > 6) {
+                } else if (postalCode.getText().trim().length() > 6) {
                     textfieldIncomplete.setText("Please make sure your postal code follows A0B1C0");
                     textfieldIncomplete.setVisible(true);
                     postalCodeText.setTextFill(Color.RED);
-                } else if (phoneNum.getText().length() > 15 || !phoneNum.getText().matches("\\(\\d{3}\\)\\d{3}-?\\d{4}")) {
+                } else if (phoneNum.getText().trim().length() > 15 || !phoneNum.getText().matches("\\(\\d{3}\\)\\d{3}-?\\d{4}")) {
                     textfieldIncomplete.setText("Please make sure your phone number follows (555)555-5555");
                     textfieldIncomplete.setVisible(true);
                     phoneNumText.setTextFill(Color.RED);
-                } else if (vinNum.getText().length() > 17) {
+                } else if (vinNum.getText().trim().length() > 17) {
                     textfieldIncomplete.setText("VIN cannot be longer than 17 characters");
                     textfieldIncomplete.setVisible(true);
                     vinNumText.setTextFill(Color.RED);
-                } else if (year.getText().length() > 4 || !StringUtils.isStrictlyNumeric(year.getText())) {
+                } else if (year.getText().trim().length() > 4 || !StringUtils.isStrictlyNumeric(year.getText())) {
                     textfieldIncomplete.setText("Year cannot be longer than 4 digits");
                     textfieldIncomplete.setVisible(true);
                     yearText.setTextFill(Color.RED);
-                } else if (!StringUtils.isStrictlyNumeric(kilometers.getText())) {
+                } else if (!StringUtils.isStrictlyNumeric(kilometers.getText().trim())) {
                     textfieldIncomplete.setText("Kilometers may only be numeric");
                     textfieldIncomplete.setVisible(true);
                     kilometersText.setTextFill(Color.RED);
-                } else if (issue.getText().length() > 250) {
+                } else if (issue.getText().trim().length() > 250) {
                     textfieldIncomplete.setText("Issue description must be no longer than 250 characters");
                     textfieldIncomplete.setVisible(true);
                     issueText.setTextFill(Color.RED);
@@ -455,5 +450,7 @@ public class NewWorkOrderPane extends GridPane {
                 textfieldIncomplete.setVisible(true);
             }
         }); // end of complete form button
+
     } //end of NewWorkOrderPane()
+
 } //End of class
