@@ -446,6 +446,7 @@ public class NewWorkOrderPane extends GridPane {
 
                     comboBrand.setValue(null);
                     comboModel.setValue(null);
+                    comboProvince.setValue(null);
                     issue.setText("");
                     NewWorkOrderTab.closeInstance();
                 }
