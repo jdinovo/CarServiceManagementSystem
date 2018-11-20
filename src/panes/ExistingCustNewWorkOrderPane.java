@@ -70,6 +70,7 @@ public class ExistingCustNewWorkOrderPane extends BorderPane {
 
         Label searchText = new Label("Search by Phone Number:");
         TextField searchTextField = new TextField();
+        searchTextField.setPromptText("(555)555-5555");
         searchTextField.setPrefWidth(TEXTFIELD_WIDTH_SIZE);
         Button searchButton = new Button("Search");
 
@@ -108,16 +109,17 @@ public class ExistingCustNewWorkOrderPane extends BorderPane {
         tableView.getColumns().addAll(firstNameCol, lastNameCol, addressCol, cityCol, provinceCol, postalCol, phoneCol, emailCol);
 
         searchButton.setOnMouseClicked(e->{
-            final String number = searchTextField.getText().trim();
-            System.out.println("phone number: " + number);
-            if(!number.isEmpty()) {
-                customers.clear();
-                custTable.getAllActiveCustomers().forEach(f -> {
-                    if (f.getPhoneNumber().equals(number)) {
-                        customers.add(f);
-                    }
-                });
-                tableView.refresh();
+            if (searchTextField.getText().matches("\\(\\d{3}\\)\\d{3}-?\\d{4}")) {
+                final String number = searchTextField.getText().trim();
+                if(!number.isEmpty()) {
+                    customers.clear();
+                    custTable.getAllActiveCustomers().forEach(profile -> {
+                        if (profile.getPhoneNumber().equals(number)) {
+                            customers.add(profile);
+                        }
+                    });
+                    tableView.setItems(FXCollections.observableArrayList(customers));
+                }
             }
         });
 
