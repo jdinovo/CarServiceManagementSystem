@@ -71,7 +71,6 @@ public class EditCustInfoPane extends BorderPane {
         dialog.setTitle("Find Customer");
         dialog.setHeaderText("Enter the customer's phone number and click OK to find their information.\nClick CANCEL to see all customers.");
         dialog.setContentText("Phone Number:");
-        dialog.getDialogPane().lookupButton(ButtonType.OK).requestFocus();
 
 
         Platform.runLater(new Runnable() {
@@ -104,6 +103,7 @@ public class EditCustInfoPane extends BorderPane {
         tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         tableView.setFixedCellSize(25);
         tableView.setPrefHeight(150);
+
 
         TableColumn<Customers, String> firstNameCol = new TableColumn<>("First Name");
         firstNameCol.setCellValueFactory(new PropertyValueFactory<>("firstName"));
@@ -410,6 +410,8 @@ public class EditCustInfoPane extends BorderPane {
                 custTable.deleteCustomer(customer);
                 customers.clear();
                 customers = custTable.getAllActiveCustomers();
+                tableView.setItems(FXCollections.observableArrayList(customers));
+                tableView.refresh();
                 hBox.setVisible(false);
             }
 
