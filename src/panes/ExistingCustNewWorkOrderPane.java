@@ -399,14 +399,7 @@ public class ExistingCustNewWorkOrderPane extends BorderPane {
             if(!ExistingWorkOrderTab.getInstance().getTabPane().getTabs().contains(newWorkOrderTab)) {
                 ExistingWorkOrderTab.getInstance().getTabPane().getTabs().add(newWorkOrderTab);
                 ExistingWorkOrderTab.getInstance().getTabPane().getSelectionModel().select(newWorkOrderTab);
-                issue.setText("");
 
-                addVehicleBox.setVisible(false);
-                hBox.setVisible(false);
-                customers = custTable.getAllActiveCustomers();
-                tableView.setItems(FXCollections.observableArrayList(customers));
-                tableView.refresh();
-                tableView.getSelectionModel().clearSelection();
                 ExistingWorkOrderTab.closeInstance();
             } else {
                 ExistingWorkOrderTab.getInstance().getTabPane().getSelectionModel().select(newWorkOrderTab);
@@ -474,12 +467,6 @@ public class ExistingCustNewWorkOrderPane extends BorderPane {
                     //Complete the form and close the instance
                     issue.setText("");
 
-                    addVehicleBox.setVisible(false);
-                    hBox.setVisible(false);
-                    customers = custTable.getAllActiveCustomers();
-                    tableView.setItems(FXCollections.observableArrayList(customers));
-                    tableView.refresh();
-                    tableView.getSelectionModel().clearSelection();
                     ExistingWorkOrderTab.closeInstance();
                 }
             } catch(Exception f) {
