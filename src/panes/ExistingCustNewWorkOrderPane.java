@@ -18,6 +18,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import main.Const;
 import tables.*;
+import tabs.ExistingWorkOrderTab;
 import tabs.NewWorkOrderTab;
 
 import java.util.*;
@@ -27,8 +28,8 @@ import static main.Const.TEXTFIELD_WIDTH_SIZE;
 public class ExistingCustNewWorkOrderPane extends BorderPane {
 
     //Importing the vehicleMap
-    Map<String, List<String>> vehicleMap = VehicleChoice.getVehicleModel();
-    ArrayList<String> provinceMap = ProvinceChoice.getProvinceModel();
+    private Map<String, List<String>> vehicleMap = VehicleChoice.getVehicleModel();
+    private ArrayList<String> provinceMap = ProvinceChoice.getProvinceModel();
 
     //ComboBoxes for the form
     private ComboBox<String> comboBrand = new ComboBox<>();
@@ -42,13 +43,15 @@ public class ExistingCustNewWorkOrderPane extends BorderPane {
     private ArrayList<Vehicles> vehicles = new ArrayList<>();
 
     //Get Access to the tables
-    CustomersTable custTable = new CustomersTable();
-    VehiclesTable vehTable = new VehiclesTable();
-    WorkordersTable workTable = new WorkordersTable();
-    CustomerVehiclesTable custVehTable = new CustomerVehiclesTable();
-    VehicleWorkordersTable vehWorkTable = new VehicleWorkordersTable();
+    private CustomersTable custTable = new CustomersTable();
+    private VehiclesTable vehTable = new VehiclesTable();
+    private WorkordersTable workTable = new WorkordersTable();
+    private CustomerVehiclesTable custVehTable = new CustomerVehiclesTable();
+    private VehicleWorkordersTable vehWorkTable = new VehicleWorkordersTable();
 
     private ListView<Vehicles> vehicleListView = new ListView<>();
+
+    private TableView<Customers> tableView;
 
     public ExistingCustNewWorkOrderPane() {
 
@@ -74,7 +77,7 @@ public class ExistingCustNewWorkOrderPane extends BorderPane {
         searchTextField.setPrefWidth(TEXTFIELD_WIDTH_SIZE);
         Button searchButton = new Button("Search");
 
-        TableView<Customers> tableView = new TableView<>();
+        tableView = new TableView<>();
         tableView.setItems(FXCollections.observableArrayList(customers));
 
         tableView.setEditable(false);
@@ -127,10 +130,6 @@ public class ExistingCustNewWorkOrderPane extends BorderPane {
         Button newProfile = new Button("Create A New Customer");
         newProfile.setAlignment(Pos.TOP_RIGHT);
 
-        newProfile.setOnMouseClicked(e->{
-            NewWorkOrderTab.getInstance().setContent(new NewWorkOrderPane());
-        });
-
         searchBar.getChildren().addAll(searchText, searchTextField, searchButton, newProfile);
 
         tableAndButtonBox.setAlignment(Pos.BOTTOM_CENTER);
@@ -142,7 +141,7 @@ public class ExistingCustNewWorkOrderPane extends BorderPane {
          * Middle of the Form is a table view of which vehicle to perform a service on
          */
         //Vehicle list view title
-        Text vehListViewText = new Text("Vehicle Information");
+        Text vehListViewText = new Text("Customer's Vehicles");
         vehListViewText.setFont(Font.font("Times New Roman", 20));
 
         HBox hBox = new HBox();
@@ -236,7 +235,7 @@ public class ExistingCustNewWorkOrderPane extends BorderPane {
          */
 
         //Vehicle info title
-        Text vehicleInfo = new Text("Add New Vehicle");
+        Text vehicleInfo = new Text("Vehicle Information");
         vehicleInfo.setFont(Font.font("Times New Roman", 20));
 
         //Vin num Label
@@ -395,6 +394,24 @@ public class ExistingCustNewWorkOrderPane extends BorderPane {
         this.setBottom(warning);
         this.setPadding(new Insets(0, 10, 0, 10));
 
+        newProfile.setOnMouseClicked(e->{
+            NewWorkOrderTab newWorkOrderTab = NewWorkOrderTab.getInstance();
+            if(!ExistingWorkOrderTab.getInstance().getTabPane().getTabs().contains(newWorkOrderTab)) {
+                ExistingWorkOrderTab.getInstance().getTabPane().getTabs().add(newWorkOrderTab);
+                ExistingWorkOrderTab.getInstance().getTabPane().getSelectionModel().select(newWorkOrderTab);
+                issue.setText("");
+
+                addVehicleBox.setVisible(false);
+                hBox.setVisible(false);
+                customers = custTable.getAllActiveCustomers();
+                tableView.refresh();
+                tableView.getSelectionModel().clearSelection();
+                ExistingWorkOrderTab.closeInstance();
+            } else {
+                ExistingWorkOrderTab.getInstance().getTabPane().getSelectionModel().select(newWorkOrderTab);
+            }
+        });
+
 
         //Once the form is completed
         submit.setOnMouseClicked(e-> {
@@ -455,8 +472,13 @@ public class ExistingCustNewWorkOrderPane extends BorderPane {
 
                     //Complete the form and close the instance
                     issue.setText("");
+
+                    addVehicleBox.setVisible(false);
+                    hBox.setVisible(false);
+                    customers = custTable.getAllActiveCustomers();
                     tableView.refresh();
-                    NewWorkOrderTab.closeInstance();
+                    tableView.getSelectionModel().clearSelection();
+                    ExistingWorkOrderTab.closeInstance();
                 }
             } catch(Exception f) {
                 warning.setVisible(true);
