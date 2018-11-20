@@ -51,10 +51,10 @@ public class ExistingWorkOrderTab extends Tab {
             return tab;
         }
 
-        public static ExistingWorkOrderTab closeInstance() {
+        public static void closeInstance() {
             if (tab != null) {
                 tab.getTabPane().getTabs().remove(tab);
+                tab = null;
             }
-            return tab;
         }
 }

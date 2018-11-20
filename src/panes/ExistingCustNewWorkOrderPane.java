@@ -404,6 +404,7 @@ public class ExistingCustNewWorkOrderPane extends BorderPane {
                 addVehicleBox.setVisible(false);
                 hBox.setVisible(false);
                 customers = custTable.getAllActiveCustomers();
+                tableView.setItems(FXCollections.observableArrayList(customers));
                 tableView.refresh();
                 tableView.getSelectionModel().clearSelection();
                 ExistingWorkOrderTab.closeInstance();
@@ -476,6 +477,7 @@ public class ExistingCustNewWorkOrderPane extends BorderPane {
                     addVehicleBox.setVisible(false);
                     hBox.setVisible(false);
                     customers = custTable.getAllActiveCustomers();
+                    tableView.setItems(FXCollections.observableArrayList(customers));
                     tableView.refresh();
                     tableView.getSelectionModel().clearSelection();
                     ExistingWorkOrderTab.closeInstance();
