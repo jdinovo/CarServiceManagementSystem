@@ -287,39 +287,39 @@ public class EditCustInfoPane extends BorderPane {
             postalCodeText.setTextFill(Color.BLACK);
             phoneNumText.setTextFill(Color.BLACK);
             warning.setText("You have an empty textfield! Please fill out the entire form!");
-            if (firstName.getText().isEmpty()) {
+            if (firstName.getText().trim().isEmpty()) {
                 firstNameText.setTextFill(Color.RED);
                 warning.setVisible(true);
-            } else if (lastName.getText().isEmpty()) {
+            } else if (lastName.getText().trim().isEmpty()) {
                 lastNameText.setTextFill(Color.RED);
                 warning.setVisible(true);
-            } else if (address.getText().isEmpty()) {
+            } else if (address.getText().trim().isEmpty()) {
                 addressText.setTextFill(Color.RED);
                 warning.setVisible(true);
-            } else if (city.getText().isEmpty()) {
+            } else if (city.getText().trim().isEmpty()) {
                 cityText.setTextFill(Color.RED);
                 warning.setVisible(true);
             } else if (comboProvince.getValue().isEmpty()) {
                 provinceText.setTextFill(Color.RED);
                 warning.setVisible(true);
-            } else if (email.getText().isEmpty()) {
+            } else if (email.getText().trim().isEmpty()) {
                 emailText.setTextFill(Color.RED);
                 warning.setVisible(true);
-            } else if (postalCode.getText().isEmpty()) {
+            } else if (postalCode.getText().trim().isEmpty()) {
                 postalCodeText.setTextFill(Color.RED);
                 warning.setVisible(true);
-            } else if (phoneNum.getText().isEmpty()) {
+            } else if (phoneNum.getText().trim().isEmpty()) {
                 phoneNumText.setTextFill(Color.RED);
                 warning.setVisible(true);
-            } else if (!email.getText().matches("^[\\w!#$%&’*+/=?`{|}~^-]+(?:\\.[\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$")) {
+            } else if (!email.getText().trim().matches("^[\\w!#$%&’*+/=?`{|}~^-]+(?:\\.[\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$")) {
                 warning.setText("Please make sure email follows example@company.com");
                 warning.setVisible(true);
                 emailText.setTextFill(Color.RED);
-            } else if (postalCode.getText().length() > 6) {
+            } else if (postalCode.getText().trim().length() > 6) {
                 warning.setText("Please make sure your postal code follows A0B1C0");
                 warning.setVisible(true);
                 postalCodeText.setTextFill(Color.RED);
-            } else if (phoneNum.getText().length() > 15 || !phoneNum.getText().matches("\\(\\d{3}\\)\\d{3}-?\\d{4}")) {
+            } else if (phoneNum.getText().trim().length() > 15 || !phoneNum.getText().matches("\\(\\d{3}\\)\\d{3}-?\\d{4}")) {
                 warning.setText("Please make sure your phone number follows (555)555-5555");
                 warning.setVisible(true);
                 phoneNumText.setTextFill(Color.RED);
@@ -439,7 +439,7 @@ public class EditCustInfoPane extends BorderPane {
         });
 
         add.setOnAction(e-> {
-            if(vinNum.getText().isEmpty()) {
+            if(vinNum.getText().trim().isEmpty()) {
                 warning.setText("VIN cannot be left empty");
                 warning.setVisible(true);
                 vinNumText.setTextFill(Color.RED);
@@ -451,23 +451,23 @@ public class EditCustInfoPane extends BorderPane {
                 warning.setText("You must select a model");
                 warning.setVisible(true);
                 modelText.setTextFill(Color.RED);
-            } else if (year.getText().isEmpty()) {
+            } else if (year.getText().trim().isEmpty()) {
                 warning.setText("Year cannot be left empty");
                 warning.setVisible(true);
                 yearText.setTextFill(Color.RED);
-            } else if (kilometers.getText().isEmpty()) {
+            } else if (kilometers.getText().trim().isEmpty()) {
                 warning.setText("Kilometers cannot be left empty");
                 warning.setVisible(true);
                 kilometersText.setTextFill(Color.RED);
-            }  else if (vinNum.getText().length() > 17) {
+            }  else if (vinNum.getText().trim().length() > 17) {
                 warning.setText("VIN cannot be longer than 17 characters");
                 warning.setVisible(true);
                 vinNumText.setTextFill(Color.RED);
-            } else if (year.getText().length() > 4 || !StringUtils.isStrictlyNumeric(year.getText())) {
+            } else if (year.getText().trim().length() > 4 || !StringUtils.isStrictlyNumeric(year.getText())) {
                 warning.setText("Year cannot be longer than 4 digits");
                 warning.setVisible(true);
                 yearText.setTextFill(Color.RED);
-            } else if (!StringUtils.isStrictlyNumeric(kilometers.getText()) || kilometers.getText().length() > 7) {
+            } else if (!StringUtils.isStrictlyNumeric(kilometers.getText()) || kilometers.getText().trim().length() > 7) {
                 warning.setText("Kilometers must be numeric");
                 warning.setVisible(true);
                 kilometersText.setTextFill(Color.RED);

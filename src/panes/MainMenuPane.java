@@ -6,10 +6,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
-import tabs.EditCustInfoTab;
-import tabs.LoginTab;
-import tabs.NewWorkOrderTab;
-import tabs.StatisticsTab;
+import tabs.*;
 
 /**
  *
@@ -52,10 +49,14 @@ public class MainMenuPane extends BorderPane {
 		//Create MenuItems for the 'File' Tab
 		MenuItem newWork = new MenuItem("New Work Order");
 		newWork.setOnAction(e-> {
-			NewWorkOrderTab newWorkTab = NewWorkOrderTab.getInstance();
+			ExistingWorkOrderTab newWorkTab = ExistingWorkOrderTab.getInstance();
 			//if tab is not already open
-			if(!tabPane.getTabs().contains(newWorkTab)) {
+			if(!tabPane.getTabs().contains(newWorkTab) && !tabPane.getTabs().contains(NewWorkOrderTab.getInstance())) {
 				tabPane.getTabs().add(newWorkTab);
+				tabPane.getSelectionModel().select(newWorkTab);
+			} else if(tabPane.getTabs().contains(NewWorkOrderTab.getInstance())){
+				tabPane.getSelectionModel().select(NewWorkOrderTab.getInstance());
+			} else {
 				tabPane.getSelectionModel().select(newWorkTab);
 			}
 		});
@@ -75,6 +76,8 @@ public class MainMenuPane extends BorderPane {
 			if(!tabPane.getTabs().contains(editInfoTab)) {
 				tabPane.getTabs().add(editInfoTab);
 				tabPane.getSelectionModel().select(editInfoTab);
+			} else {
+				tabPane.getSelectionModel().select(editInfoTab);
 			}
 		});
 
@@ -85,6 +88,8 @@ public class MainMenuPane extends BorderPane {
 			if(!tabPane.getTabs().contains(statsTab)) {
 				tabPane.getTabs().add(statsTab);
 				tabPane.getSelectionModel().select(statsTab);
+			} else {
+				tabPane.getSelectionModel().select(statsTab);
 			}
 		});
 
@@ -94,6 +99,8 @@ public class MainMenuPane extends BorderPane {
 			LoginTab loginTab = LoginTab.getInstance();
 			if(!tabPane.getTabs().contains(loginTab)) {
 				tabPane.getTabs().add(loginTab);
+				tabPane.getSelectionModel().select(loginTab);
+			} else {
 				tabPane.getSelectionModel().select(loginTab);
 			}
 		});

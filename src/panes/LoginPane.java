@@ -43,8 +43,6 @@ public class LoginPane extends BorderPane {
 
             Login login = new Login();
 
-
-
             error.setVisible(false);
 
             VBox box = new VBox();
