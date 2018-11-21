@@ -53,11 +53,10 @@ public class NewWorkOrderTab extends Tab {
 		return tab;
 	}
 
-	public static NewWorkOrderTab closeInstance() {
+	public static void closeInstance() {
 		if (tab != null) {
-			tab.getTabPane().getTabs().clear();
 			tab.getTabPane().getTabs().remove(tab);
+			tab = null;
 		}
-		return tab;
 	}
 }
