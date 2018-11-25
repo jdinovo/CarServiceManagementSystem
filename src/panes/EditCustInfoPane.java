@@ -35,7 +35,7 @@ import static main.Const.TEXTFIELD_WIDTH_SIZE;
 public class EditCustInfoPane extends BorderPane {
     //Importing the vehicleMap
     private Map<String, List<String>> vehicleMap = VehicleChoice.getVehicleModel();
-    ArrayList<String> provinceMap = ProvinceChoice.getProvinceModel();
+    private ArrayList<String> provinceMap = ProvinceChoice.getProvinceModel();
 
     //ComboBoxes for the form
     private ComboBox<String> comboBrand = new ComboBox<>();

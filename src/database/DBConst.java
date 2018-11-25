@@ -52,6 +52,15 @@ public class DBConst {
 	public static final String CUSTOMER_VEHICLES_COLUMN_CUSTOMER_ID = "customer_id";
 	public static final String CUSTOMER_VEHICLES_COLUMN_VEHICLE_ID = "vehicle_id";
 
+	public static final String TABLE_CUSTOMER_VEHICLE_ISSUE = "customer_vehicle_issue";
+	public static final String CUSTOMER_VEHICLE_ISSUE_COLUMN_FNAME = "firstName";
+	public static final String CUSTOMER_VEHICLE_ISSUE_COLUMN_LNAME = "lastName";
+	public static final String CUSTOMER_VEHICLE_ISSUE_COLUMN_BRAND = "brand";
+	public static final String CUSTOMER_VEHICLE_ISSUE_COLUMN_MODEL = "model";
+	public static final String CUSTOMER_VEHICLE_ISSUE_COLUMN_WORKORDER_ID = "workorder_id";
+	public static final String CUSTOMER_VEHICLE_ISSUE_COLUMN_ISSUE = "issue";
+	public static final String CUSTOMER_VEHICLE_ISSUE_COLUMN_CLOSED = "closed";
+
 	public static final String TABLE_VEHICLE_WORKORDERS = "vehicle_workorders";
 	public static final String VEHICLE_WORKORDERS_COLUMN_VEHICLE_ID = "vehicle_id";
 	public static final String VEHICLE_WORKORDERS_COLUMN_WORKORDER_ID = "workorder_id";
@@ -91,6 +100,19 @@ public class DBConst {
 					" FOREIGN KEY (" + CUSTOMER_VEHICLES_COLUMN_CUSTOMER_ID + ") REFERENCES " + TABLE_CUSTOMERS + " (" + CUSTOMER_COLUMN_ID + "), " +
 					" FOREIGN KEY (" + CUSTOMER_VEHICLES_COLUMN_VEHICLE_ID + ") REFERENCES " + TABLE_VEHICLES + " (" + VEHICLE_COLUMN_ID + "), " +
 					"PRIMARY KEY(" + CUSTOMER_VEHICLES_COLUMN_CUSTOMER_ID + ", " + CUSTOMER_VEHICLES_COLUMN_VEHICLE_ID + ")" +
+					");";
+
+	public static final String CREATE_TABLE_CUSTOMER_VEHICLE_ISSUE =
+			"CREATE TABLE " + TABLE_CUSTOMER_VEHICLE_ISSUE + " (" +
+					CUSTOMER_VEHICLE_ISSUE_COLUMN_FNAME + " VARCHAR(50), " +
+					CUSTOMER_VEHICLE_ISSUE_COLUMN_LNAME + " VARCHAR(50), " +
+					CUSTOMER_VEHICLE_ISSUE_COLUMN_BRAND + " VARCHAR(50), " +
+					CUSTOMER_VEHICLE_ISSUE_COLUMN_MODEL + " VARCHAR(50), " +
+					CUSTOMER_VEHICLE_ISSUE_COLUMN_WORKORDER_ID + " int NOT NULL, " +
+					" FOREIGN KEY (" + CUSTOMER_VEHICLE_ISSUE_COLUMN_WORKORDER_ID + ") REFERENCES " + TABLE_WORKORDERS + " (" + WORKORDERS_COLUMN_ID + "), " +
+					CUSTOMER_VEHICLE_ISSUE_COLUMN_ISSUE + " VARCHAR(255), " +
+					CUSTOMER_VEHICLE_ISSUE_COLUMN_CLOSED + " BOOLEAN, " +
+					"PRIMARY KEY(" + CUSTOMER_VEHICLE_ISSUE_COLUMN_WORKORDER_ID + ")" +
 					");";
 
 	public static final String CREATE_TABLE_WORKORDERS =

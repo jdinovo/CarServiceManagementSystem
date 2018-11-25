@@ -32,6 +32,7 @@ public class Database {
 				createTable(DBConst.TABLE_WORKORDERS, DBConst.CREATE_TABLE_WORKORDERS, connection);
 				createTable(DBConst.TABLE_CUSTOMER_VEHICLES, DBConst.CREATE_TABLE_CUSTOMER_VEHICLES, connection);
 				createTable(DBConst.TABLE_VEHICLE_WORKORDERS, DBConst.CREATE_TABLE_VEHICLE_WORKORDERS, connection);
+				createTable(DBConst.TABLE_CUSTOMER_VEHICLE_ISSUE, DBConst.CREATE_TABLE_CUSTOMER_VEHICLE_ISSUE, connection);
 			} catch(SQLException e) {
 				e.printStackTrace();
 			}

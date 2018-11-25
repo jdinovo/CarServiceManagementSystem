@@ -62,7 +62,17 @@ public class MainMenuPane extends BorderPane {
 		});
 		MenuItem openWork = new MenuItem("Open Work Orders");
 		openWork.setOnAction(e-> {
-			
+			OpenWorkOrderTab openWorkOrderTab = OpenWorkOrderTab.getInstance();
+
+			//if tab is not already open
+			if(!tabPane.getTabs().contains(openWorkOrderTab) && !tabPane.getTabs().contains(OpenWorkOrderTab.getInstance())) {
+				tabPane.getTabs().add(openWorkOrderTab);
+				tabPane.getSelectionModel().select(openWorkOrderTab);
+			} else if(tabPane.getTabs().contains(OpenWorkOrderTab.getInstance())){
+				tabPane.getSelectionModel().select(OpenWorkOrderTab.getInstance());
+			} else {
+				tabPane.getSelectionModel().select(openWorkOrderTab);
+			}
 		});
 		MenuItem closeWork = new MenuItem("Closed Work Orders");
 		closeWork.setOnAction(e-> {

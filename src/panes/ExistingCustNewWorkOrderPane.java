@@ -25,6 +25,18 @@ import java.util.*;
 
 import static main.Const.TEXTFIELD_WIDTH_SIZE;
 
+/**
+ * ExistingCustNewWorkOrderPane is the pane that opens
+ * when a new work order is to be created.
+ * It consists of a lsitview of the all the customers,
+ * with the option to search by phone number and create a work order based off existing customers.
+ *
+ * Otherwise you can create a new work order as well as a new customer profile
+ *
+ * @author Chris Dias
+ * @version 1.0
+ * @since 11/19/2018
+ */
 public class ExistingCustNewWorkOrderPane extends BorderPane {
 
     //Importing the vehicleMap
@@ -39,7 +51,7 @@ public class ExistingCustNewWorkOrderPane extends BorderPane {
     private Customers customer = new Customers();
     private Vehicles vehicle = new Vehicles();
     private ArrayList<Customers> customers;
-    private ArrayList<CustomerVehicles> customerVehicles = new ArrayList<>();
+    private ArrayList<CustomerVehicles> customerVehicles;
     private ArrayList<Vehicles> vehicles = new ArrayList<>();
 
     //Get Access to the tables
@@ -48,6 +60,7 @@ public class ExistingCustNewWorkOrderPane extends BorderPane {
     private WorkordersTable workTable = new WorkordersTable();
     private CustomerVehiclesTable custVehTable = new CustomerVehiclesTable();
     private VehicleWorkordersTable vehWorkTable = new VehicleWorkordersTable();
+    private CustomerVehicleIssueTable customerVehicleIssueTable = new CustomerVehicleIssueTable();
 
     private ListView<Vehicles> vehicleListView = new ListView<>();
 
@@ -463,6 +476,10 @@ public class ExistingCustNewWorkOrderPane extends BorderPane {
 
                     VehicleWorkorders vehicleWorkorder = new VehicleWorkorders(vehicle.getId(), workorderArray.get(workorderArray.size() - 1).getId());
                     vehWorkTable.createVehicleWorkorder(vehicleWorkorder);
+
+                    CustomerVehicleIssue customerVehicleIssue = new CustomerVehicleIssue(firstName.getText(), lastName.getText(), comboBrand.getValue(),
+                            comboModel.getValue(), workorderArray.get(workorderArray.size() - 1).getId(), issue.getText(), 0);
+                    customerVehicleIssueTable.createCustomerVehicleIssue(customerVehicleIssue);
 
                     //Complete the form and close the instance
                     issue.setText("");
