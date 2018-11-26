@@ -35,7 +35,7 @@ import static main.Const.TEXTFIELD_WIDTH_SIZE;
 public class EditCustInfoPane extends BorderPane {
     //Importing the vehicleMap
     private Map<String, List<String>> vehicleMap = VehicleChoice.getVehicleModel();
-    ArrayList<String> provinceMap = ProvinceChoice.getProvinceModel();
+    private ArrayList<String> provinceMap = ProvinceChoice.getProvinceModel();
 
     //ComboBoxes for the form
     private ComboBox<String> comboBrand = new ComboBox<>();
@@ -102,8 +102,7 @@ public class EditCustInfoPane extends BorderPane {
         tableView.setEditable(false);
         tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         tableView.setFixedCellSize(25);
-        tableView.setPrefHeight(150);
-
+        tableView.setPrefHeight(675);
 
         TableColumn<Customers, String> firstNameCol = new TableColumn<>("First Name");
         firstNameCol.setCellValueFactory(new PropertyValueFactory<>("firstName"));
@@ -413,6 +412,7 @@ public class EditCustInfoPane extends BorderPane {
                 tableView.setItems(FXCollections.observableArrayList(customers));
                 tableView.refresh();
                 hBox.setVisible(false);
+                tableView.setPrefHeight(675);
             }
 
         });
@@ -534,6 +534,7 @@ public class EditCustInfoPane extends BorderPane {
                             vehicles.add(vehicleHolder);
                         }
                     });
+                    tableView.setPrefHeight(150);
                     firstName.setText(customer.getFirstName());
                     lastName.setText(customer.getLastName());
                     address.setText(customer.getAddress());

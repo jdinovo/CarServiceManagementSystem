@@ -15,9 +15,9 @@ import java.util.ArrayList;
  */
 
 public interface WorkordersDAO {
-    public ArrayList<Workorders> getAllWorkorders();
-    public Workorders getWorkorder(int workorderID);
-    public void updateWorkorder(Workorders workorder);
-    public void deleteWorkorder(Workorders workorder);
-    public void createWorkorder(Workorders workorder);
+    ArrayList<Workorders> getAllWorkorders();
+    Workorders getWorkorder(int workorderID);
+    void updateWorkorder(Workorders workorder);
+    void deleteWorkorder(Workorders workorder);
+    void createWorkorder(Workorders workorder);
 }

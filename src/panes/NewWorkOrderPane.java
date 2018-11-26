@@ -52,6 +52,7 @@ public class NewWorkOrderPane extends GridPane {
     WorkordersTable workTable = new WorkordersTable();
     CustomerVehiclesTable custVehTable = new CustomerVehiclesTable();
     VehicleWorkordersTable vehWorkTable = new VehicleWorkordersTable();
+    CustomerVehicleIssueTable customerVehicleIssueTable = new CustomerVehicleIssueTable();
 
     /**
      * @author Chris Dias

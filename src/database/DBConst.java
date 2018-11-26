@@ -52,6 +52,15 @@ public class DBConst {
 	public static final String CUSTOMER_VEHICLES_COLUMN_CUSTOMER_ID = "customer_id";
 	public static final String CUSTOMER_VEHICLES_COLUMN_VEHICLE_ID = "vehicle_id";
 
+	public static final String TABLE_CUSTOMER_VEHICLE_ISSUE = "customer_vehicle_issue";
+	public static final String CUSTOMER_VEHICLE_ISSUE_COLUMN_FNAME = "first_name";
+	public static final String CUSTOMER_VEHICLE_ISSUE_COLUMN_LNAME = "last_name";
+	public static final String CUSTOMER_VEHICLE_ISSUE_COLUMN_BRAND = "brand";
+	public static final String CUSTOMER_VEHICLE_ISSUE_COLUMN_MODEL = "model";
+	public static final String CUSTOMER_VEHICLE_ISSUE_COLUMN_WORKORDER_ID = "id";
+	public static final String CUSTOMER_VEHICLE_ISSUE_COLUMN_ISSUE = "issue";
+	public static final String CUSTOMER_VEHICLE_ISSUE_COLUMN_CLOSED = "closed";
+
 	public static final String TABLE_VEHICLE_WORKORDERS = "vehicle_workorders";
 	public static final String VEHICLE_WORKORDERS_COLUMN_VEHICLE_ID = "vehicle_id";
 	public static final String VEHICLE_WORKORDERS_COLUMN_WORKORDER_ID = "workorder_id";
@@ -92,6 +101,22 @@ public class DBConst {
 					" FOREIGN KEY (" + CUSTOMER_VEHICLES_COLUMN_VEHICLE_ID + ") REFERENCES " + TABLE_VEHICLES + " (" + VEHICLE_COLUMN_ID + "), " +
 					"PRIMARY KEY(" + CUSTOMER_VEHICLES_COLUMN_CUSTOMER_ID + ", " + CUSTOMER_VEHICLES_COLUMN_VEHICLE_ID + ")" +
 					");";
+
+	public static final String CREATE_TABLE_CUSTOMER_VEHICLE_ISSUE =
+			"CREATE OR REPLACE VIEW " + TABLE_CUSTOMER_VEHICLE_ISSUE + " AS SELECT cust." +
+					CUSTOMER_VEHICLE_ISSUE_COLUMN_FNAME + ", cust." +
+					CUSTOMER_VEHICLE_ISSUE_COLUMN_LNAME + ", veh." +
+					CUSTOMER_VEHICLE_ISSUE_COLUMN_BRAND + ", veh." +
+					CUSTOMER_VEHICLE_ISSUE_COLUMN_MODEL + ", work." +
+					CUSTOMER_VEHICLE_ISSUE_COLUMN_WORKORDER_ID + ", work." +
+					CUSTOMER_VEHICLE_ISSUE_COLUMN_ISSUE + ", work." +
+					CUSTOMER_VEHICLE_ISSUE_COLUMN_CLOSED + " FROM " +
+					TABLE_CUSTOMERS + " cust, " + TABLE_CUSTOMER_VEHICLES + " custVeh, " +
+					TABLE_VEHICLES + " veh, " + TABLE_VEHICLE_WORKORDERS + " vehWork," +
+					TABLE_WORKORDERS + " work WHERE custVeh." + CUSTOMER_VEHICLES_COLUMN_CUSTOMER_ID +
+					" = cust." + CUSTOMER_COLUMN_ID + " AND " + "veh." + VEHICLE_COLUMN_ID + " = custVeh." + CUSTOMER_VEHICLES_COLUMN_VEHICLE_ID +
+					" AND vehWork." + VEHICLE_WORKORDERS_COLUMN_WORKORDER_ID + " = work." + WORKORDERS_COLUMN_ID + " AND " +
+					"vehWork." + VEHICLE_WORKORDERS_COLUMN_VEHICLE_ID + " = veh." + VEHICLE_COLUMN_ID + " AND cust." + CUSTOMER_COLUMN_DELETED + " = 0 AND veh." + VEHICLE_COLUMN_DELETED + " = 0 ORDER BY work." + WORKORDERS_COLUMN_ID + ";";
 
 	public static final String CREATE_TABLE_WORKORDERS =
 			"CREATE TABLE " + TABLE_WORKORDERS + " (" +
