@@ -61,12 +61,14 @@ public class WorkordersTable implements WorkordersDAO {
         try {
             Statement getItem = db.getConnection().createStatement();
             ResultSet data = getItem.executeQuery(query);
-            workorder = new Workorders(data.getInt(DBConst.WORKORDERS_COLUMN_ID),
-                    data.getString(DBConst.WORKORDERS_COLUMN_DATE),
-                    data.getString(DBConst.WORKORDERS_COLUMN_ISSUE),
-                    data.getString(DBConst.WORKORDERS_COLUMN_CAUSE),
-                    data.getString(DBConst.WORKORDERS_COLUMN_CORRECTION),
-                    data.getInt(DBConst.WORKORDERS_COLUMN_CLOSED));
+            if(data.next()) {
+                workorder = new Workorders(data.getInt(DBConst.WORKORDERS_COLUMN_ID),
+                        data.getString(DBConst.WORKORDERS_COLUMN_DATE),
+                        data.getString(DBConst.WORKORDERS_COLUMN_ISSUE),
+                        data.getString(DBConst.WORKORDERS_COLUMN_CAUSE),
+                        data.getString(DBConst.WORKORDERS_COLUMN_CORRECTION),
+                        data.getInt(DBConst.WORKORDERS_COLUMN_CLOSED));
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -80,15 +82,15 @@ public class WorkordersTable implements WorkordersDAO {
     @Override
     public void updateWorkorder(Workorders workorder) {
         String query = "UPDATE " + DBConst.TABLE_WORKORDERS + " SET "  +
-                DBConst.WORKORDERS_COLUMN_DATE + " " + workorder.getDate() + ", " +
-                DBConst.WORKORDERS_COLUMN_ISSUE + " " + workorder.getIssue() + ", " +
-                DBConst.WORKORDERS_COLUMN_CAUSE+ " " + workorder.getCause() + ", " +
-                DBConst.WORKORDERS_COLUMN_CORRECTION + " " + workorder.getCorrection() +
-                DBConst.WORKORDERS_COLUMN_CLOSED + " " + workorder.getClosed() +
-                " WHERE " + DBConst.WORKORDERS_COLUMN_ID + " = " + workorder.getId();
+                DBConst.WORKORDERS_COLUMN_DATE + " = '" + workorder.getDate() + "', " +
+                DBConst.WORKORDERS_COLUMN_ISSUE + " = '" + workorder.getIssue() + "', " +
+                DBConst.WORKORDERS_COLUMN_CAUSE+ " = '" + workorder.getCause() + "', " +
+                DBConst.WORKORDERS_COLUMN_CORRECTION + " = '" + workorder.getCorrection() + "', " +
+                DBConst.WORKORDERS_COLUMN_CLOSED + " = '" + workorder.getClosed() +
+                "' WHERE " + DBConst.WORKORDERS_COLUMN_ID + " = " + workorder.getId();
         try {
             Statement updateItem = db.getConnection().createStatement();
-            updateItem.executeQuery(query);
+            updateItem.execute(query);
         } catch (SQLException e) {
             e.printStackTrace();
         }
