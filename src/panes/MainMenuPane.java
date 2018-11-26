@@ -77,6 +77,17 @@ public class MainMenuPane extends BorderPane {
 		MenuItem closeWork = new MenuItem("Closed Work Orders");
 		closeWork.setOnAction(e-> {
 
+			ClosedWorkOrderTab closedWorkOrderTab = ClosedWorkOrderTab.getInstance();
+
+			//if tab is not already open
+			if(!tabPane.getTabs().contains(closedWorkOrderTab) && !tabPane.getTabs().contains(ClosedWorkOrderTab.getInstance())) {
+				tabPane.getTabs().add(closedWorkOrderTab);
+				tabPane.getSelectionModel().select(closedWorkOrderTab);
+			} else if(tabPane.getTabs().contains(ClosedWorkOrderTab.getInstance())){
+				tabPane.getSelectionModel().select(ClosedWorkOrderTab.getInstance());
+			} else {
+				tabPane.getSelectionModel().select(closedWorkOrderTab);
+			}
 		});
 
 		//Create MenuItems for the 'Edit' Tab

@@ -17,6 +17,7 @@ public interface CustomerVehiclesIssueDAO {
 
     ArrayList<CustomerVehicleIssue> getAllCustomerVehicleIssues();
     ArrayList<CustomerVehicleIssue> getAllOpenCustomerVehicleIssues();
+    ArrayList<CustomerVehicleIssue> getAllClosedCustomerVehicleIssues();
     void createCustomerVehicleIssue(CustomerVehicleIssue customerVehicleIssue);
     void updateCustomerVehicleIssue(CustomerVehicleIssue customerVehicleIssue);
 

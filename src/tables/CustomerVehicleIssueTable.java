@@ -59,6 +59,12 @@ public class CustomerVehicleIssueTable implements CustomerVehiclesIssueDAO {
     }
 
     @Override
+    public ArrayList<CustomerVehicleIssue> getAllClosedCustomerVehicleIssues() {
+        String query = "SELECT * FROM " + DBConst.TABLE_CUSTOMER_VEHICLE_ISSUE + " WHERE " + DBConst.CUSTOMER_VEHICLE_ISSUE_COLUMN_CLOSED + " = '1'";
+        return getCustomerVehicleIssuesDB(query);
+    }
+
+    @Override
     public void createCustomerVehicleIssue(CustomerVehicleIssue customerVehicleIssue) {
         String query = "INSERT INTO " + DBConst.TABLE_CUSTOMER_VEHICLE_ISSUE + " (" +
                 DBConst.CUSTOMER_VEHICLE_ISSUE_COLUMN_FNAME + ", " +

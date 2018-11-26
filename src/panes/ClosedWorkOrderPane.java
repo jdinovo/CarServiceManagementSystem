@@ -1,39 +1,33 @@
 package panes;
 
-
-import form.ProvinceChoice;
-import form.VehicleChoice;
-import javabean.*;
+import javabean.CustomerVehicleIssue;
 import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import tables.*;
+import tables.CustomerVehicleIssueTable;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 /**
- * OpenWorkOrderPane contains the GUI for all active open work orders
+ * ClosedWorkOrderPane contains the GUI for all closed open work orders
  *
  * @author Chris Dias
  * @version 1.0
- * @since 11/24/2018
+ * @since 11/26/2018
  */
-public class OpenWorkOrderPane extends BorderPane {
+public class ClosedWorkOrderPane extends BorderPane {
 
     //Getting access to the data
     private ArrayList<CustomerVehicleIssue> customerVehicleIssues;
     CustomerVehicleIssueTable customerVehicleIssueTable = new CustomerVehicleIssueTable();
 
-    public OpenWorkOrderPane() {
+    public ClosedWorkOrderPane() {
 
-        customerVehicleIssues = customerVehicleIssueTable.getAllOpenCustomerVehicleIssues();
+        customerVehicleIssues = customerVehicleIssueTable.getAllClosedCustomerVehicleIssues();
 
         //Table that will contain the list of all active work orders
         TableView tableView = new TableView<>();
