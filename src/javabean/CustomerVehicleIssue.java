@@ -6,7 +6,7 @@ public class CustomerVehicleIssue {
     private String lastName;
     private String brand;
     private String model;
-    private int customerid;
+    private int workOrderId;
     private String issue;
     private int closed = 0;
 
@@ -24,15 +24,15 @@ public class CustomerVehicleIssue {
      * @param lastName
      * @param brand
      * @param model
-     * @param customerid
+     * @param workOrderId
      * @param issue
      */
-    public CustomerVehicleIssue(String firstName, String lastName, String brand, String model, int customerid, String issue, int closed) {
+    public CustomerVehicleIssue(String firstName, String lastName, String brand, String model, int workOrderId, String issue, int closed) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.brand = brand;
         this.model = model;
-        this.customerid = customerid;
+        this.workOrderId = workOrderId;
         this.issue = issue;
         this.closed = closed;
     }
@@ -152,8 +152,8 @@ public class CustomerVehicleIssue {
      *  @version 1.0
      * @return int
      */
-    public int getCustomerid() {
-        return customerid;
+    public int getWorkOrderId() {
+        return workOrderId;
     }
 
     /**
@@ -163,10 +163,10 @@ public class CustomerVehicleIssue {
      *  @author James DiNovo
      *  @date 17.11.2018
      *  @version 1.0
-     * @param customerid
+     * @param workOrderId
      */
-    public void setCustomerid(int customerid) {
-        this.customerid = customerid;
+    public void setWorkOrderId(int workOrderId) {
+        this.workOrderId = workOrderId;
     }
 
     /**

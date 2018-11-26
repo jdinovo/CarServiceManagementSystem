@@ -56,7 +56,7 @@ public class OpenWorkOrderPane extends BorderPane {
         modelCol.setCellValueFactory(new PropertyValueFactory<>("model"));
 
         TableColumn<CustomerVehicleIssue, Integer> idCol = new TableColumn<>("Work Order ID");
-        idCol.setCellValueFactory(new PropertyValueFactory<>("customerid"));
+        idCol.setCellValueFactory(new PropertyValueFactory<>("workOrderId"));
 
         TableColumn<CustomerVehicleIssue, String> issueCol = new TableColumn<>("Issue Desc");
         issueCol.setCellValueFactory(new PropertyValueFactory<>("issue"));

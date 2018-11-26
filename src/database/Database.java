@@ -86,9 +86,7 @@ public class Database {
 	 * @param connection is the connection to the db
 	 * @throws SQLException
 	 */
-	private void createTable(String tableName,
-							String tableQuery,
-							Connection connection) throws SQLException {
+	private void createTable(String tableName, String tableQuery, Connection connection) throws SQLException {
 		Statement sqlStatement;
 		//Grab the database meta data
 		DatabaseMetaData md = connection.getMetaData();
@@ -97,8 +95,7 @@ public class Database {
 		//if I have a next value (the table exists, otherwise it does not)
 		if(result.next()) {
 			System.out.println( tableName + " Table already exists");
-		}
-		else {
+		} else {
 			sqlStatement = connection.createStatement();
 			sqlStatement.execute(tableQuery);
 			System.out.println("The " + tableName + " table has been inserted");

@@ -78,7 +78,7 @@ public class CustomerVehicleIssueTable implements CustomerVehiclesIssueDAO {
                 customerVehicleIssue.getLastName() + "','" +
                 customerVehicleIssue.getBrand() + "','" +
                 customerVehicleIssue.getModel() + "','" +
-                customerVehicleIssue.getCustomerid() + "','" +
+                customerVehicleIssue.getWorkOrderId() + "','" +
                 customerVehicleIssue.getIssue() + "','" +
                 customerVehicleIssue.getClosed() + "')";
         try {
@@ -95,10 +95,10 @@ public class CustomerVehicleIssueTable implements CustomerVehiclesIssueDAO {
                 DBConst.CUSTOMER_VEHICLE_ISSUE_COLUMN_LNAME + " " + customerVehicleIssue.getLastName() + ", " +
                 DBConst.CUSTOMER_VEHICLE_ISSUE_COLUMN_BRAND + " " + customerVehicleIssue.getBrand() + ", " +
                 DBConst.CUSTOMER_VEHICLE_ISSUE_COLUMN_MODEL + " " + customerVehicleIssue.getModel() + ", " +
-                DBConst.CUSTOMER_VEHICLE_ISSUE_COLUMN_WORKORDER_ID + " " + customerVehicleIssue.getCustomerid() + ", " +
+                DBConst.CUSTOMER_VEHICLE_ISSUE_COLUMN_WORKORDER_ID + " " + customerVehicleIssue.getWorkOrderId() + ", " +
                 DBConst.CUSTOMER_VEHICLE_ISSUE_COLUMN_ISSUE + " " + customerVehicleIssue.getIssue() + ", " +
                 DBConst.CUSTOMER_VEHICLE_ISSUE_COLUMN_CLOSED + " " + customerVehicleIssue.getClosed() +
-                " WHERE " + DBConst.CUSTOMER_VEHICLE_ISSUE_COLUMN_WORKORDER_ID + " = " + customerVehicleIssue.getCustomerid();
+                " WHERE " + DBConst.CUSTOMER_VEHICLE_ISSUE_COLUMN_WORKORDER_ID + " = " + customerVehicleIssue.getWorkOrderId();
         try {
             Statement updateItem = db.getConnection().createStatement();
             updateItem.executeQuery(query);

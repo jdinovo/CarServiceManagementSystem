@@ -96,7 +96,7 @@ public class ExistingCustNewWorkOrderPane extends BorderPane {
         tableView.setEditable(false);
         tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         tableView.setFixedCellSize(25);
-        tableView.setPrefHeight(150);
+        tableView.setPrefHeight(625);
 
         TableColumn<Customers, String> firstNameCol = new TableColumn<>("First Name");
         firstNameCol.setCellValueFactory(new PropertyValueFactory<>("firstName"));
@@ -390,6 +390,7 @@ public class ExistingCustNewWorkOrderPane extends BorderPane {
                     hBox.setVisible(true);
                     addVehicleBox.setVisible(false);
                     warning.setVisible(false);
+                    tableView.setPrefHeight(150);
                 }
             });
             return row ;
