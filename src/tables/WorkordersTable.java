@@ -140,7 +140,6 @@ public class WorkordersTable implements WorkordersDAO {
         int count = -1;
         String closed = "closed";
         String query = "SELECT * FROM " + DBConst.TABLE_WORKORDERS + " WHERE " + DBConst.WORKORDERS_COLUMN_CLOSED + " = '" + closed + "'";
-        //		String query = "SELECT COUNT ('" + Const.ITEM_COLUMN_NAME + ")" + " FROM " + Const.TABLE_ITEM + " WHERE " + Const.ITEM_COLUMN_NAME + " = '" + coin + "'";
         try {
             Statement getCount = db.getConnection().createStatement();
             ResultSet data = getCount.executeQuery(query);
