@@ -6,6 +6,7 @@ import javafx.geometry.Side;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.BorderPane;
+import tables.WorkordersTable;
 
 /**
  *
@@ -69,14 +70,17 @@ public class StatisticsTab extends Tab {
 	 * @return chart
 	 */
 	public static PieChart generateChart() {
+		WorkordersTable table = new WorkordersTable();
+		int closed = table.getWorkordersCount();
+		int open = table.getWorkordersCount();
 		PieChart chart = new PieChart();
 		chart.setTitle("Service Charts Statistics");
 		chart.setLabelsVisible(true);
-		PieChart.Data slice1 = new PieChart.Data("Open Workorders", 17947195);
-		PieChart.Data slice2 = new PieChart.Data("Closed Workorders", 11540278);
-
-		chart.getData().add(slice1);
-		chart.getData().add(slice2);
+		ObservableList<PieChart.Data> data = FXCollections.observableArrayList(
+				new PieChart.Data("Open Workorders:", closed),
+				new PieChart.Data("Closed Workopers:", open)
+		);
+		chart.setData(data);
 
 		chart.setLegendSide(Side.LEFT);
 		return chart;

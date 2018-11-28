@@ -4,6 +4,8 @@ import dao.WorkordersDAO;
 import database.DBConst;
 import database.Database;
 import javabean.Workorders;
+import main.Const;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -132,6 +134,24 @@ public class WorkordersTable implements WorkordersDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public int getWorkordersCount() {
+        int count = -1;
+        String closed = "closed";
+        String query = "SELECT * FROM " + DBConst.TABLE_WORKORDERS + " WHERE " + DBConst.WORKORDERS_COLUMN_CLOSED + " = '" + closed + "'";
+        //		String query = "SELECT COUNT ('" + Const.ITEM_COLUMN_NAME + ")" + " FROM " + Const.TABLE_ITEM + " WHERE " + Const.ITEM_COLUMN_NAME + " = '" + coin + "'";
+        try {
+            Statement getCount = db.getConnection().createStatement();
+            ResultSet data = getCount.executeQuery(query);
+            while(data.next()) {
+                count++;
+            }
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+
+        return count;
     }
 }
 
