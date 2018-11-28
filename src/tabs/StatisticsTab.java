@@ -67,18 +67,23 @@ public class StatisticsTab extends Tab {
 	/**
 	 * @Author Dorian Harusha
 	 * @Date 11.25.2018
+	 *
+	 * Pie chart to display open workorders vs closed workorders percentage
+	 *
 	 * @return chart
 	 */
 	public static PieChart generateChart() {
 		WorkordersTable table = new WorkordersTable();
 		int closed = table.getWorkordersCount();
 		int open = table.getWorkordersCount();
+
 		PieChart chart = new PieChart();
 		chart.setTitle("Service Charts Statistics");
 		chart.setLabelsVisible(true);
+		chart.setLabelLineLength(10);
 		ObservableList<PieChart.Data> data = FXCollections.observableArrayList(
 				new PieChart.Data("Open Workorders:", closed),
-				new PieChart.Data("Closed Workopers:", open)
+				new PieChart.Data("Closed Workorders:", open)
 		);
 		chart.setData(data);
 
