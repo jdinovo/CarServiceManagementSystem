@@ -1,0 +1,44 @@
+.button {
+    -fx-font-family: Tahoma;
+    -fx-background-color: #eaeaea;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-border-color: #000000;
+    -fx-border-width: 2;
+    -fx-font-size: 14;
+}
+
+.button:hover {
+    -fx-cursor: hand;
+    -fx-background-color: #cecece;
+}
+
+.button:pressed {
+    -fx-background-color: #707070;
+    -fx-border-color: afb8c6;
+}
+
+.tab-pane {
+    -fx-border-color: #000000;
+    -fx-border-width: 1;
+}
+
+.menu-bar {
+    -fx-border-color: #000000;
+    -fx-border-width: 1;
+    -fx-font-family: Tahoma;
+    -fx-background-color: #afb8c6;
+}
+
+.menu:hover, .menu-button:hover, .menu-item:hover {
+    -fx-background-color: #cecece;
+}
+
+.table-view, .text-field, .text-area, .list-view, .combo-box {
+    -fx-font-family: Tahoma;
+}
+
+.list-cell:hover {
+    -fx-cursor: hand;
+}
+

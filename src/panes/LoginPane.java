@@ -17,6 +17,9 @@ import scenes.MainMenuScene;
 
 import java.util.HashMap;
 
+import static main.Const.BODY_FONT;
+import static main.Const.HEADER_FONT;
+
 /**
  *
  * LoginPane Contains GUI for DB login
@@ -48,7 +51,7 @@ public class LoginPane extends BorderPane {
             VBox box = new VBox();
 
             Text header = new Text("Database Login Credentials");
-            header.setFont(Font.font("Times New Roman", 20));
+            header.setFont(HEADER_FONT);
 
             /*
              * @dbName database Name
@@ -57,21 +60,21 @@ public class LoginPane extends BorderPane {
              */
 
             Label dbLocText = new Label("Database Host:");
-            dbLocText.setFont(Font.font("Times New Roman", 16));
+            dbLocText.setFont(BODY_FONT);
 
             TextField dbLoc = new TextField();
             dbLoc.setMaxWidth(300);
             dbLoc.setText(DBConst.getDbHost());
 
             Label dbNameText = new Label("Database Name:");
-            dbNameText.setFont(Font.font("Times New Roman", 16));
+            dbNameText.setFont(BODY_FONT);
 
             TextField dbName = new TextField();
             dbName.setMaxWidth(300);
             dbName.setText(DBConst.getDbName());
 
             Label dbUserText = new Label("Username:");
-            dbUserText.setFont(Font.font("Times New Roman", 16));
+            dbUserText.setFont(BODY_FONT);
 
 
             TextField dbUser = new TextField();
@@ -79,7 +82,7 @@ public class LoginPane extends BorderPane {
             dbUser.setText(DBConst.getDbUser());
 
             Label dbPassText = new Label("Password:");
-            dbPassText.setFont(Font.font("Times New Roman", 16));
+            dbPassText.setFont(BODY_FONT);
 
             PasswordField dbPass = new PasswordField();
             dbPass.setMaxWidth(300);

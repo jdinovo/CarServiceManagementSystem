@@ -16,12 +16,15 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import main.Const;
 import tables.CustomerVehiclesTable;
 import tables.CustomersTable;
 import tables.VehiclesTable;
 
 import java.util.*;
 
+import static main.Const.BODY_FONT;
+import static main.Const.HEADER_FONT;
 import static main.Const.TEXTFIELD_WIDTH_SIZE;
 
 /**
@@ -36,6 +39,7 @@ public class EditCustInfoPane extends BorderPane {
     //Importing the vehicleMap
     private Map<String, List<String>> vehicleMap = VehicleChoice.getVehicleModel();
     private ArrayList<String> provinceMap = ProvinceChoice.getProvinceModel();
+    private static TableView<Customers> tableView;
 
     //ComboBoxes for the form
     private ComboBox<String> comboBrand = new ComboBox<>();
@@ -50,6 +54,8 @@ public class EditCustInfoPane extends BorderPane {
 
     private ListView<Vehicles> vehicleListView = new ListView<>();
 
+    private static CustomersTable custTable;
+
     public EditCustInfoPane() {
 
         //declaring variables
@@ -58,7 +64,7 @@ public class EditCustInfoPane extends BorderPane {
         warning.setFill(Color.RED);
 
         //get access to table classes
-        CustomersTable custTable = new CustomersTable();
+        custTable = new CustomersTable();
         VehiclesTable vehTable = new VehiclesTable();
         CustomerVehiclesTable custVehTable = new CustomerVehiclesTable();
 
@@ -96,7 +102,7 @@ public class EditCustInfoPane extends BorderPane {
             }
         });
 
-        TableView<Customers> tableView = new TableView<>();
+        tableView = new TableView<>();
         tableView.setItems(FXCollections.observableArrayList(customers));
 
         tableView.setEditable(false);
@@ -141,11 +147,11 @@ public class EditCustInfoPane extends BorderPane {
 
         //Customer info title
         Text customerInfo = new Text("Customer Information");
-        customerInfo.setFont(Font.font("Times New Roman", 20));
+        customerInfo.setFont(HEADER_FONT);
 
         //First Name Label
         Label firstNameText = new Label("First Name:");
-        firstNameText.setFont(Font.font("Times New Roman", 16));
+        firstNameText.setFont(BODY_FONT);
 
         //First Name TextField
         TextField firstName = new TextField();
@@ -155,7 +161,7 @@ public class EditCustInfoPane extends BorderPane {
 
         //Last Name Label
         Label lastNameText = new Label("Last Name:");
-        lastNameText.setFont(Font.font("Times New Roman", 16));
+        lastNameText.setFont(BODY_FONT);
 
         //Last Name textField
         TextField lastName = new TextField();
@@ -165,7 +171,7 @@ public class EditCustInfoPane extends BorderPane {
 
         //Address Label
         Label addressText = new Label("Address:");
-        addressText.setFont(Font.font("Times New Roman", 16));
+        addressText.setFont(BODY_FONT);
 
         //Address Textfield
         TextField address = new TextField();
@@ -175,7 +181,7 @@ public class EditCustInfoPane extends BorderPane {
 
         //City Label
         Label cityText = new Label("City:");
-        cityText.setFont(Font.font("Times New Roman", 16));
+        cityText.setFont(BODY_FONT);
 
         //City Textfield
         TextField city = new TextField();
@@ -184,7 +190,7 @@ public class EditCustInfoPane extends BorderPane {
 
         //Province Label
         Label provinceText = new Label("Province:");
-        provinceText.setFont(Font.font("Times New Roman", 16));
+        provinceText.setFont(BODY_FONT);
 
         //Province Textfield
         comboProvince.setItems(FXCollections.observableArrayList(provinceMap));
@@ -192,7 +198,7 @@ public class EditCustInfoPane extends BorderPane {
 
         //Email Label
         Label emailText = new Label("Email:");
-        emailText.setFont(Font.font("Times New Roman", 16));
+        emailText.setFont(BODY_FONT);
 
         //Email Textfield
         TextField email = new TextField();
@@ -202,7 +208,7 @@ public class EditCustInfoPane extends BorderPane {
 
         //Postal Code Label
         Label postalCodeText = new Label("Postal Code:");
-        postalCodeText.setFont(Font.font("Times New Roman", 16));
+        postalCodeText.setFont(BODY_FONT);
 
         //Postal Code Textfield
         TextField postalCode = new TextField();
@@ -212,7 +218,7 @@ public class EditCustInfoPane extends BorderPane {
 
         //Phone number Label
         Label phoneNumText = new Label("Phone Number:");
-        phoneNumText.setFont(Font.font("Times New Roman", 16));
+        phoneNumText.setFont(BODY_FONT);
 
         //Phone number textfield
         TextField phoneNum = new TextField();
@@ -221,11 +227,11 @@ public class EditCustInfoPane extends BorderPane {
 
         //Vehicle info title
         Text vehicleInfo = new Text("Add New Vehicle");
-        vehicleInfo.setFont(Font.font("Times New Roman", 20));
+        vehicleInfo.setFont(HEADER_FONT);
 
         //Vin num Label
         Label vinNumText = new Label("VIN Number:");
-        vinNumText.setFont(Font.font("Times New Roman", 16));
+        vinNumText.setFont(BODY_FONT);
 
         //Vin Number textfield
         TextField vinNum = new TextField();
@@ -234,7 +240,7 @@ public class EditCustInfoPane extends BorderPane {
 
         //Brand label
         Label brandText = new Label("Brand:");
-        brandText.setFont(Font.font("Times New Roman", 16));
+        brandText.setFont(BODY_FONT);
 
         //Brand ComboBox
         comboBrand.setMaxWidth(TEXTFIELD_WIDTH_SIZE);
@@ -253,7 +259,7 @@ public class EditCustInfoPane extends BorderPane {
 
         //Model Label
         Label modelText = new Label("Model:");
-        modelText.setFont(Font.font("Times New Roman", 16));
+        modelText.setFont(BODY_FONT);
 
         //Model ComboBox
         comboModel.setMaxWidth(TEXTFIELD_WIDTH_SIZE);
@@ -261,7 +267,7 @@ public class EditCustInfoPane extends BorderPane {
 
         //Year Text
         Label yearText = new Label("Year:");
-        yearText.setFont(Font.font("Times New Roman", 16));
+        yearText.setFont(BODY_FONT);
 
         TextField year = new TextField();
         year.setPromptText("Vehicle Year");
@@ -269,7 +275,7 @@ public class EditCustInfoPane extends BorderPane {
 
         //Email
         Label kilometersText = new Label("Kilometers:");
-        kilometersText.setFont(Font.font("Times New Roman", 16));
+        kilometersText.setFont(BODY_FONT);
 
         TextField kilometers = new TextField();
         kilometers.setPromptText("Vehicle Kilometers");
@@ -335,6 +341,9 @@ public class EditCustInfoPane extends BorderPane {
                 warning.setVisible(false);
                 custTable.updateCustomer(customer);
                 tableView.refresh();
+                ExistingCustNewWorkOrderPane.refreshTable();
+                OpenWorkOrderPane.refreshTable();
+                ClosedWorkOrderPane.refreshTable();
             }
 
         });
@@ -362,7 +371,10 @@ public class EditCustInfoPane extends BorderPane {
                         }
                         addVehicleBox.setVisible(false);
                     });
+                    ExistingCustNewWorkOrderPane.refreshTable();
                     vehicleListView.setItems(FXCollections.observableArrayList(vehicles));
+                    OpenWorkOrderPane.refreshTable();
+                    ClosedWorkOrderPane.refreshTable();
                 }
             }
         });
@@ -370,7 +382,7 @@ public class EditCustInfoPane extends BorderPane {
 
         //Vehicle list view title
         Text vehListViewText = new Text("Vehicle Information");
-        vehListViewText.setFont(Font.font("Times New Roman", 20));
+        vehListViewText.setFont(HEADER_FONT);
 
         HBox custInfoButtons = new HBox();
         custInfoButtons.setSpacing(10);
@@ -413,6 +425,9 @@ public class EditCustInfoPane extends BorderPane {
                 tableView.refresh();
                 hBox.setVisible(false);
                 tableView.setPrefHeight(675);
+                ExistingCustNewWorkOrderPane.refreshTable();
+                OpenWorkOrderPane.refreshTable();
+                ClosedWorkOrderPane.refreshTable();
             }
 
         });
@@ -498,6 +513,7 @@ public class EditCustInfoPane extends BorderPane {
                 vehicleListView.setItems(FXCollections.observableArrayList(vehicles));
                 addVehicleBox.setVisible(false);
                 warning.setVisible(false);
+                ExistingCustNewWorkOrderPane.refreshTable();
             }
         });
 
@@ -559,5 +575,9 @@ public class EditCustInfoPane extends BorderPane {
         this.setPadding(new Insets(10, 10, 10, 10));
 
 
+    }
+
+    public static void refreshTable() {
+        tableView.setItems(FXCollections.observableArrayList(custTable.getAllActiveCustomers()));
     }
 }

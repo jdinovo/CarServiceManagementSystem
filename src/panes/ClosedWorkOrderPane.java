@@ -11,6 +11,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import main.Const;
 import tables.CustomerVehicleIssueTable;
 import tables.WorkordersTable;
 
@@ -27,7 +28,8 @@ public class ClosedWorkOrderPane extends BorderPane {
 
     //Getting access to the data
     private ArrayList<CustomerVehicleIssue> customerVehicleIssues;
-    private CustomerVehicleIssueTable customerVehicleIssueTable = new CustomerVehicleIssueTable();
+    private static CustomerVehicleIssueTable customerVehicleIssueTable = new CustomerVehicleIssueTable();
+    private static TableView tableView = new TableView();
 
     private WorkordersTable workordersTable = new WorkordersTable();
 
@@ -40,7 +42,7 @@ public class ClosedWorkOrderPane extends BorderPane {
         customerVehicleIssues = customerVehicleIssueTable.getAllClosedCustomerVehicleIssues();
 
         //Table that will contain the list of all active work orders
-        TableView tableView = new TableView<>();
+        tableView = new TableView<>();
         tableView.setItems(FXCollections.observableArrayList(customerVehicleIssues));
 
         tableView.setEditable(false);
@@ -69,11 +71,11 @@ public class ClosedWorkOrderPane extends BorderPane {
         tableView.getColumns().addAll(firstNameCol,lastNameCol,brandCol,modelCol,idCol,issueCol);
 
         Label issueText = new Label("Customer Issue:");
-        issueText.setFont(Font.font("Times New Roman", 20));
+        issueText.setFont(Const.HEADER_FONT);
 
         TextArea issue = new TextArea();
         issue.setPromptText("Customer's issue...");
-        issue.setMaxSize(400,200);
+        issue.setPrefSize(400, 200);
         issue.setWrapText(true);
         issue.setEditable(false);
 
@@ -81,11 +83,11 @@ public class ClosedWorkOrderPane extends BorderPane {
         issueBox.getChildren().addAll(issueText, issue);
 
         Label causeText = new Label("Cause Of Issue:");
-        causeText.setFont(Font.font("Times New Roman", 20));
+        causeText.setFont(Const.HEADER_FONT);
 
         TextArea cause = new TextArea();
         cause.setPromptText("Cause of the issue...");
-        cause.setMaxSize(400,200);
+        cause.setPrefSize(400, 200);
         cause.setWrapText(true);
         cause.setEditable(false);
 
@@ -93,11 +95,11 @@ public class ClosedWorkOrderPane extends BorderPane {
         causeBox.getChildren().addAll(causeText, cause);
 
         Label correctionText = new Label("Correction:");
-        correctionText.setFont(Font.font("Times New Roman", 20));
+        correctionText.setFont(Const.HEADER_FONT);
 
         TextArea correction = new TextArea();
         correction.setPromptText("What was done to correct issue...");
-        correction.setMaxSize(400,200);
+        correction.setPrefSize(400,200);
         correction.setWrapText(true);
         correction.setEditable(false);
 
@@ -149,6 +151,12 @@ public class ClosedWorkOrderPane extends BorderPane {
             });
             return row ;
         });
+    }
+
+    public static void refreshTable() {
+
+        tableView.setItems(FXCollections.observableArrayList(customerVehicleIssueTable.getAllClosedCustomerVehicleIssues()));
+        tableView.refresh();
     }
 
 }
