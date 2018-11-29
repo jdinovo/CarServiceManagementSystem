@@ -136,10 +136,10 @@ public class WorkordersTable implements WorkordersDAO {
         }
     }
 
-    public int getWorkordersCount() {
-        int count = -1;
+    public int getClosedWorkordersCount() {
+        int count = 0;
         String closed = "closed";
-        String query = "SELECT * FROM " + DBConst.TABLE_WORKORDERS + " WHERE " + DBConst.WORKORDERS_COLUMN_CLOSED + " = '" + closed + "'";
+        String query = "SELECT * FROM " + DBConst.TABLE_WORKORDERS + " WHERE " + DBConst.WORKORDERS_COLUMN_CLOSED + " = 1";
         try {
             Statement getCount = db.getConnection().createStatement();
             ResultSet data = getCount.executeQuery(query);
@@ -150,6 +150,21 @@ public class WorkordersTable implements WorkordersDAO {
             e.printStackTrace();
         }
 
+        return count;
+    }
+
+    public int getOpenWorkordersCount() {
+        int count = 0;
+        String query = "SELECT * FROM " + DBConst.TABLE_WORKORDERS + " WHERE " + DBConst.WORKORDERS_COLUMN_CLOSED + " = 0";
+        try {
+            Statement getCount = db.getConnection().createStatement();
+            ResultSet data = getCount.executeQuery(query);
+            while(data.next()) {
+                count++;
+            }
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
         return count;
     }
 }
