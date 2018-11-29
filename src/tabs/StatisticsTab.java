@@ -74,16 +74,17 @@ public class StatisticsTab extends Tab {
 	 */
 	public static PieChart generateChart() {
 		WorkordersTable table = new WorkordersTable();
-		int closed = table.getWorkordersCount();
-		int open = table.getWorkordersCount();
+		int closed = table.getClosedWorkordersCount();
+		int open = table.getOpenWorkordersCount();
 
 		PieChart chart = new PieChart();
 		chart.setTitle("Service Charts Statistics");
 		chart.setLabelsVisible(true);
 		chart.setLabelLineLength(10);
+
 		ObservableList<PieChart.Data> data = FXCollections.observableArrayList(
-				new PieChart.Data("Open Workorders:", closed),
-				new PieChart.Data("Closed Workorders:", open)
+				new PieChart.Data("Open Workorders:" + open, open),
+				new PieChart.Data("Closed Workorders:" + closed, closed)
 		);
 		chart.setData(data);
 
