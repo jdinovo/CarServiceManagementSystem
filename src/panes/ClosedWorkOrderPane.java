@@ -2,6 +2,7 @@ package panes;
 
 import javabean.CustomerVehicleIssue;
 import javabean.Workorders;
+import javafx.animation.FadeTransition;
 import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -11,6 +12,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.util.Duration;
 import main.Const;
 import tables.CustomerVehicleIssueTable;
 import tables.WorkordersTable;
@@ -143,6 +145,13 @@ public class ClosedWorkOrderPane extends BorderPane {
                     issue.setText(workorder.getIssue());
                     cause.setText(workorder.getCause());
                     correction.setText(workorder.getCorrection());
+
+                    FadeTransition fade = new FadeTransition(Duration.millis(500), hBox);
+                    fade.setFromValue(.1);
+                    fade.setToValue(1);
+                    fade.setCycleCount(1);
+                    fade.setAutoReverse(false);
+                    fade.play();
 
                     hBox.setVisible(true);
 //                    buttonBox.setVisible(true);

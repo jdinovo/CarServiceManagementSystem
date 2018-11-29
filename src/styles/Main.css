@@ -38,7 +38,7 @@
     -fx-font-family: Tahoma;
 }
 
-.list-cell:hover {
+.list-view:hover {
     -fx-cursor: hand;
 }
 

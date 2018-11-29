@@ -6,6 +6,7 @@ import form.VehicleChoice;
 import javabean.CustomerVehicles;
 import javabean.Customers;
 import javabean.Vehicles;
+import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
@@ -16,6 +17,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 import main.Const;
 import tables.CustomerVehiclesTable;
 import tables.CustomersTable;
@@ -338,6 +340,17 @@ public class EditCustInfoPane extends BorderPane {
                 customer.setEmail(email.getText().trim());
                 customer.setPhoneNumber(phoneNum.getText().trim());
 
+                FadeTransition fade = new FadeTransition(Duration.millis(500), hBox);
+                fade.setFromValue(1);
+                fade.setToValue(0);
+                fade.setCycleCount(1);
+                fade.setAutoReverse(false);
+                fade.play();
+                fade.setOnFinished(a-> {
+                    hBox.setVisible(false);
+                    tableView.setPrefHeight(675);
+                });
+
                 warning.setVisible(false);
                 custTable.updateCustomer(customer);
                 tableView.refresh();
@@ -423,8 +436,16 @@ public class EditCustInfoPane extends BorderPane {
                 customers = custTable.getAllActiveCustomers();
                 tableView.setItems(FXCollections.observableArrayList(customers));
                 tableView.refresh();
-                hBox.setVisible(false);
-                tableView.setPrefHeight(675);
+                FadeTransition fade = new FadeTransition(Duration.millis(500), hBox);
+                fade.setFromValue(1);
+                fade.setToValue(0);
+                fade.setCycleCount(1);
+                fade.setAutoReverse(false);
+                fade.play();
+                fade.setOnFinished(a-> {
+                    hBox.setVisible(false);
+                    tableView.setPrefHeight(675);
+                });
                 ExistingCustNewWorkOrderPane.refreshTable();
                 OpenWorkOrderPane.refreshTable();
                 ClosedWorkOrderPane.refreshTable();
@@ -444,13 +465,27 @@ public class EditCustInfoPane extends BorderPane {
             comboModel.setValue("");
             year.setText("");
             kilometers.setText("");
+            FadeTransition fade = new FadeTransition(Duration.millis(500), addVehicleBox);
+            fade.setFromValue(.1);
+            fade.setToValue(1);
+            fade.setCycleCount(1);
+            fade.setAutoReverse(false);
+            fade.play();
             addVehicleBox.setVisible(true);
             warning.setVisible(false);
             add.setText("Add");
         });
         cancel.setOnAction(e-> {
-            addVehicleBox.setVisible(false);
-            warning.setVisible(false);
+            FadeTransition fade = new FadeTransition(Duration.millis(500), addVehicleBox);
+            fade.setFromValue(1);
+            fade.setToValue(0);
+            fade.setCycleCount(1);
+            fade.setAutoReverse(false);
+            fade.play();
+            fade.setOnFinished(a-> {
+                addVehicleBox.setVisible(false);
+                warning.setVisible(false);
+            });
         });
 
         add.setOnAction(e-> {
@@ -511,8 +546,17 @@ public class EditCustInfoPane extends BorderPane {
                     }
                 });
                 vehicleListView.setItems(FXCollections.observableArrayList(vehicles));
-                addVehicleBox.setVisible(false);
-                warning.setVisible(false);
+                FadeTransition fade = new FadeTransition(Duration.millis(500), addVehicleBox);
+                fade.setFromValue(1);
+                fade.setToValue(0);
+                fade.setCycleCount(1);
+                fade.setAutoReverse(false);
+                fade.play();
+                fade.setOnFinished(a-> {
+                    addVehicleBox.setVisible(false);
+                    warning.setVisible(false);
+                });
+
                 ExistingCustNewWorkOrderPane.refreshTable();
             }
         });
@@ -532,6 +576,12 @@ public class EditCustInfoPane extends BorderPane {
                 kilometersText.setTextFill(Color.BLACK);
                 add.setText("Update");
                 vehicleInfo.setText("Update Vehicle");
+                FadeTransition fade = new FadeTransition(Duration.millis(500), addVehicleBox);
+                fade.setFromValue(.1);
+                fade.setToValue(1);
+                fade.setCycleCount(1);
+                fade.setAutoReverse(false);
+                fade.play();
                 addVehicleBox.setVisible(true);
                 warning.setVisible(false);
             }
@@ -560,6 +610,12 @@ public class EditCustInfoPane extends BorderPane {
                     email.setText(customer.getEmail());
                     phoneNum.setText(customer.getPhoneNumber());
                     vehicleListView.setItems(FXCollections.observableArrayList(vehicles));
+                    FadeTransition fade = new FadeTransition(Duration.millis(500), hBox);
+                    fade.setFromValue(.1);
+                    fade.setToValue(1);
+                    fade.setCycleCount(1);
+                    fade.setAutoReverse(false);
+                    fade.play();
                     hBox.setVisible(true);
                     addVehicleBox.setVisible(false);
                     warning.setVisible(false);
