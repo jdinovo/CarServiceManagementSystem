@@ -168,6 +168,28 @@ public class VehiclesTable implements VehiclesDAO {
             e.printStackTrace();
         }
     }
+
+    /**
+     * @Author Dorian Harusha
+     * @Date 11.29.2018
+     * @param brand
+     * @return
+     */
+    public int getVehiclesWorkedOnCount(String brand) {
+        int count = 0;
+        String query = "SELECT `brand` FROM " + DBConst.TABLE_VEHICLES + " WHERE `brand`" + " = '" + brand + "'";
+        try {
+            Statement getCount = db.getConnection().createStatement();
+            ResultSet data = getCount.executeQuery(query);
+            while(data.next()) {
+                count++;
+                System.out.println(count);
+            }
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
 }
 
 
