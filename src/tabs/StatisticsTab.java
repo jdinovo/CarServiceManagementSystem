@@ -134,7 +134,6 @@ public class StatisticsTab extends Tab {
 		chart.setTitle("Service Charts Statistics");
 		chart.setLabelsVisible(true);
 		chart.setLabelLineLength(10);
-		//chart.setVisible(false);
 
 		ObservableList<PieChart.Data> data = FXCollections.observableArrayList(
 				new PieChart.Data("Open Workorders:" + open, open),
