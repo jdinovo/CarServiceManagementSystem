@@ -22,6 +22,7 @@ public class NewWorkOrderScene extends Scene {
      */
     public NewWorkOrderScene() {
         super(new NewWorkOrderPane(), Construct.SCREEN_WIDTH, Construct.SCREEN_HEIGHT);
+        this.getStylesheets().add("/styles/Main.css");
     }
 
 }

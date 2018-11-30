@@ -6,6 +6,7 @@ import form.VehicleChoice;
 import javabean.CustomerVehicles;
 import javabean.Customers;
 import javabean.Vehicles;
+import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
@@ -16,12 +17,17 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
+import main.Const;
 import tables.CustomerVehiclesTable;
 import tables.CustomersTable;
 import tables.VehiclesTable;
+import tabs.StatisticsTab;
 
 import java.util.*;
 
+import static main.Const.BODY_FONT;
+import static main.Const.HEADER_FONT;
 import static main.Const.TEXTFIELD_WIDTH_SIZE;
 
 /**
@@ -35,7 +41,8 @@ import static main.Const.TEXTFIELD_WIDTH_SIZE;
 public class EditCustInfoPane extends BorderPane {
     //Importing the vehicleMap
     private Map<String, List<String>> vehicleMap = VehicleChoice.getVehicleModel();
-    ArrayList<String> provinceMap = ProvinceChoice.getProvinceModel();
+    private ArrayList<String> provinceMap = ProvinceChoice.getProvinceModel();
+    private static TableView<Customers> tableView;
 
     //ComboBoxes for the form
     private ComboBox<String> comboBrand = new ComboBox<>();
@@ -50,6 +57,8 @@ public class EditCustInfoPane extends BorderPane {
 
     private ListView<Vehicles> vehicleListView = new ListView<>();
 
+    private static CustomersTable custTable;
+
     public EditCustInfoPane() {
 
         //declaring variables
@@ -58,7 +67,7 @@ public class EditCustInfoPane extends BorderPane {
         warning.setFill(Color.RED);
 
         //get access to table classes
-        CustomersTable custTable = new CustomersTable();
+        custTable = new CustomersTable();
         VehiclesTable vehTable = new VehiclesTable();
         CustomerVehiclesTable custVehTable = new CustomerVehiclesTable();
 
@@ -96,14 +105,13 @@ public class EditCustInfoPane extends BorderPane {
             }
         });
 
-        TableView<Customers> tableView = new TableView<>();
+        tableView = new TableView<>();
         tableView.setItems(FXCollections.observableArrayList(customers));
 
         tableView.setEditable(false);
         tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         tableView.setFixedCellSize(25);
-        tableView.setPrefHeight(150);
-
+        tableView.setPrefHeight(675);
 
         TableColumn<Customers, String> firstNameCol = new TableColumn<>("First Name");
         firstNameCol.setCellValueFactory(new PropertyValueFactory<>("firstName"));
@@ -142,11 +150,11 @@ public class EditCustInfoPane extends BorderPane {
 
         //Customer info title
         Text customerInfo = new Text("Customer Information");
-        customerInfo.setFont(Font.font("Times New Roman", 20));
+        customerInfo.setFont(HEADER_FONT);
 
         //First Name Label
         Label firstNameText = new Label("First Name:");
-        firstNameText.setFont(Font.font("Times New Roman", 16));
+        firstNameText.setFont(BODY_FONT);
 
         //First Name TextField
         TextField firstName = new TextField();
@@ -156,7 +164,7 @@ public class EditCustInfoPane extends BorderPane {
 
         //Last Name Label
         Label lastNameText = new Label("Last Name:");
-        lastNameText.setFont(Font.font("Times New Roman", 16));
+        lastNameText.setFont(BODY_FONT);
 
         //Last Name textField
         TextField lastName = new TextField();
@@ -166,7 +174,7 @@ public class EditCustInfoPane extends BorderPane {
 
         //Address Label
         Label addressText = new Label("Address:");
-        addressText.setFont(Font.font("Times New Roman", 16));
+        addressText.setFont(BODY_FONT);
 
         //Address Textfield
         TextField address = new TextField();
@@ -176,7 +184,7 @@ public class EditCustInfoPane extends BorderPane {
 
         //City Label
         Label cityText = new Label("City:");
-        cityText.setFont(Font.font("Times New Roman", 16));
+        cityText.setFont(BODY_FONT);
 
         //City Textfield
         TextField city = new TextField();
@@ -185,7 +193,7 @@ public class EditCustInfoPane extends BorderPane {
 
         //Province Label
         Label provinceText = new Label("Province:");
-        provinceText.setFont(Font.font("Times New Roman", 16));
+        provinceText.setFont(BODY_FONT);
 
         //Province Textfield
         comboProvince.setItems(FXCollections.observableArrayList(provinceMap));
@@ -193,7 +201,7 @@ public class EditCustInfoPane extends BorderPane {
 
         //Email Label
         Label emailText = new Label("Email:");
-        emailText.setFont(Font.font("Times New Roman", 16));
+        emailText.setFont(BODY_FONT);
 
         //Email Textfield
         TextField email = new TextField();
@@ -203,7 +211,7 @@ public class EditCustInfoPane extends BorderPane {
 
         //Postal Code Label
         Label postalCodeText = new Label("Postal Code:");
-        postalCodeText.setFont(Font.font("Times New Roman", 16));
+        postalCodeText.setFont(BODY_FONT);
 
         //Postal Code Textfield
         TextField postalCode = new TextField();
@@ -213,7 +221,7 @@ public class EditCustInfoPane extends BorderPane {
 
         //Phone number Label
         Label phoneNumText = new Label("Phone Number:");
-        phoneNumText.setFont(Font.font("Times New Roman", 16));
+        phoneNumText.setFont(BODY_FONT);
 
         //Phone number textfield
         TextField phoneNum = new TextField();
@@ -222,11 +230,11 @@ public class EditCustInfoPane extends BorderPane {
 
         //Vehicle info title
         Text vehicleInfo = new Text("Add New Vehicle");
-        vehicleInfo.setFont(Font.font("Times New Roman", 20));
+        vehicleInfo.setFont(HEADER_FONT);
 
         //Vin num Label
         Label vinNumText = new Label("VIN Number:");
-        vinNumText.setFont(Font.font("Times New Roman", 16));
+        vinNumText.setFont(BODY_FONT);
 
         //Vin Number textfield
         TextField vinNum = new TextField();
@@ -235,7 +243,7 @@ public class EditCustInfoPane extends BorderPane {
 
         //Brand label
         Label brandText = new Label("Brand:");
-        brandText.setFont(Font.font("Times New Roman", 16));
+        brandText.setFont(BODY_FONT);
 
         //Brand ComboBox
         comboBrand.setMaxWidth(TEXTFIELD_WIDTH_SIZE);
@@ -254,7 +262,7 @@ public class EditCustInfoPane extends BorderPane {
 
         //Model Label
         Label modelText = new Label("Model:");
-        modelText.setFont(Font.font("Times New Roman", 16));
+        modelText.setFont(BODY_FONT);
 
         //Model ComboBox
         comboModel.setMaxWidth(TEXTFIELD_WIDTH_SIZE);
@@ -262,7 +270,7 @@ public class EditCustInfoPane extends BorderPane {
 
         //Year Text
         Label yearText = new Label("Year:");
-        yearText.setFont(Font.font("Times New Roman", 16));
+        yearText.setFont(BODY_FONT);
 
         TextField year = new TextField();
         year.setPromptText("Vehicle Year");
@@ -270,7 +278,7 @@ public class EditCustInfoPane extends BorderPane {
 
         //Email
         Label kilometersText = new Label("Kilometers:");
-        kilometersText.setFont(Font.font("Times New Roman", 16));
+        kilometersText.setFont(BODY_FONT);
 
         TextField kilometers = new TextField();
         kilometers.setPromptText("Vehicle Kilometers");
@@ -287,39 +295,39 @@ public class EditCustInfoPane extends BorderPane {
             postalCodeText.setTextFill(Color.BLACK);
             phoneNumText.setTextFill(Color.BLACK);
             warning.setText("You have an empty textfield! Please fill out the entire form!");
-            if (firstName.getText().isEmpty()) {
+            if (firstName.getText().trim().isEmpty()) {
                 firstNameText.setTextFill(Color.RED);
                 warning.setVisible(true);
-            } else if (lastName.getText().isEmpty()) {
+            } else if (lastName.getText().trim().isEmpty()) {
                 lastNameText.setTextFill(Color.RED);
                 warning.setVisible(true);
-            } else if (address.getText().isEmpty()) {
+            } else if (address.getText().trim().isEmpty()) {
                 addressText.setTextFill(Color.RED);
                 warning.setVisible(true);
-            } else if (city.getText().isEmpty()) {
+            } else if (city.getText().trim().isEmpty()) {
                 cityText.setTextFill(Color.RED);
                 warning.setVisible(true);
             } else if (comboProvince.getValue().isEmpty()) {
                 provinceText.setTextFill(Color.RED);
                 warning.setVisible(true);
-            } else if (email.getText().isEmpty()) {
+            } else if (email.getText().trim().isEmpty()) {
                 emailText.setTextFill(Color.RED);
                 warning.setVisible(true);
-            } else if (postalCode.getText().isEmpty()) {
+            } else if (postalCode.getText().trim().isEmpty()) {
                 postalCodeText.setTextFill(Color.RED);
                 warning.setVisible(true);
-            } else if (phoneNum.getText().isEmpty()) {
+            } else if (phoneNum.getText().trim().isEmpty()) {
                 phoneNumText.setTextFill(Color.RED);
                 warning.setVisible(true);
-            } else if (!email.getText().matches("^[\\w!#$%&’*+/=?`{|}~^-]+(?:\\.[\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$")) {
+            } else if (!email.getText().trim().matches("^[\\w!#$%&’*+/=?`{|}~^-]+(?:\\.[\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$")) {
                 warning.setText("Please make sure email follows example@company.com");
                 warning.setVisible(true);
                 emailText.setTextFill(Color.RED);
-            } else if (postalCode.getText().length() > 6) {
+            } else if (postalCode.getText().trim().length() > 6) {
                 warning.setText("Please make sure your postal code follows A0B1C0");
                 warning.setVisible(true);
                 postalCodeText.setTextFill(Color.RED);
-            } else if (phoneNum.getText().length() > 15 || !phoneNum.getText().matches("\\(\\d{3}\\)\\d{3}-?\\d{4}")) {
+            } else if (phoneNum.getText().trim().length() > 15 || !phoneNum.getText().matches("\\(\\d{3}\\)\\d{3}-?\\d{4}")) {
                 warning.setText("Please make sure your phone number follows (555)555-5555");
                 warning.setVisible(true);
                 phoneNumText.setTextFill(Color.RED);
@@ -333,9 +341,23 @@ public class EditCustInfoPane extends BorderPane {
                 customer.setEmail(email.getText().trim());
                 customer.setPhoneNumber(phoneNum.getText().trim());
 
+                FadeTransition fade = new FadeTransition(Duration.millis(500), hBox);
+                fade.setFromValue(1);
+                fade.setToValue(0);
+                fade.setCycleCount(1);
+                fade.setAutoReverse(false);
+                fade.play();
+                fade.setOnFinished(a-> {
+                    hBox.setVisible(false);
+                    tableView.setPrefHeight(675);
+                });
+
                 warning.setVisible(false);
                 custTable.updateCustomer(customer);
                 tableView.refresh();
+                ExistingCustNewWorkOrderPane.refreshTable();
+                OpenWorkOrderPane.refreshTable();
+                ClosedWorkOrderPane.refreshTable();
             }
 
         });
@@ -363,7 +385,10 @@ public class EditCustInfoPane extends BorderPane {
                         }
                         addVehicleBox.setVisible(false);
                     });
+                    ExistingCustNewWorkOrderPane.refreshTable();
                     vehicleListView.setItems(FXCollections.observableArrayList(vehicles));
+                    OpenWorkOrderPane.refreshTable();
+                    ClosedWorkOrderPane.refreshTable();
                 }
             }
         });
@@ -371,7 +396,7 @@ public class EditCustInfoPane extends BorderPane {
 
         //Vehicle list view title
         Text vehListViewText = new Text("Vehicle Information");
-        vehListViewText.setFont(Font.font("Times New Roman", 20));
+        vehListViewText.setFont(HEADER_FONT);
 
         HBox custInfoButtons = new HBox();
         custInfoButtons.setSpacing(10);
@@ -412,7 +437,19 @@ public class EditCustInfoPane extends BorderPane {
                 customers = custTable.getAllActiveCustomers();
                 tableView.setItems(FXCollections.observableArrayList(customers));
                 tableView.refresh();
-                hBox.setVisible(false);
+                FadeTransition fade = new FadeTransition(Duration.millis(500), hBox);
+                fade.setFromValue(1);
+                fade.setToValue(0);
+                fade.setCycleCount(1);
+                fade.setAutoReverse(false);
+                fade.play();
+                fade.setOnFinished(a-> {
+                    hBox.setVisible(false);
+                    tableView.setPrefHeight(675);
+                });
+                ExistingCustNewWorkOrderPane.refreshTable();
+                OpenWorkOrderPane.refreshTable();
+                ClosedWorkOrderPane.refreshTable();
             }
 
         });
@@ -429,17 +466,31 @@ public class EditCustInfoPane extends BorderPane {
             comboModel.setValue("");
             year.setText("");
             kilometers.setText("");
+            FadeTransition fade = new FadeTransition(Duration.millis(500), addVehicleBox);
+            fade.setFromValue(.1);
+            fade.setToValue(1);
+            fade.setCycleCount(1);
+            fade.setAutoReverse(false);
+            fade.play();
             addVehicleBox.setVisible(true);
             warning.setVisible(false);
             add.setText("Add");
         });
         cancel.setOnAction(e-> {
-            addVehicleBox.setVisible(false);
-            warning.setVisible(false);
+            FadeTransition fade = new FadeTransition(Duration.millis(500), addVehicleBox);
+            fade.setFromValue(1);
+            fade.setToValue(0);
+            fade.setCycleCount(1);
+            fade.setAutoReverse(false);
+            fade.play();
+            fade.setOnFinished(a-> {
+                addVehicleBox.setVisible(false);
+                warning.setVisible(false);
+            });
         });
 
         add.setOnAction(e-> {
-            if(vinNum.getText().isEmpty()) {
+            if(vinNum.getText().trim().isEmpty()) {
                 warning.setText("VIN cannot be left empty");
                 warning.setVisible(true);
                 vinNumText.setTextFill(Color.RED);
@@ -451,23 +502,23 @@ public class EditCustInfoPane extends BorderPane {
                 warning.setText("You must select a model");
                 warning.setVisible(true);
                 modelText.setTextFill(Color.RED);
-            } else if (year.getText().isEmpty()) {
+            } else if (year.getText().trim().isEmpty()) {
                 warning.setText("Year cannot be left empty");
                 warning.setVisible(true);
                 yearText.setTextFill(Color.RED);
-            } else if (kilometers.getText().isEmpty()) {
+            } else if (kilometers.getText().trim().isEmpty()) {
                 warning.setText("Kilometers cannot be left empty");
                 warning.setVisible(true);
                 kilometersText.setTextFill(Color.RED);
-            }  else if (vinNum.getText().length() > 17) {
+            }  else if (vinNum.getText().trim().length() > 17) {
                 warning.setText("VIN cannot be longer than 17 characters");
                 warning.setVisible(true);
                 vinNumText.setTextFill(Color.RED);
-            } else if (year.getText().length() > 4 || !StringUtils.isStrictlyNumeric(year.getText())) {
+            } else if (year.getText().trim().length() > 4 || !StringUtils.isStrictlyNumeric(year.getText())) {
                 warning.setText("Year cannot be longer than 4 digits");
                 warning.setVisible(true);
                 yearText.setTextFill(Color.RED);
-            } else if (!StringUtils.isStrictlyNumeric(kilometers.getText()) || kilometers.getText().length() > 7) {
+            } else if (!StringUtils.isStrictlyNumeric(kilometers.getText()) || kilometers.getText().trim().length() > 7) {
                 warning.setText("Kilometers must be numeric");
                 warning.setVisible(true);
                 kilometersText.setTextFill(Color.RED);
@@ -496,8 +547,18 @@ public class EditCustInfoPane extends BorderPane {
                     }
                 });
                 vehicleListView.setItems(FXCollections.observableArrayList(vehicles));
-                addVehicleBox.setVisible(false);
-                warning.setVisible(false);
+                FadeTransition fade = new FadeTransition(Duration.millis(500), addVehicleBox);
+                fade.setFromValue(1);
+                fade.setToValue(0);
+                fade.setCycleCount(1);
+                fade.setAutoReverse(false);
+                fade.play();
+                fade.setOnFinished(a-> {
+                    addVehicleBox.setVisible(false);
+                    warning.setVisible(false);
+                });
+                StatisticsTab.generateBarChart();
+                ExistingCustNewWorkOrderPane.refreshTable();
             }
         });
 
@@ -516,6 +577,12 @@ public class EditCustInfoPane extends BorderPane {
                 kilometersText.setTextFill(Color.BLACK);
                 add.setText("Update");
                 vehicleInfo.setText("Update Vehicle");
+                FadeTransition fade = new FadeTransition(Duration.millis(500), addVehicleBox);
+                fade.setFromValue(.1);
+                fade.setToValue(1);
+                fade.setCycleCount(1);
+                fade.setAutoReverse(false);
+                fade.play();
                 addVehicleBox.setVisible(true);
                 warning.setVisible(false);
             }
@@ -534,6 +601,7 @@ public class EditCustInfoPane extends BorderPane {
                             vehicles.add(vehicleHolder);
                         }
                     });
+                    tableView.setPrefHeight(150);
                     firstName.setText(customer.getFirstName());
                     lastName.setText(customer.getLastName());
                     address.setText(customer.getAddress());
@@ -543,6 +611,12 @@ public class EditCustInfoPane extends BorderPane {
                     email.setText(customer.getEmail());
                     phoneNum.setText(customer.getPhoneNumber());
                     vehicleListView.setItems(FXCollections.observableArrayList(vehicles));
+                    FadeTransition fade = new FadeTransition(Duration.millis(500), hBox);
+                    fade.setFromValue(.1);
+                    fade.setToValue(1);
+                    fade.setCycleCount(1);
+                    fade.setAutoReverse(false);
+                    fade.play();
                     hBox.setVisible(true);
                     addVehicleBox.setVisible(false);
                     warning.setVisible(false);
@@ -558,5 +632,9 @@ public class EditCustInfoPane extends BorderPane {
         this.setPadding(new Insets(10, 10, 10, 10));
 
 
+    }
+
+    public static void refreshTable() {
+        tableView.setItems(FXCollections.observableArrayList(custTable.getAllActiveCustomers()));
     }
 }

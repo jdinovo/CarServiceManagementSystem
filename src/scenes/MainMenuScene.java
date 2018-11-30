@@ -26,6 +26,7 @@ public class MainMenuScene extends Scene {
 	 */
 	public MainMenuScene() {
 		super(new MainMenuPane(), Construct.SCREEN_WIDTH, Construct.SCREEN_HEIGHT);
+		this.getStylesheets().add("/styles/Main.css");
 	}
 	
 }

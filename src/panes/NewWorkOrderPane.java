@@ -19,9 +19,11 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import tables.*;
 import tabs.NewWorkOrderTab;
+import tabs.StatisticsTab;
 
 import java.util.*;
 
+import static main.Const.BODY_FONT;
 import static main.Const.TEXTFIELD_WIDTH_SIZE;
 
 /**
@@ -38,9 +40,6 @@ public class NewWorkOrderPane extends GridPane {
     Map<String, List<String>> vehicleMap = VehicleChoice.getVehicleModel();
     ArrayList<String> provinceMap = ProvinceChoice.getProvinceModel();
 
-    //Instantiate the FormAnswers class
-    //Map<String, String> newCustomerMap = new HashMap<>();
-
     //Array of Textfields
     ArrayList<TextField> arrayOfTextFields = new ArrayList<>();
 
@@ -55,6 +54,7 @@ public class NewWorkOrderPane extends GridPane {
     WorkordersTable workTable = new WorkordersTable();
     CustomerVehiclesTable custVehTable = new CustomerVehiclesTable();
     VehicleWorkordersTable vehWorkTable = new VehicleWorkordersTable();
+    CustomerVehicleIssueTable customerVehicleIssueTable = new CustomerVehicleIssueTable();
 
     /**
      * @author Chris Dias
@@ -107,7 +107,7 @@ public class NewWorkOrderPane extends GridPane {
          **/
         //First Name Label
         Label firstNameText = new Label("First Name:");
-        firstNameText.setFont(Font.font("Times New Roman", 16));
+        firstNameText.setFont(BODY_FONT);
         GridPane.setHalignment(firstNameText, HPos.LEFT);
         this.add(firstNameText, 0, 0, 1, 1);
         //First Name TextField
@@ -120,7 +120,7 @@ public class NewWorkOrderPane extends GridPane {
 
         //Last Name Label
         Label lastNameText = new Label("Last Name:");
-        lastNameText.setFont(Font.font("Times New Roman", 16));
+        lastNameText.setFont(BODY_FONT);
         GridPane.setHalignment(lastNameText, HPos.LEFT);
         this.add(lastNameText, 0, 1, 1, 1);
         //Last Name textField
@@ -133,7 +133,7 @@ public class NewWorkOrderPane extends GridPane {
 
         //Address Label
         Label addressText = new Label("Address:");
-        addressText.setFont(Font.font("Times New Roman", 16));
+        addressText.setFont(BODY_FONT);
         GridPane.setHalignment(addressText, HPos.LEFT);
         this.add(addressText, 0, 2, 1, 1);
         //Address Textfield
@@ -146,7 +146,7 @@ public class NewWorkOrderPane extends GridPane {
 
         //City Label
         Label cityText = new Label("City:");
-        cityText.setFont(Font.font("Times New Roman", 16));
+        cityText.setFont(BODY_FONT);
         GridPane.setHalignment(cityText, HPos.LEFT);
         this.add(cityText, 0, 3, 1, 1);
         //City Textfield
@@ -159,7 +159,7 @@ public class NewWorkOrderPane extends GridPane {
 
         //Province label
         Label provinceText = new Label("Province:");
-        provinceText.setFont(Font.font("Times New Roman", 16));
+        provinceText.setFont(BODY_FONT);
         GridPane.setHalignment(provinceText, HPos.LEFT);
         this.add(provinceText, 0, 4, 1, 1);
         //Province ComboBox
@@ -171,7 +171,7 @@ public class NewWorkOrderPane extends GridPane {
 
         //Email Label
         Label emailText = new Label("Email:");
-        emailText.setFont(Font.font("Times New Roman", 16));
+        emailText.setFont(BODY_FONT);
         GridPane.setHalignment(emailText, HPos.LEFT);
         this.add(emailText, 0, 5, 1, 1);
         //Email Textfield
@@ -184,7 +184,7 @@ public class NewWorkOrderPane extends GridPane {
 
         //Postal Code Label
         Label postalCodeText = new Label("Postal Code:");
-        postalCodeText.setFont(Font.font("Times New Roman", 16));
+        postalCodeText.setFont(BODY_FONT);
         GridPane.setHalignment(postalCodeText, HPos.LEFT);
         this.add(postalCodeText, 0, 6, 1, 1);
         //Postal Code Textfield
@@ -197,7 +197,7 @@ public class NewWorkOrderPane extends GridPane {
 
         //Phone number Label
         Label phoneNumText = new Label("Phone Number:");
-        phoneNumText.setFont(Font.font("Times New Roman", 16));
+        phoneNumText.setFont(BODY_FONT);
         GridPane.setHalignment(phoneNumText, HPos.LEFT);
         this.add(phoneNumText, 0, 7, 1, 1);
         //Phone number textfield
@@ -224,7 +224,7 @@ public class NewWorkOrderPane extends GridPane {
          */
         //Vin num Label
         Label vinNumText = new Label("VIN Number:");
-        vinNumText.setFont(Font.font("Times New Roman", 16));
+        vinNumText.setFont(BODY_FONT);
         GridPane.setHalignment(vinNumText, HPos.LEFT);
         this.add(vinNumText, 1, 0, 1, 1);
         //Vin Number textfield
@@ -237,7 +237,7 @@ public class NewWorkOrderPane extends GridPane {
 
         //Brand label
         Label brandText = new Label("Brand:");
-        brandText.setFont(Font.font("Times New Roman", 16));
+        brandText.setFont(BODY_FONT);
         GridPane.setHalignment(brandText, HPos.LEFT);
         this.add(brandText, 1, 1, 1, 1);
         //Brand ComboBox
@@ -259,7 +259,7 @@ public class NewWorkOrderPane extends GridPane {
 
         //Model Label
         Label modelText = new Label("Model:");
-        modelText.setFont(Font.font("Times New Roman", 16));
+        modelText.setFont(BODY_FONT);
         GridPane.setHalignment(modelText, HPos.LEFT);
         this.add(modelText, 1, 2, 1, 1);
         //Model ComboBox
@@ -269,7 +269,7 @@ public class NewWorkOrderPane extends GridPane {
 
         //Year Text
         Label yearText = new Label("Year:");
-        yearText.setFont(Font.font("Times New Roman", 16));
+        yearText.setFont(BODY_FONT);
         GridPane.setHalignment(yearText, HPos.LEFT);
         this.add(yearText, 1, 3, 1, 1);
 
@@ -282,7 +282,7 @@ public class NewWorkOrderPane extends GridPane {
 
         //Email
         Label kilometersText = new Label("Kilometers:");
-        kilometersText.setFont(Font.font("Times New Roman", 16));
+        kilometersText.setFont(BODY_FONT);
         GridPane.setHalignment(kilometersText, HPos.LEFT);
         this.add(kilometersText, 1, 4, 1, 1);
 
@@ -304,7 +304,7 @@ public class NewWorkOrderPane extends GridPane {
          */
 
         Label issueText = new Label("In detail, please write the issue the customer is having with their vehicle:");
-        issueText.setFont(Font.font("Times New Roman", 16));
+        issueText.setFont(BODY_FONT);
         this.add(issueText, 0, 9, 2,2);
         GridPane.setValignment(issueText, VPos.CENTER);
         GridPane.setHalignment(issueText, HPos.CENTER);
@@ -336,59 +336,57 @@ public class NewWorkOrderPane extends GridPane {
                 yearText.setTextFill(Color.BLACK);
                 issueText.setTextFill(Color.BLACK);
                 textfieldIncomplete.setText("You have an empty textfield! Please fill out the entire form!");
-                if (firstName.getText().isEmpty()) {
+                if (firstName.getText().trim().isEmpty()) {
                     textfieldIncomplete.setVisible(true);
-                } else if (lastName.getText().isEmpty()) {
+                } else if (lastName.getText().trim().isEmpty()) {
                     textfieldIncomplete.setVisible(true);
-                } else if (address.getText().isEmpty()) {
+                } else if (address.getText().trim().isEmpty()) {
                     textfieldIncomplete.setVisible(true);
-                } else if (city.getText().isEmpty()) {
+                } else if (city.getText().trim().isEmpty()) {
                     textfieldIncomplete.setVisible(true);
-                } else if (comboProvince.getValue().isEmpty()) {
+                } else if (email.getText().trim().isEmpty()) {
                     textfieldIncomplete.setVisible(true);
-                } else if (email.getText().isEmpty()) {
+                } else if (postalCode.getText().trim().isEmpty()) {
                     textfieldIncomplete.setVisible(true);
-                } else if (postalCode.getText().isEmpty()) {
+                } else if (phoneNum.getText().trim().isEmpty()) {
                     textfieldIncomplete.setVisible(true);
-                } else if (phoneNum.getText().isEmpty()) {
+                } else if (vinNum.getText().trim().isEmpty()) {
                     textfieldIncomplete.setVisible(true);
-                } else if (vinNum.getText().isEmpty()) {
+                } else if (comboBrand.getValue().trim().isEmpty()) {
                     textfieldIncomplete.setVisible(true);
-                } else if (comboBrand.getValue().isEmpty()) {
+                } else if (comboModel.getValue().trim().isEmpty()) {
                     textfieldIncomplete.setVisible(true);
-                } else if (comboModel.getValue().isEmpty()) {
+                } else if (year.getText().trim().isEmpty()) {
                     textfieldIncomplete.setVisible(true);
-                } else if (year.getText().isEmpty()) {
+                } else if (kilometers.getText().trim().isEmpty()) {
                     textfieldIncomplete.setVisible(true);
-                } else if (kilometers.getText().isEmpty()) {
+                } else if (issue.getText().trim().isEmpty()) {
                     textfieldIncomplete.setVisible(true);
-                } else if (issue.getText().isEmpty()) {
-                    textfieldIncomplete.setVisible(true);
-                } else if (!email.getText().matches("^[\\w!#$%&’*+/=?`{|}~^-]+(?:\\.[\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$")) {
+                } else if (!email.getText().trim().matches("^[\\w!#$%&’*+/=?`{|}~^-]+(?:\\.[\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$")) {
                     textfieldIncomplete.setText("Please make sure email follows example@company.com");
                     textfieldIncomplete.setVisible(true);
                     emailText.setTextFill(Color.RED);
-                } else if (postalCode.getText().length() > 6) {
+                } else if (postalCode.getText().trim().length() > 6) {
                     textfieldIncomplete.setText("Please make sure your postal code follows A0B1C0");
                     textfieldIncomplete.setVisible(true);
                     postalCodeText.setTextFill(Color.RED);
-                } else if (phoneNum.getText().length() > 15 || !phoneNum.getText().matches("\\(\\d{3}\\)\\d{3}-?\\d{4}")) {
+                } else if (phoneNum.getText().trim().length() > 15 || !phoneNum.getText().matches("\\(\\d{3}\\)\\d{3}-?\\d{4}")) {
                     textfieldIncomplete.setText("Please make sure your phone number follows (555)555-5555");
                     textfieldIncomplete.setVisible(true);
                     phoneNumText.setTextFill(Color.RED);
-                } else if (vinNum.getText().length() > 17) {
+                } else if (vinNum.getText().trim().length() > 17) {
                     textfieldIncomplete.setText("VIN cannot be longer than 17 characters");
                     textfieldIncomplete.setVisible(true);
                     vinNumText.setTextFill(Color.RED);
-                } else if (year.getText().length() > 4 || !StringUtils.isStrictlyNumeric(year.getText())) {
+                } else if (year.getText().trim().length() > 4 || !StringUtils.isStrictlyNumeric(year.getText())) {
                     textfieldIncomplete.setText("Year cannot be longer than 4 digits");
                     textfieldIncomplete.setVisible(true);
                     yearText.setTextFill(Color.RED);
-                } else if (!StringUtils.isStrictlyNumeric(kilometers.getText())) {
+                } else if (!StringUtils.isStrictlyNumeric(kilometers.getText().trim())) {
                     textfieldIncomplete.setText("Kilometers may only be numeric");
                     textfieldIncomplete.setVisible(true);
                     kilometersText.setTextFill(Color.RED);
-                } else if (issue.getText().length() > 250) {
+                } else if (issue.getText().trim().length() > 250) {
                     textfieldIncomplete.setText("Issue description must be no longer than 250 characters");
                     textfieldIncomplete.setVisible(true);
                     issueText.setTextFill(Color.RED);
@@ -448,6 +446,9 @@ public class NewWorkOrderPane extends GridPane {
                     comboModel.setValue(null);
                     comboProvince.setValue(null);
                     issue.setText("");
+                    OpenWorkOrderPane.refreshTable();
+                    EditCustInfoPane.refreshTable();
+                    StatisticsTab.generateBarChart();
                     NewWorkOrderTab.closeInstance();
                 }
             } catch (NullPointerException f) {
@@ -455,5 +456,7 @@ public class NewWorkOrderPane extends GridPane {
                 textfieldIncomplete.setVisible(true);
             }
         }); // end of complete form button
+
     } //end of NewWorkOrderPane()
+
 } //End of class

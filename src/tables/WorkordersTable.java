@@ -4,6 +4,8 @@ import dao.WorkordersDAO;
 import database.DBConst;
 import database.Database;
 import javabean.Workorders;
+import main.Const;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -61,12 +63,14 @@ public class WorkordersTable implements WorkordersDAO {
         try {
             Statement getItem = db.getConnection().createStatement();
             ResultSet data = getItem.executeQuery(query);
-            workorder = new Workorders(data.getInt(DBConst.WORKORDERS_COLUMN_ID),
-                    data.getString(DBConst.WORKORDERS_COLUMN_DATE),
-                    data.getString(DBConst.WORKORDERS_COLUMN_ISSUE),
-                    data.getString(DBConst.WORKORDERS_COLUMN_CAUSE),
-                    data.getString(DBConst.WORKORDERS_COLUMN_CORRECTION),
-                    data.getInt(DBConst.WORKORDERS_COLUMN_CLOSED));
+            if(data.next()) {
+                workorder = new Workorders(data.getInt(DBConst.WORKORDERS_COLUMN_ID),
+                        data.getString(DBConst.WORKORDERS_COLUMN_DATE),
+                        data.getString(DBConst.WORKORDERS_COLUMN_ISSUE),
+                        data.getString(DBConst.WORKORDERS_COLUMN_CAUSE),
+                        data.getString(DBConst.WORKORDERS_COLUMN_CORRECTION),
+                        data.getInt(DBConst.WORKORDERS_COLUMN_CLOSED));
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -80,15 +84,15 @@ public class WorkordersTable implements WorkordersDAO {
     @Override
     public void updateWorkorder(Workorders workorder) {
         String query = "UPDATE " + DBConst.TABLE_WORKORDERS + " SET "  +
-                DBConst.WORKORDERS_COLUMN_DATE + " " + workorder.getDate() + ", " +
-                DBConst.WORKORDERS_COLUMN_ISSUE + " " + workorder.getIssue() + ", " +
-                DBConst.WORKORDERS_COLUMN_CAUSE+ " " + workorder.getCause() + ", " +
-                DBConst.WORKORDERS_COLUMN_CORRECTION + " " + workorder.getCorrection() +
-                DBConst.WORKORDERS_COLUMN_CLOSED + " " + workorder.getClosed() +
-                " WHERE " + DBConst.WORKORDERS_COLUMN_ID + " = " + workorder.getId();
+                DBConst.WORKORDERS_COLUMN_DATE + " = '" + workorder.getDate() + "', " +
+                DBConst.WORKORDERS_COLUMN_ISSUE + " = '" + workorder.getIssue() + "', " +
+                DBConst.WORKORDERS_COLUMN_CAUSE+ " = '" + workorder.getCause() + "', " +
+                DBConst.WORKORDERS_COLUMN_CORRECTION + " = '" + workorder.getCorrection() + "', " +
+                DBConst.WORKORDERS_COLUMN_CLOSED + " = '" + workorder.getClosed() +
+                "' WHERE " + DBConst.WORKORDERS_COLUMN_ID + " = " + workorder.getId();
         try {
             Statement updateItem = db.getConnection().createStatement();
-            updateItem.executeQuery(query);
+            updateItem.execute(query);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -130,6 +134,48 @@ public class WorkordersTable implements WorkordersDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * @Author Dorian Harusha
+     * @Date 11.29.2018
+     * @return number of closed workeorders
+     */
+    public int getClosedWorkordersCount() {
+        int count = 0;
+        String closed = "closed";
+        String query = "SELECT * FROM " + DBConst.TABLE_WORKORDERS + " WHERE " + DBConst.WORKORDERS_COLUMN_CLOSED + " = 1";
+        try {
+            Statement getCount = db.getConnection().createStatement();
+            ResultSet data = getCount.executeQuery(query);
+            while(data.next()) {
+                count++;
+            }
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+
+        return count;
+    }
+
+    /**
+     * @Author Dorian Harusha
+     * @Date 11.29.2018
+     * @return number of open workorders
+     */
+    public int getOpenWorkordersCount() {
+        int count = 0;
+        String query = "SELECT * FROM " + DBConst.TABLE_WORKORDERS + " WHERE " + DBConst.WORKORDERS_COLUMN_CLOSED + " = 0";
+        try {
+            Statement getCount = db.getConnection().createStatement();
+            ResultSet data = getCount.executeQuery(query);
+            while(data.next()) {
+                count++;
+            }
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return count;
     }
 }
 
