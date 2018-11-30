@@ -26,5 +26,6 @@ public class LoginScene extends Scene {
      */
     public LoginScene() {
         super(new LoginPane(), Construct.SCREEN_WIDTH, Construct.SCREEN_HEIGHT);
+        this.getStylesheets().add("/styles/Main.css");
     }
 }

@@ -65,19 +65,20 @@ public class StatisticsTab extends Tab {
 
 		final ComboBox chartComboBox = new ComboBox();
 		chartComboBox.getItems().addAll(
-				"Pie Chart",
-				"Bar Graph"
+				"Open/Closed Work Orders",
+				"Vehicles Worked On"
 		);
-		chartComboBox.setValue("Pie Chart");
-
+		chartComboBox.setValue("Open/Closed Work Orders");
+		chart.setVisible(true);
+		bchart.setVisible(false);
 
 		chartComboBox.valueProperty().addListener(new ChangeListener<String>() {
 			@Override public void changed(ObservableValue ov, String t, String t1) {
-				if (chartComboBox.getValue() == "Pie Chart") {
+				if (chartComboBox.getValue().equals("Open/Closed Work Orders")) {
 					pane.setCenter(generateChart());
 					bchart.setVisible(false);
 					chart.setVisible(true);
-				} else if (chartComboBox.getValue() == "Bar Graph") {
+				} else if (chartComboBox.getValue().equals("Vehicles Worked On")) {
 					pane.setCenter(generateBarChart());
 					chart.setVisible(false);
 					bchart.setVisible(true);
@@ -86,7 +87,7 @@ public class StatisticsTab extends Tab {
 		});
 
 		// Fixes duplication issue *read below for more info*
-		bchart.getData().addAll(series1);
+		//bchart.getData().addAll(series1);
 
 		HBox hBox = new HBox(prompt, chartComboBox);
 		hBox.setPadding(new Insets(15, 12, 15, 12));
@@ -131,7 +132,7 @@ public class StatisticsTab extends Tab {
 		int closed = table.getClosedWorkordersCount();
 		int open = table.getOpenWorkordersCount();
 
-		chart.setTitle("Service Charts Statistics");
+		chart.setTitle("Open vs Closed Work Orders");
 		chart.setLabelsVisible(true);
 		chart.setLabelLineLength(10);
 
@@ -153,7 +154,7 @@ public class StatisticsTab extends Tab {
 	public static BarChart generateBarChart() {
 		VehiclesTable vehiclesTable = new VehiclesTable();
 
-		bchart.setTitle("Vehicle Brands Worked On");
+		bchart.setTitle("Vehicles Worked On By Brand");
 		xAxis.setLabel("# Worked on");
 		xAxis.setTickLabelRotation(10);
 		yAxis.setTickLabelRotation(10);
@@ -174,6 +175,9 @@ public class StatisticsTab extends Tab {
 		series1.getData().add(new XYChart.Data("FORD"  , vehiclesTable.getVehiclesWorkedOnCount("FORD")));
 		series1.getData().add(new XYChart.Data("HONDA"  , vehiclesTable.getVehiclesWorkedOnCount("HONDA")));
 		series1.getData().add(new XYChart.Data("CHEVROLET", vehiclesTable.getVehiclesWorkedOnCount("CHEVROLET")));
+
+		bchart.setData(FXCollections.observableArrayList(series1));
+		//bchart.getData().addAll(series1);
 
 		return bchart;
 	}

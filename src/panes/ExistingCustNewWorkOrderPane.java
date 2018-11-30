@@ -4,6 +4,7 @@ import form.FormAnswers;
 import form.ProvinceChoice;
 import form.VehicleChoice;
 import javabean.*;
+import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
@@ -16,6 +17,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 import main.Const;
 import tables.*;
 import tabs.ExistingWorkOrderTab;
@@ -23,6 +25,8 @@ import tabs.NewWorkOrderTab;
 
 import java.util.*;
 
+import static main.Const.BODY_FONT;
+import static main.Const.HEADER_FONT;
 import static main.Const.TEXTFIELD_WIDTH_SIZE;
 
 /**
@@ -55,7 +59,7 @@ public class ExistingCustNewWorkOrderPane extends BorderPane {
     private ArrayList<Vehicles> vehicles = new ArrayList<>();
 
     //Get Access to the tables
-    private CustomersTable custTable = new CustomersTable();
+    private static CustomersTable custTable = new CustomersTable();
     private VehiclesTable vehTable = new VehiclesTable();
     private WorkordersTable workTable = new WorkordersTable();
     private CustomerVehiclesTable custVehTable = new CustomerVehiclesTable();
@@ -64,7 +68,7 @@ public class ExistingCustNewWorkOrderPane extends BorderPane {
 
     private ListView<Vehicles> vehicleListView = new ListView<>();
 
-    private TableView<Customers> tableView;
+    private static TableView<Customers> tableView = new TableView<>();
 
     public ExistingCustNewWorkOrderPane() {
 
@@ -124,20 +128,6 @@ public class ExistingCustNewWorkOrderPane extends BorderPane {
 
         tableView.getColumns().addAll(firstNameCol, lastNameCol, addressCol, cityCol, provinceCol, postalCol, phoneCol, emailCol);
 
-        searchButton.setOnMouseClicked(e->{
-            if (searchTextField.getText().matches("\\(\\d{3}\\)\\d{3}-?\\d{4}")) {
-                final String number = searchTextField.getText().trim();
-                if(!number.isEmpty()) {
-                    customers.clear();
-                    custTable.getAllActiveCustomers().forEach(profile -> {
-                        if (profile.getPhoneNumber().equals(number)) {
-                            customers.add(profile);
-                        }
-                    });
-                    tableView.setItems(FXCollections.observableArrayList(customers));
-                }
-            }
-        });
 
         //Create a button that will send the user to the pane to create a new profile instead
         Button newProfile = new Button("Create A New Customer");
@@ -155,7 +145,7 @@ public class ExistingCustNewWorkOrderPane extends BorderPane {
          */
         //Vehicle list view title
         Text vehListViewText = new Text("Customer's Vehicles");
-        vehListViewText.setFont(Font.font("Times New Roman", 20));
+        vehListViewText.setFont(HEADER_FONT);
 
         HBox hBox = new HBox();
         VBox updateCustomerBox = new VBox();
@@ -164,11 +154,11 @@ public class ExistingCustNewWorkOrderPane extends BorderPane {
 
         //Customer info title
         Text customerInfo = new Text("Customer Information");
-        customerInfo.setFont(Font.font("Times New Roman", 20));
+        customerInfo.setFont(HEADER_FONT);
 
         //First Name Label
         Label firstNameText = new Label("First Name:");
-        firstNameText.setFont(Font.font("Times New Roman", 16));
+        firstNameText.setFont(BODY_FONT);
         //First Name TextField
         TextField firstName = new TextField();
         firstName.setPromptText("First Name");
@@ -177,7 +167,7 @@ public class ExistingCustNewWorkOrderPane extends BorderPane {
 
         //Last Name Label
         Label lastNameText = new Label("Last Name:");
-        lastNameText.setFont(Font.font("Times New Roman", 16));
+        lastNameText.setFont(BODY_FONT);
         //Last Name textField
         TextField lastName = new TextField();
         lastName.setPromptText("Last Name");
@@ -186,7 +176,7 @@ public class ExistingCustNewWorkOrderPane extends BorderPane {
 
         //Address Label
         Label addressText = new Label("Address:");
-        addressText.setFont(Font.font("Times New Roman", 16));
+        addressText.setFont(BODY_FONT);
         //Address Textfield
         TextField address = new TextField();
         address.setPromptText("Address");
@@ -195,7 +185,7 @@ public class ExistingCustNewWorkOrderPane extends BorderPane {
 
         //City Label
         Label cityText = new Label("City:");
-        cityText.setFont(Font.font("Times New Roman", 16));
+        cityText.setFont(BODY_FONT);
         //City Textfield
         TextField city = new TextField();
         city.setPromptText("City");
@@ -204,7 +194,7 @@ public class ExistingCustNewWorkOrderPane extends BorderPane {
 
         //Province Label
         Label provinceText = new Label("Province:");
-        provinceText.setFont(Font.font("Times New Roman", 16));
+        provinceText.setFont(BODY_FONT);
         //Province Textfield
         comboProvince.setItems(FXCollections.observableArrayList(provinceMap));
         comboProvince.setMaxWidth(TEXTFIELD_WIDTH_SIZE);
@@ -217,7 +207,7 @@ public class ExistingCustNewWorkOrderPane extends BorderPane {
 
         //Email Label
         Label emailText = new Label("Email:");
-        emailText.setFont(Font.font("Times New Roman", 16));
+        emailText.setFont(BODY_FONT);
         //Email Textfield
         TextField email = new TextField();
         email.setPromptText("example@company.com");
@@ -226,7 +216,7 @@ public class ExistingCustNewWorkOrderPane extends BorderPane {
 
         //Postal Code Label
         Label postalCodeText = new Label("Postal Code:");
-        postalCodeText.setFont(Font.font("Times New Roman", 16));
+        postalCodeText.setFont(BODY_FONT);
         //Postal Code Textfield
         TextField postalCode = new TextField();
         postalCode.setPromptText("A1B2C3");
@@ -235,7 +225,7 @@ public class ExistingCustNewWorkOrderPane extends BorderPane {
 
         //Phone number Label
         Label phoneNumText = new Label("Phone Number:");
-        phoneNumText.setFont(Font.font("Times New Roman", 16));
+        phoneNumText.setFont(BODY_FONT);
         //Phone number textfield
         TextField phoneNum = new TextField();
         phoneNum.setPromptText("(555)555-5555");
@@ -249,11 +239,11 @@ public class ExistingCustNewWorkOrderPane extends BorderPane {
 
         //Vehicle info title
         Text vehicleInfo = new Text("Vehicle Information");
-        vehicleInfo.setFont(Font.font("Times New Roman", 20));
+        vehicleInfo.setFont(HEADER_FONT);
 
         //Vin num Label
         Label vinNumText = new Label("VIN Number:");
-        vinNumText.setFont(Font.font("Times New Roman", 16));
+        vinNumText.setFont(BODY_FONT);
         //Vin Number textfield
         TextField vinNum = new TextField();
         vinNum.setPromptText("Vehicle Identification Number");
@@ -262,7 +252,7 @@ public class ExistingCustNewWorkOrderPane extends BorderPane {
 
         //Brand label
         Label brandText = new Label("Brand:");
-        brandText.setFont(Font.font("Times New Roman", 16));
+        brandText.setFont(BODY_FONT);
         //Brand ComboBox
         comboBrand.setMaxWidth(TEXTFIELD_WIDTH_SIZE);
         comboBrand.setItems(FXCollections.observableArrayList(vehicleMap.keySet()));
@@ -276,7 +266,7 @@ public class ExistingCustNewWorkOrderPane extends BorderPane {
 
         //Model Label
         Label modelText = new Label("Model:");
-        modelText.setFont(Font.font("Times New Roman", 16));
+        modelText.setFont(BODY_FONT);
         //Model ComboBox
         //comboModel.setItems(FXCollections.observableArrayList(vehicleMap.values()));
         comboModel.setMaxWidth(TEXTFIELD_WIDTH_SIZE);
@@ -289,7 +279,7 @@ public class ExistingCustNewWorkOrderPane extends BorderPane {
 
         //Year Text
         Label yearText = new Label("Year:");
-        yearText.setFont(Font.font("Times New Roman", 16));
+        yearText.setFont(BODY_FONT);
         //Year Textfield
         TextField year = new TextField();
         year.setPromptText("Vehicle Year");
@@ -298,7 +288,7 @@ public class ExistingCustNewWorkOrderPane extends BorderPane {
 
         //Kilometers Text
         Label kilometersText = new Label("Kilometers:");
-        kilometersText.setFont(Font.font("Times New Roman", 16));
+        kilometersText.setFont(BODY_FONT);
         //Kilometers Textfield
         TextField kilometers = new TextField();
         kilometers.setPromptText("Vehicle Kilometers");
@@ -307,7 +297,7 @@ public class ExistingCustNewWorkOrderPane extends BorderPane {
 
         //Service box where the issues are placed
         Label issueText = new Label("Please write the issue the customer is having with their vehicle:");
-        issueText.setFont(Font.font("Times New Roman", 20));
+        issueText.setFont(BODY_FONT);
         issueText.setPadding(new Insets(10,0,0,0));
 
         TextArea issue = new TextArea();
@@ -360,6 +350,12 @@ public class ExistingCustNewWorkOrderPane extends BorderPane {
                 brandText.setTextFill(Color.BLACK);
                 modelText.setTextFill(Color.BLACK);
                 kilometersText.setTextFill(Color.BLACK);
+                FadeTransition fade = new FadeTransition(Duration.millis(500), addVehicleBox);
+                fade.setFromValue(.1);
+                fade.setToValue(1);
+                fade.setCycleCount(1);
+                fade.setAutoReverse(false);
+                fade.play();
                 addVehicleBox.setVisible(true);
                 warning.setVisible(false);
             }
@@ -387,6 +383,12 @@ public class ExistingCustNewWorkOrderPane extends BorderPane {
                     email.setText(customer.getEmail());
                     phoneNum.setText(customer.getPhoneNumber());
                     vehicleListView.setItems(FXCollections.observableArrayList(vehicles));
+                    FadeTransition fade = new FadeTransition(Duration.millis(500), hBox);
+                    fade.setFromValue(.1);
+                    fade.setToValue(1);
+                    fade.setCycleCount(1);
+                    fade.setAutoReverse(false);
+                    fade.play();
                     hBox.setVisible(true);
                     addVehicleBox.setVisible(false);
                     warning.setVisible(false);
@@ -418,6 +420,29 @@ public class ExistingCustNewWorkOrderPane extends BorderPane {
             } else {
                 ExistingWorkOrderTab.getInstance().getTabPane().getSelectionModel().select(newWorkOrderTab);
             }
+        });
+
+        searchButton.setOnMouseClicked(e->{
+            if (searchTextField.getText().matches("\\(\\d{3}\\)\\d{3}-?\\d{4}")) {
+                final String number = searchTextField.getText().trim();
+                customers.clear();
+                custTable.getAllActiveCustomers().forEach(profile -> {
+                    if (profile.getPhoneNumber().equals(number)) {
+                        customers.add(profile);
+                    }
+                });
+                tableView.setItems(FXCollections.observableArrayList(customers));
+            } else {
+                customers.clear();
+                customers = custTable.getAllActiveCustomers();
+                tableView.setItems(FXCollections.observableArrayList(customers));
+            }
+
+            hBox.setVisible(false);
+            addVehicleBox.setVisible(false);
+            warning.setVisible(false);
+            tableView.setPrefHeight(625);
+            tableView.refresh();
         });
 
 
@@ -478,12 +503,10 @@ public class ExistingCustNewWorkOrderPane extends BorderPane {
                     VehicleWorkorders vehicleWorkorder = new VehicleWorkorders(vehicle.getId(), workorderArray.get(workorderArray.size() - 1).getId());
                     vehWorkTable.createVehicleWorkorder(vehicleWorkorder);
 
-                    CustomerVehicleIssue customerVehicleIssue = new CustomerVehicleIssue(firstName.getText(), lastName.getText(), comboBrand.getValue(),
-                            comboModel.getValue(), workorderArray.get(workorderArray.size() - 1).getId(), issue.getText(), 0);
-                    customerVehicleIssueTable.createCustomerVehicleIssue(customerVehicleIssue);
 
                     //Complete the form and close the instance
                     issue.setText("");
+                    OpenWorkOrderPane.refreshTable();
 
                     ExistingWorkOrderTab.closeInstance();
                 }
@@ -491,6 +514,11 @@ public class ExistingCustNewWorkOrderPane extends BorderPane {
                 warning.setVisible(true);
             }
         });
+    }
+
+    public static void refreshTable() {
+        tableView.setItems(FXCollections.observableArrayList(custTable.getAllActiveCustomers()));
+        tableView.refresh();
     }
 }
 

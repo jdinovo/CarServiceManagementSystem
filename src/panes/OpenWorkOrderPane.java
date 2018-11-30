@@ -4,6 +4,7 @@ package panes;
 import form.ProvinceChoice;
 import form.VehicleChoice;
 import javabean.*;
+import javafx.animation.FadeTransition;
 import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -15,11 +16,15 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 import tables.*;
+import tabs.StatisticsTab;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import static main.Const.HEADER_FONT;
 
 /**
  * OpenWorkOrderPane contains the GUI for all active open work orders
@@ -31,8 +36,9 @@ import java.util.Map;
 public class OpenWorkOrderPane extends BorderPane {
 
     //Getting access to the data
+    private static TableView tableView = new TableView();
     private ArrayList<CustomerVehicleIssue> customerVehicleIssues;
-    private CustomerVehicleIssueTable customerVehicleIssueTable = new CustomerVehicleIssueTable();
+    private static CustomerVehicleIssueTable customerVehicleIssueTable = new CustomerVehicleIssueTable();
     private WorkordersTable workordersTable = new WorkordersTable();
 
     private CustomerVehicleIssue custVehIssue = new CustomerVehicleIssue();
@@ -47,7 +53,7 @@ public class OpenWorkOrderPane extends BorderPane {
         customerVehicleIssues = customerVehicleIssueTable.getAllOpenCustomerVehicleIssues();
 
         //Table that will contain the list of all active work orders
-        TableView tableView = new TableView<>();
+        tableView = new TableView<>();
         tableView.setItems(FXCollections.observableArrayList(customerVehicleIssues));
 
         tableView.setEditable(false);
@@ -76,33 +82,33 @@ public class OpenWorkOrderPane extends BorderPane {
         tableView.getColumns().addAll(firstNameCol,lastNameCol,brandCol,modelCol,idCol,issueCol);
 
         Label issueText = new Label("Customer Issue:");
-        issueText.setFont(Font.font("Times New Roman", 20));
+        issueText.setFont(HEADER_FONT);
 
         TextArea issue = new TextArea();
         issue.setPromptText("Customer's issue...");
-        issue.setMaxSize(400,200);
+        issue.setPrefSize(400,200);
         issue.setWrapText(true);
 
         VBox issueBox = new VBox();
         issueBox.getChildren().addAll(issueText, issue);
 
         Label causeText = new Label("Cause Of Issue:");
-        causeText.setFont(Font.font("Times New Roman", 20));
+        causeText.setFont(HEADER_FONT);
 
         TextArea cause = new TextArea();
         cause.setPromptText("Cause of the issue...");
-        cause.setMaxSize(400,200);
+        cause.setPrefSize(400,200);
         cause.setWrapText(true);
 
         VBox causeBox = new VBox();
         causeBox.getChildren().addAll(causeText, cause);
 
         Label correctionText = new Label("Correction:");
-        correctionText.setFont(Font.font("Times New Roman", 20));
+        correctionText.setFont(HEADER_FONT);
 
         TextArea correction = new TextArea();
         correction.setPromptText("What was done to correct issue...");
-        correction.setMaxSize(400,200);
+        correction.setPrefSize(400,200);
         correction.setWrapText(true);
 
         VBox correctionBox = new VBox();
@@ -139,7 +145,10 @@ public class OpenWorkOrderPane extends BorderPane {
             workorder.setCorrection(correction.getText().trim());
             workordersTable.updateWorkorder(workorder);
 
+            tableView.setPrefHeight(650);
             warning.setVisible(false);
+            hBox.setVisible(false);
+            buttonBox.setVisible(false);
 
             tableView.setItems(FXCollections.observableArrayList(customerVehicleIssueTable.getAllOpenCustomerVehicleIssues()));
             tableView.refresh();
@@ -152,13 +161,24 @@ public class OpenWorkOrderPane extends BorderPane {
                 workorder.setCorrection(correction.getText().trim());
                 workorder.setClosed(1);
                 workordersTable.updateWorkorder(workorder);
-                tableView.setPrefHeight(650);
-                warning.setVisible(false);
-                hBox.setVisible(false);
                 buttonBox.setVisible(false);
+                FadeTransition fade = new FadeTransition(Duration.millis(500), hBox);
+                fade.setFromValue(1);
+                fade.setToValue(0);
+                fade.setCycleCount(1);
+                fade.setAutoReverse(false);
+                fade.play();
+                fade.setOnFinished(a-> {
+                    tableView.setPrefHeight(650);
+                    warning.setVisible(false);
+                    hBox.setVisible(false);
+
+                });
 
                 tableView.setItems(FXCollections.observableArrayList(customerVehicleIssueTable.getAllOpenCustomerVehicleIssues()));
                 tableView.refresh();
+                ClosedWorkOrderPane.refreshTable();
+                StatisticsTab.generateChart();
             } else {
                 warning.setVisible(true);
             }
@@ -176,6 +196,13 @@ public class OpenWorkOrderPane extends BorderPane {
                     cause.setText(workorder.getCause());
                     correction.setText(workorder.getCorrection());
 
+                    FadeTransition fade = new FadeTransition(Duration.millis(500), hBox);
+                    fade.setFromValue(.1);
+                    fade.setToValue(1);
+                    fade.setCycleCount(1);
+                    fade.setAutoReverse(false);
+                    fade.play();
+
                     hBox.setVisible(true);
                     buttonBox.setVisible(true);
                     tableView.setPrefHeight(150);
@@ -185,6 +212,11 @@ public class OpenWorkOrderPane extends BorderPane {
             return row ;
         });
 
+    }
+
+    public static void refreshTable() {
+        tableView.setItems(FXCollections.observableArrayList(customerVehicleIssueTable.getAllOpenCustomerVehicleIssues()));
+        tableView.refresh();
     }
 
 }
