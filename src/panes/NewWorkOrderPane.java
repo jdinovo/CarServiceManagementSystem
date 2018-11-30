@@ -19,6 +19,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import tables.*;
 import tabs.NewWorkOrderTab;
+import tabs.StatisticsTab;
 
 import java.util.*;
 
@@ -447,6 +448,7 @@ public class NewWorkOrderPane extends GridPane {
                     issue.setText("");
                     OpenWorkOrderPane.refreshTable();
                     EditCustInfoPane.refreshTable();
+                    StatisticsTab.generateBarChart();
                     NewWorkOrderTab.closeInstance();
                 }
             } catch (NullPointerException f) {

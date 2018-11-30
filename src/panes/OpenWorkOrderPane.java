@@ -18,6 +18,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import tables.*;
+import tabs.StatisticsTab;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -160,14 +161,24 @@ public class OpenWorkOrderPane extends BorderPane {
                 workorder.setCorrection(correction.getText().trim());
                 workorder.setClosed(1);
                 workordersTable.updateWorkorder(workorder);
-                tableView.setPrefHeight(650);
-                warning.setVisible(false);
-                hBox.setVisible(false);
                 buttonBox.setVisible(false);
+                FadeTransition fade = new FadeTransition(Duration.millis(500), hBox);
+                fade.setFromValue(1);
+                fade.setToValue(0);
+                fade.setCycleCount(1);
+                fade.setAutoReverse(false);
+                fade.play();
+                fade.setOnFinished(a-> {
+                    tableView.setPrefHeight(650);
+                    warning.setVisible(false);
+                    hBox.setVisible(false);
+
+                });
 
                 tableView.setItems(FXCollections.observableArrayList(customerVehicleIssueTable.getAllOpenCustomerVehicleIssues()));
                 tableView.refresh();
                 ClosedWorkOrderPane.refreshTable();
+                StatisticsTab.generateChart();
             } else {
                 warning.setVisible(true);
             }

@@ -22,6 +22,7 @@ import main.Const;
 import tables.CustomerVehiclesTable;
 import tables.CustomersTable;
 import tables.VehiclesTable;
+import tabs.StatisticsTab;
 
 import java.util.*;
 
@@ -556,7 +557,7 @@ public class EditCustInfoPane extends BorderPane {
                     addVehicleBox.setVisible(false);
                     warning.setVisible(false);
                 });
-
+                StatisticsTab.generateBarChart();
                 ExistingCustNewWorkOrderPane.refreshTable();
             }
         });
