@@ -93,12 +93,11 @@ public class LoginPane extends BorderPane {
             loginButton.setOnAction(e -> {
                 error.setVisible(false);
 
-                loginHash.put("DB_HOST", dbLoc.getText().trim());
-                loginHash.put("DB_NAME", dbName.getText().trim());
-                loginHash.put("DB_USER", dbUser.getText().trim());
-                loginHash.put("DB_PASS", dbPass.getText().trim());
-                if (!loginHash.get("DB_NAME").isEmpty() && !loginHash.get("DB_USER").isEmpty() && !loginHash.get("DB_PASS").isEmpty() && !loginHash.get("DB_HOST").isEmpty()) {
-
+                if (!dbLoc.getText().trim().isEmpty() && !dbName.getText().trim().isEmpty() && !dbUser.getText().trim().isEmpty() && !dbPass.getText().trim().isEmpty()) {
+                    loginHash.put("DB_HOST", dbLoc.getText().trim());
+                    loginHash.put("DB_NAME", dbName.getText().trim());
+                    loginHash.put("DB_USER", dbUser.getText().trim());
+                    loginHash.put("DB_PASS", dbPass.getText().trim());
 
                     if(login.test(loginHash.get("DB_HOST"), loginHash.get("DB_NAME"), loginHash.get("DB_USER"), loginHash.get("DB_PASS"))) {
                         DBConst.setDbHost(loginHash.get("DB_HOST"));

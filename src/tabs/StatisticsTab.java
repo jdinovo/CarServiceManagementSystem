@@ -1,5 +1,6 @@
 package tabs;
 
+import javafx.animation.FadeTransition;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -12,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.util.Duration;
 import tables.VehiclesTable;
 import tables.WorkordersTable;
 
@@ -71,17 +73,59 @@ public class StatisticsTab extends Tab {
 		chartComboBox.setValue("Open/Closed Work Orders");
 		chart.setVisible(true);
 		bchart.setVisible(false);
+		FadeTransition fade = new FadeTransition(Duration.millis(500), chart);
+		fade.setFromValue(0);
+		fade.setToValue(1);
+		fade.setCycleCount(1);
+		fade.setAutoReverse(false);
+		fade.play();
 
 		chartComboBox.valueProperty().addListener(new ChangeListener<String>() {
 			@Override public void changed(ObservableValue ov, String t, String t1) {
 				if (chartComboBox.getValue().equals("Open/Closed Work Orders")) {
-					pane.setCenter(generateChart());
-					bchart.setVisible(false);
-					chart.setVisible(true);
+					FadeTransition fade = new FadeTransition(Duration.millis(500), bchart);
+					fade.setFromValue(1);
+					fade.setToValue(0);
+					fade.setCycleCount(1);
+					fade.setAutoReverse(false);
+					fade.play();
+					fade.setOnFinished(a-> {
+						pane.setCenter(generateChart());
+						chart.setVisible(true);
+						FadeTransition fade2 = new FadeTransition(Duration.millis(500), chart);
+						fade2.setFromValue(0);
+						fade2.setToValue(1);
+						fade2.setCycleCount(1);
+						fade2.setAutoReverse(false);
+						fade2.play();
+						fade2.setOnFinished(v-> {
+
+							bchart.setVisible(false);
+						});
+					});
+
 				} else if (chartComboBox.getValue().equals("Vehicles Worked On")) {
-					pane.setCenter(generateBarChart());
-					chart.setVisible(false);
-					bchart.setVisible(true);
+					FadeTransition fade = new FadeTransition(Duration.millis(500), chart);
+					fade.setFromValue(1);
+					fade.setToValue(0);
+					fade.setCycleCount(1);
+					fade.setAutoReverse(false);
+					fade.play();
+					fade.setOnFinished(a-> {
+						pane.setCenter(generateBarChart());
+						bchart.setVisible(true);
+						FadeTransition fade2 = new FadeTransition(Duration.millis(500), bchart);
+						fade2.setFromValue(0);
+						fade2.setToValue(1);
+						fade2.setCycleCount(1);
+						fade2.setAutoReverse(false);
+						fade2.play();
+						fade2.setOnFinished(v-> {
+
+							chart.setVisible(false);
+						});
+					});
+
 				}
 			}
 		});
@@ -169,7 +213,7 @@ public class StatisticsTab extends Tab {
 		series1.getData().add(new XYChart.Data("JEEP", vehiclesTable.getVehiclesWorkedOnCount("JEEP")));
 		series1.getData().add(new XYChart.Data("AUDI"  , vehiclesTable.getVehiclesWorkedOnCount("AUDI")));
 		series1.getData().add(new XYChart.Data("VOLKSWAGEN"  , vehiclesTable.getVehiclesWorkedOnCount("VOLKSWAGEN")));
-		series1.getData().add(new XYChart.Data("PORCHE", vehiclesTable.getVehiclesWorkedOnCount("PORCHE")));
+		series1.getData().add(new XYChart.Data("PORSCHE", vehiclesTable.getVehiclesWorkedOnCount("PORSCHE")));
 		series1.getData().add(new XYChart.Data("SUBARU", vehiclesTable.getVehiclesWorkedOnCount("SUBARU")));
 		series1.getData().add(new XYChart.Data("DODGE", vehiclesTable.getVehiclesWorkedOnCount("DODGE")));
 		series1.getData().add(new XYChart.Data("FORD"  , vehiclesTable.getVehiclesWorkedOnCount("FORD")));

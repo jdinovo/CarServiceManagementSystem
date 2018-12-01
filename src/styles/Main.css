@@ -34,6 +34,10 @@
     -fx-background-color: #cecece;
 }
 
+.menu-item:focused, .menu-button:focused, .menu:focused, .menu-bar:focused {
+    -fx-background-color: #cecece;
+}
+
 .table-view, .text-field, .text-area, .list-view, .combo-box {
     -fx-font-family: Tahoma;
 }

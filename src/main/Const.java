@@ -12,4 +12,6 @@ public class Const {
 
     public static final Font BODY_FONT = Font.font("Tahoma", FontWeight.NORMAL, FontPosture.REGULAR, 16);
 
+    public static final Font STATS_FONT = Font.font("Tahoma", FontWeight.LIGHT, FontPosture.REGULAR, 12);
+
 }
