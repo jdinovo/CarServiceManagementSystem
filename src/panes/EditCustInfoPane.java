@@ -42,7 +42,7 @@ public class EditCustInfoPane extends BorderPane {
     //Importing the vehicleMap
     private Map<String, List<String>> vehicleMap = VehicleChoice.getVehicleModel();
     private ArrayList<String> provinceMap = ProvinceChoice.getProvinceModel();
-    private static TableView<Customers> tableView;
+    private static TableView<Customers> tableView = new TableView<>();
 
     //ComboBoxes for the form
     private ComboBox<String> comboBrand = new ComboBox<>();
@@ -57,7 +57,7 @@ public class EditCustInfoPane extends BorderPane {
 
     private ListView<Vehicles> vehicleListView = new ListView<>();
 
-    private static CustomersTable custTable;
+    private static CustomersTable custTable = new CustomersTable();
 
     public EditCustInfoPane() {
 
@@ -67,7 +67,6 @@ public class EditCustInfoPane extends BorderPane {
         warning.setFill(Color.RED);
 
         //get access to table classes
-        custTable = new CustomersTable();
         VehiclesTable vehTable = new VehiclesTable();
         CustomerVehiclesTable custVehTable = new CustomerVehiclesTable();
 
@@ -640,5 +639,6 @@ public class EditCustInfoPane extends BorderPane {
 
     public static void refreshTable() {
         tableView.setItems(FXCollections.observableArrayList(custTable.getAllActiveCustomers()));
+        tableView.refresh();
     }
 }
