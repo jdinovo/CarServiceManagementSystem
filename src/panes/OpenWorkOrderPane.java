@@ -144,10 +144,18 @@ public class OpenWorkOrderPane extends BorderPane {
             workorder.setCause(cause.getText().trim());
             workorder.setCorrection(correction.getText().trim());
             workordersTable.updateWorkorder(workorder);
+            FadeTransition fade = new FadeTransition(Duration.millis(500), hBox);
+            fade.setFromValue(1);
+            fade.setToValue(0);
+            fade.setCycleCount(1);
+            fade.setAutoReverse(false);
+            fade.play();
+            fade.setOnFinished(a-> {
+                tableView.setPrefHeight(650);
+                warning.setVisible(false);
+                hBox.setVisible(false);
 
-            tableView.setPrefHeight(650);
-            warning.setVisible(false);
-            hBox.setVisible(false);
+            });
             buttonBox.setVisible(false);
 
             tableView.setItems(FXCollections.observableArrayList(customerVehicleIssueTable.getAllOpenCustomerVehicleIssues()));

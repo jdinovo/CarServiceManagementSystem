@@ -143,8 +143,10 @@ public class WorkordersTable implements WorkordersDAO {
      */
     public int getClosedWorkordersCount() {
         int count = 0;
-        String closed = "closed";
-        String query = "SELECT * FROM " + DBConst.TABLE_WORKORDERS + " WHERE " + DBConst.WORKORDERS_COLUMN_CLOSED + " = 1";
+        String query = "SELECT " + DBConst.TABLE_WORKORDERS + ".* FROM " + DBConst.TABLE_WORKORDERS + ", " + DBConst.TABLE_VEHICLES + ", " + DBConst.TABLE_VEHICLE_WORKORDERS + " WHERE "
+                + DBConst.TABLE_VEHICLE_WORKORDERS + "." + DBConst.VEHICLE_WORKORDERS_COLUMN_VEHICLE_ID + " = " + DBConst.TABLE_VEHICLES + "." + DBConst.VEHICLE_COLUMN_ID + " AND " +
+                DBConst.TABLE_VEHICLE_WORKORDERS + "." + DBConst.VEHICLE_WORKORDERS_COLUMN_WORKORDER_ID + " = " + DBConst.TABLE_WORKORDERS + "." + DBConst.WORKORDERS_COLUMN_ID + " AND " +
+                DBConst.TABLE_WORKORDERS + "." + DBConst.WORKORDERS_COLUMN_CLOSED + " = 1 AND " + DBConst.TABLE_VEHICLES + "." + DBConst.VEHICLE_COLUMN_DELETED + " = 0";
         try {
             Statement getCount = db.getConnection().createStatement();
             ResultSet data = getCount.executeQuery(query);
@@ -165,7 +167,10 @@ public class WorkordersTable implements WorkordersDAO {
      */
     public int getOpenWorkordersCount() {
         int count = 0;
-        String query = "SELECT * FROM " + DBConst.TABLE_WORKORDERS + " WHERE " + DBConst.WORKORDERS_COLUMN_CLOSED + " = 0";
+        String query = "SELECT " + DBConst.TABLE_WORKORDERS + ".* FROM " + DBConst.TABLE_WORKORDERS + ", " + DBConst.TABLE_VEHICLES + ", " + DBConst.TABLE_VEHICLE_WORKORDERS + " WHERE "
+                + DBConst.TABLE_VEHICLE_WORKORDERS + "." + DBConst.VEHICLE_WORKORDERS_COLUMN_VEHICLE_ID + " = " + DBConst.TABLE_VEHICLES + "." + DBConst.VEHICLE_COLUMN_ID + " AND " +
+                DBConst.TABLE_VEHICLE_WORKORDERS + "." + DBConst.VEHICLE_WORKORDERS_COLUMN_WORKORDER_ID + " = " + DBConst.TABLE_WORKORDERS + "." + DBConst.WORKORDERS_COLUMN_ID + " AND " +
+                DBConst.TABLE_WORKORDERS + "." + DBConst.WORKORDERS_COLUMN_CLOSED + " = 0 AND " + DBConst.TABLE_VEHICLES + "." + DBConst.VEHICLE_COLUMN_DELETED + " = 0";
         try {
             Statement getCount = db.getConnection().createStatement();
             ResultSet data = getCount.executeQuery(query);

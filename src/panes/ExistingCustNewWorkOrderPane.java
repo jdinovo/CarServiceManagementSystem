@@ -22,6 +22,7 @@ import main.Const;
 import tables.*;
 import tabs.ExistingWorkOrderTab;
 import tabs.NewWorkOrderTab;
+import tabs.StatisticsTab;
 
 import java.util.*;
 
@@ -505,10 +506,22 @@ public class ExistingCustNewWorkOrderPane extends BorderPane {
 
 
                     //Complete the form and close the instance
-                    issue.setText("");
                     OpenWorkOrderPane.refreshTable();
+                    StatisticsTab.generateChart();
 
-                    ExistingWorkOrderTab.closeInstance();
+                    FadeTransition fade = new FadeTransition(Duration.millis(500), hBox);
+                    fade.setFromValue(1);
+                    fade.setToValue(0);
+                    fade.setCycleCount(1);
+                    fade.setAutoReverse(false);
+                    fade.play();
+                    fade.setOnFinished(a-> {
+                        tableView.setPrefHeight(625);
+                        hBox.setVisible(false);
+                        issue.setText("");
+                    });
+
+
                 }
             } catch(Exception f) {
                 warning.setVisible(true);

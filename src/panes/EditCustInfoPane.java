@@ -433,6 +433,9 @@ public class EditCustInfoPane extends BorderPane {
             alert.setContentText("Are you sure you want to delete this customer?");
             if (alert.showAndWait().get() == ButtonType.OK) {
                 custTable.deleteCustomer(customer);
+                vehicles.forEach(v-> {
+                    vehTable.deleteVehicle(v);
+                });
                 customers.clear();
                 customers = custTable.getAllActiveCustomers();
                 tableView.setItems(FXCollections.observableArrayList(customers));
@@ -450,6 +453,7 @@ public class EditCustInfoPane extends BorderPane {
                 ExistingCustNewWorkOrderPane.refreshTable();
                 OpenWorkOrderPane.refreshTable();
                 ClosedWorkOrderPane.refreshTable();
+                StatisticsTab.generateChart();
             }
 
         });
