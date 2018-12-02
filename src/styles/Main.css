@@ -65,4 +65,30 @@
     -fx-padding: 0;
 }
 
+.tab-pane {
+    -fx-tab-min-width:50px;
+}
+
+.tab-pane .tab {
+    -fx-border-color: black;
+    -fx-border-width: 1;
+    -fx-border-radius: 1;
+}
+
+.tab-pane .tab:selected {
+    -fx-background-color: #8da2c4;
+}
+
+.tab .tab-label {
+    -fx-font-family: Tahoma;
+    -fx-alignment: CENTER;
+    -fx-text-fill: black;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.tab:selected .tab-label {
+   -fx-font-size: 14px;
+}
+
 
