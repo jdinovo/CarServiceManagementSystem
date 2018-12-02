@@ -21,7 +21,6 @@
 .tab-pane {
     -fx-border-color: #000000;
     -fx-border-width: 1;
-    -fx-background-color: #eaeaea;
 }
 
 .menu-bar {
@@ -51,10 +50,16 @@
     -fx-font-family: Tahoma;
 }
 
-.default-color0.chart-pie { -fx-pie-color: #78cc55; }
-.default-color1.chart-pie { -fx-pie-color: #cc5454; }
+.default-color0.chart-pie {
+    -fx-pie-color: #78cc55;
+}
+.default-color1.chart-pie {
+    -fx-pie-color: #cc5454;
+}
 
-.default-color0.chart-bar { -fx-bar-fill: #8da2c4; }
+.default-color0.chart-bar {
+    -fx-bar-fill: #8da2c4;
+}
 
 .context-menu {
     -fx-font-weight: bold;
@@ -71,7 +76,7 @@
 
 .tab-pane .tab {
     -fx-border-color: black;
-    -fx-border-width: 1;
+    -fx-border-width: .5;
     -fx-border-radius: 1;
 }
 

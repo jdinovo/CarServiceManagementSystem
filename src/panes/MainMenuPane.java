@@ -53,6 +53,7 @@ public class MainMenuPane extends BorderPane {
 		ImageView carImage = new ImageView(new Image("/graphics/carService.png"));
 		carImage.setFitHeight(500);
 		carImage.setFitWidth(500);
+		carImage.setVisible(true);
 
 		carImage.setX(265);
 		carImage.setY(150);
