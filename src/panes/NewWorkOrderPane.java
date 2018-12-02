@@ -437,15 +437,15 @@ public class NewWorkOrderPane extends GridPane {
                     VehicleWorkorders vehicleWorkorder = new VehicleWorkorders(vehicleArray.get(vehicleArray.size() - 1).getId(), workorderArray.get(workorderArray.size() - 1).getId());
                     vehWorkTable.createVehicleWorkorder(vehicleWorkorder);
 
-//                    //Delete response in textfields and close the tab
-//                    for (TextField answer : arrayOfTextFields) {
-//                        answer.setText("");
-//                    }
+                    //Delete response in textfields and close the tab
+                    for (TextField answer : arrayOfTextFields) {
+                        answer.setText("");
+                    }
 
-//                    comboBrand.setValue(null);
-//                    comboModel.setValue(null);
-//                    comboProvince.setValue(null);
-//                    issue.setText("");
+                    comboBrand.setValue(null);
+                    comboModel.setValue(null);
+                    comboProvince.setValue(null);
+                    issue.setText("");
                     OpenWorkOrderPane.refreshTable();
                     EditCustInfoPane.refreshTable();
                     StatisticsTab.generateBarChart();

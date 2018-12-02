@@ -125,7 +125,13 @@ public class LoginPane extends BorderPane {
 
     }
 
-
+    /**
+     *  changes and displays alert message
+     *  @author James DiNovo
+     *  @date 02.12.2018
+     *
+     * @param msg
+     */
     private void alert(String msg) {
         error.setText(msg);
         error.setFill(Color.RED);

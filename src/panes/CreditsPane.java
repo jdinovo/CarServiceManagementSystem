@@ -24,6 +24,12 @@ import main.Construct;
 public class CreditsPane extends BorderPane {
 
 
+    /**
+     * public constructor for CreditsPane
+     *
+     * @author James DiNovo
+     * @date 02.12.2018
+     */
     public CreditsPane() {
 
         final WebView browser = new WebView();

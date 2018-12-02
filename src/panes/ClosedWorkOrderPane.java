@@ -162,6 +162,12 @@ public class ClosedWorkOrderPane extends BorderPane {
         });
     }
 
+    /**
+     * refreshes table displayed in this pane
+     *
+     * @author James DiNovo
+     * @date 02.12.2018
+     */
     public static void refreshTable() {
 
         tableView.setItems(FXCollections.observableArrayList(customerVehicleIssueTable.getAllClosedCustomerVehicleIssues()));
