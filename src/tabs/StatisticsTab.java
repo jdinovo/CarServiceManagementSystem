@@ -199,8 +199,8 @@ public class StatisticsTab extends Tab {
 
 		bchart.setTitle("Vehicles Worked On By Brand");
 		xAxis.setLabel("# Worked on");
-		xAxis.setTickLabelRotation(10);
-		yAxis.setTickLabelRotation(10);
+//		xAxis.setTickLabelRotation(10);
+//		yAxis.setTickLabelRotation(10);
 		yAxis.setLabel("Brands");
 
 		XYChart.Series series1 = new XYChart.Series();
