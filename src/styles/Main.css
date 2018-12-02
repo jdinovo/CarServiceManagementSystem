@@ -4,7 +4,7 @@
     -fx-border-radius: 10;
     -fx-background-radius: 10;
     -fx-border-color: #000000;
-    -fx-border-width: 2;
+    -fx-border-width: 1;
     -fx-font-size: 14;
 }
 
@@ -30,11 +30,15 @@
     -fx-background-color: #afb8c6;
 }
 
+.menu-item {
+    -fx-font-family: Tahoma;
+}
+
 .menu:hover, .menu-button:hover, .menu-item:hover {
     -fx-background-color: #cecece;
 }
 
-.menu-item:focused, .menu-button:focused, .menu:focused, .menu-bar:focused {
+.menu:focused, .menu-item:focused, .menu-button:focused, .menu-bar:focused {
     -fx-background-color: #cecece;
 }
 
@@ -45,5 +49,11 @@
 .chart {
     -fx-font-family: Tahoma;
 }
+
+.default-color0.chart-pie { -fx-pie-color: #78cc55; }
+.default-color1.chart-pie { -fx-pie-color: #cc5454; }
+
+.default-color0.chart-bar { -fx-bar-fill: #8da2c4; }
+
 
 
