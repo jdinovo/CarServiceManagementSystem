@@ -42,7 +42,6 @@ public class StatisticsTab extends Tab {
 
 	static NumberAxis xAxis = new NumberAxis();
 	static CategoryAxis yAxis = new CategoryAxis();
-	static XYChart.Series series1 = new XYChart.Series();
 	private static BarChart<String, Number> bchart = new BarChart<>(yAxis, xAxis);
 
 	/**
@@ -203,6 +202,8 @@ public class StatisticsTab extends Tab {
 		xAxis.setTickLabelRotation(10);
 		yAxis.setTickLabelRotation(10);
 		yAxis.setLabel("Brands");
+
+		XYChart.Series series1 = new XYChart.Series();
 
 		series1.setName("2018");
 
