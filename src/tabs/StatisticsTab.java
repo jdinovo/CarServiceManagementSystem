@@ -67,7 +67,7 @@ public class StatisticsTab extends Tab {
 		final ComboBox chartComboBox = new ComboBox();
 		chartComboBox.getItems().addAll(
 				"Open/Closed Work Orders",
-				"Vehicles Worked On"
+				"Vehicles Serviced"
 		);
 		chartComboBox.setValue("Open/Closed Work Orders");
 		chart.setVisible(true);
@@ -103,7 +103,7 @@ public class StatisticsTab extends Tab {
 						});
 					});
 
-				} else if (chartComboBox.getValue().equals("Vehicles Worked On")) {
+				} else if (chartComboBox.getValue().equals("Vehicles Serviced")) {
 					FadeTransition fade = new FadeTransition(Duration.millis(500), chart);
 					fade.setFromValue(1);
 					fade.setToValue(0);
@@ -197,8 +197,8 @@ public class StatisticsTab extends Tab {
 	public static BarChart generateBarChart() {
 		VehiclesTable vehiclesTable = new VehiclesTable();
 
-		bchart.setTitle("Vehicles Worked On By Brand");
-		xAxis.setLabel("# Worked on");
+		bchart.setTitle("Vehicles Serviced By Brand");
+		xAxis.setLabel("# Serviced");
 //		xAxis.setTickLabelRotation(10);
 //		yAxis.setTickLabelRotation(10);
 		yAxis.setLabel("Brands");
