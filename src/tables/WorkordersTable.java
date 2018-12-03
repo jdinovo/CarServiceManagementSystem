@@ -8,7 +8,6 @@ import javabean.Workorders;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.Year;
 import java.util.ArrayList;
 
 /**
@@ -24,6 +23,9 @@ import java.util.ArrayList;
 public class WorkordersTable implements WorkordersDAO {
     Database db = Database.getInstance();
     ArrayList<Workorders> workorders = new ArrayList<Workorders>();
+
+    private static int maxWork = 0;
+
 
     /**
      *
@@ -142,22 +144,12 @@ public class WorkordersTable implements WorkordersDAO {
      * @return number of closed workeorders
      */
     public int getClosedWorkordersCount() {
-        int count = 0;
         String query = "SELECT " + DBConst.TABLE_WORKORDERS + ".* FROM " + DBConst.TABLE_WORKORDERS + ", " + DBConst.TABLE_VEHICLES + ", " + DBConst.TABLE_VEHICLE_WORKORDERS + " WHERE "
                 + DBConst.TABLE_VEHICLE_WORKORDERS + "." + DBConst.VEHICLE_WORKORDERS_COLUMN_VEHICLE_ID + " = " + DBConst.TABLE_VEHICLES + "." + DBConst.VEHICLE_COLUMN_ID + " AND " +
                 DBConst.TABLE_VEHICLE_WORKORDERS + "." + DBConst.VEHICLE_WORKORDERS_COLUMN_WORKORDER_ID + " = " + DBConst.TABLE_WORKORDERS + "." + DBConst.WORKORDERS_COLUMN_ID + " AND " +
                 DBConst.TABLE_WORKORDERS + "." + DBConst.WORKORDERS_COLUMN_CLOSED + " = 1 AND " + DBConst.TABLE_VEHICLES + "." + DBConst.VEHICLE_COLUMN_DELETED + " = 0";
-        try {
-            Statement getCount = db.getConnection().createStatement();
-            ResultSet data = getCount.executeQuery(query);
-            while(data.next()) {
-                count++;
-            }
-        } catch(SQLException e) {
-            e.printStackTrace();
-        }
 
-        return count;
+        return countResults(query);
     }
 
     /**
@@ -166,31 +158,41 @@ public class WorkordersTable implements WorkordersDAO {
      * @return number of open workorders
      */
     public int getOpenWorkordersCount() {
-        int count = 0;
         String query = "SELECT " + DBConst.TABLE_WORKORDERS + ".* FROM " + DBConst.TABLE_WORKORDERS + ", " + DBConst.TABLE_VEHICLES + ", " + DBConst.TABLE_VEHICLE_WORKORDERS + " WHERE "
                 + DBConst.TABLE_VEHICLE_WORKORDERS + "." + DBConst.VEHICLE_WORKORDERS_COLUMN_VEHICLE_ID + " = " + DBConst.TABLE_VEHICLES + "." + DBConst.VEHICLE_COLUMN_ID + " AND " +
                 DBConst.TABLE_VEHICLE_WORKORDERS + "." + DBConst.VEHICLE_WORKORDERS_COLUMN_WORKORDER_ID + " = " + DBConst.TABLE_WORKORDERS + "." + DBConst.WORKORDERS_COLUMN_ID + " AND " +
                 DBConst.TABLE_WORKORDERS + "." + DBConst.WORKORDERS_COLUMN_CLOSED + " = 0 AND " + DBConst.TABLE_VEHICLES + "." + DBConst.VEHICLE_COLUMN_DELETED + " = 0";
-        try {
-            Statement getCount = db.getConnection().createStatement();
-            ResultSet data = getCount.executeQuery(query);
-            while(data.next()) {
-                count++;
-            }
-        } catch(SQLException e) {
-            e.printStackTrace();
+        return countResults(query);
+    }
+
+    /**
+     *
+     * gets number of work orders in specified month and year
+     *
+     * @Author James DiNovo
+     * @Date 02.12.2018
+     * @return int
+     */
+    public int getMonthWorkorders(int month, int year) {
+        String query = "SELECT * FROM " + DBConst.TABLE_WORKORDERS + " WHERE YEAR(" + DBConst.WORKORDERS_COLUMN_DATE + ") = " + year + " AND MONTH(" + DBConst.WORKORDERS_COLUMN_DATE + ") = " + month;
+        int count = countResults(query);
+
+        if(count > maxWork) {
+            maxWork = count + 1;
         }
         return count;
     }
 
     /**
-     * @Author James DiNovo
-     * @Date 12.02.2018
-     * @return int
+     * Returns number of results found
+     *
+     * @author James DiNovo
+     * @date 02.12.2018
+     * @param query
+     * @return int number of results
      */
-    public int getMonthWorkorders(int month, int year) {
+    private int countResults(String query) {
         int count = 0;
-        String query = "SELECT * FROM " + DBConst.TABLE_WORKORDERS + " WHERE YEAR(" + DBConst.WORKORDERS_COLUMN_DATE + ") = " + year + " AND MONTH(" + DBConst.WORKORDERS_COLUMN_DATE + ") = " + month;
         try {
             Statement getCount = db.getConnection().createStatement();
             ResultSet data = getCount.executeQuery(query);
@@ -200,7 +202,17 @@ public class WorkordersTable implements WorkordersDAO {
         } catch(SQLException e) {
             e.printStackTrace();
         }
+
         return count;
+    }
+
+    /**
+     * @author James DiNovo
+     * @date 02.12.2018
+     * @return int
+     */
+    public static int getMaxWork() {
+        return maxWork;
     }
 }
 

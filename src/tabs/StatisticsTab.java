@@ -18,6 +18,8 @@ import javafx.util.StringConverter;
 import tables.VehiclesTable;
 import tables.WorkordersTable;
 
+import java.util.Collections;
+
 /**
  *
  * Statistics is a tab that contains the GUI for viewing service statistics
@@ -41,11 +43,11 @@ public class StatisticsTab extends Tab {
 
 	private static NumberAxis xAxis = new NumberAxis();
 	private static CategoryAxis yAxis = new CategoryAxis();
-	private static NumberAxis xAxisM = new NumberAxis();
-	private static CategoryAxis yAxisM = new CategoryAxis();
+	private static NumberAxis yAxisM = new NumberAxis();
+	private static CategoryAxis xAxisM = new CategoryAxis();
 
 	private static BarChart<String, Number> bchart = new BarChart<>(yAxis, xAxis);
-	private static BarChart<String, Number> bMonthChart = new BarChart<>(yAxisM, xAxisM);
+	private static BarChart<String, Number> bMonthChart = new BarChart<>(xAxisM, yAxisM);
 
 	/**
 	 *
@@ -226,22 +228,22 @@ public class StatisticsTab extends Tab {
 	}
 
 	/**
-	 * @Author James DiNovo
-	 * @Date 12.02.2018
+	 * @author James DiNovo
+	 * @date 12.02.2018
 	 * @return BarChart
 	 */
 	public static BarChart generateMonthBarChart() {
 		WorkordersTable workordersTable = new WorkordersTable();
 
 		bMonthChart.setTitle("Work Orders per Month");
-		xAxisM.setLabel("# Serviced");
-		yAxisM.setLabel("Month");
+		yAxisM.setLabel("# Serviced");
+		xAxisM.setLabel("Month");
 
+		yAxisM.setTickLength(1);
+		yAxisM.setMinorTickVisible(false);
 
-//		xAxisM.setTickUnit();
-//		xAxisM.setTickUnit(50.5);
-//		xAxisM.setTickLength(1);
-//		xAxisM.setMinorTickCount(2);
+		yAxisM.setTickUnit(1);
+		yAxisM.setAutoRanging(false);
 
 //		bMonthChart.setCategoryGap(10);
 
@@ -261,6 +263,8 @@ public class StatisticsTab extends Tab {
 		series1.getData().add(new XYChart.Data("October", workordersTable.getMonthWorkorders(10, 2018)));
 		series1.getData().add(new XYChart.Data("November"  , workordersTable.getMonthWorkorders(11, 2018)));
 		series1.getData().add(new XYChart.Data("December"  , workordersTable.getMonthWorkorders(12, 2018)));
+
+		yAxisM.setUpperBound(WorkordersTable.getMaxWork());
 
 		bMonthChart.setData(FXCollections.observableArrayList(series1));
 		//bchart.getData().addAll(series1);
