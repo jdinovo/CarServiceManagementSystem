@@ -7,6 +7,8 @@ public class ProvinceChoice {
     private static final ArrayList<String> provinceModel = new ArrayList<>();
 
     public static ArrayList<String> getProvinceModel() {
+        provinceModel.clear();
+
         provinceModel.add("ALBERTA");
         provinceModel.add("BRITISH COLUMBIA");
         provinceModel.add("MANITOBA");
