@@ -17,6 +17,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
 import main.Const;
 import tables.*;
@@ -405,10 +406,14 @@ public class ExistingCustNewWorkOrderPane extends BorderPane {
         hBox.setPadding(new Insets(0, 10, 0, 10));
         hBox.setVisible(false);
 
+        HBox warnBox = new HBox();
+        warnBox.getChildren().add(warning);
+        warnBox.setAlignment(Pos.CENTER);
+
         hBox.setAlignment(Pos.CENTER);
         this.setTop(tableAndButtonBox);
         this.setCenter(hBox);
-        this.setBottom(warning);
+        this.setBottom(warnBox);
         this.setPadding(new Insets(0, 10, 0, 10));
 
         newProfile.setOnMouseClicked(e->{
