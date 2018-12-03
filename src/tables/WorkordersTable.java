@@ -4,7 +4,6 @@ import dao.WorkordersDAO;
 import database.DBConst;
 import database.Database;
 import javabean.Workorders;
-import main.Const;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -24,6 +23,9 @@ import java.util.ArrayList;
 public class WorkordersTable implements WorkordersDAO {
     Database db = Database.getInstance();
     ArrayList<Workorders> workorders = new ArrayList<Workorders>();
+
+    private static int maxWork = 0;
+
 
     /**
      *
@@ -142,9 +144,55 @@ public class WorkordersTable implements WorkordersDAO {
      * @return number of closed workeorders
      */
     public int getClosedWorkordersCount() {
+        String query = "SELECT " + DBConst.TABLE_WORKORDERS + ".* FROM " + DBConst.TABLE_WORKORDERS + ", " + DBConst.TABLE_VEHICLES + ", " + DBConst.TABLE_VEHICLE_WORKORDERS + " WHERE "
+                + DBConst.TABLE_VEHICLE_WORKORDERS + "." + DBConst.VEHICLE_WORKORDERS_COLUMN_VEHICLE_ID + " = " + DBConst.TABLE_VEHICLES + "." + DBConst.VEHICLE_COLUMN_ID + " AND " +
+                DBConst.TABLE_VEHICLE_WORKORDERS + "." + DBConst.VEHICLE_WORKORDERS_COLUMN_WORKORDER_ID + " = " + DBConst.TABLE_WORKORDERS + "." + DBConst.WORKORDERS_COLUMN_ID + " AND " +
+                DBConst.TABLE_WORKORDERS + "." + DBConst.WORKORDERS_COLUMN_CLOSED + " = 1 AND " + DBConst.TABLE_VEHICLES + "." + DBConst.VEHICLE_COLUMN_DELETED + " = 0";
+
+        return countResults(query);
+    }
+
+    /**
+     * @Author Dorian Harusha
+     * @Date 11.29.2018
+     * @return number of open workorders
+     */
+    public int getOpenWorkordersCount() {
+        String query = "SELECT " + DBConst.TABLE_WORKORDERS + ".* FROM " + DBConst.TABLE_WORKORDERS + ", " + DBConst.TABLE_VEHICLES + ", " + DBConst.TABLE_VEHICLE_WORKORDERS + " WHERE "
+                + DBConst.TABLE_VEHICLE_WORKORDERS + "." + DBConst.VEHICLE_WORKORDERS_COLUMN_VEHICLE_ID + " = " + DBConst.TABLE_VEHICLES + "." + DBConst.VEHICLE_COLUMN_ID + " AND " +
+                DBConst.TABLE_VEHICLE_WORKORDERS + "." + DBConst.VEHICLE_WORKORDERS_COLUMN_WORKORDER_ID + " = " + DBConst.TABLE_WORKORDERS + "." + DBConst.WORKORDERS_COLUMN_ID + " AND " +
+                DBConst.TABLE_WORKORDERS + "." + DBConst.WORKORDERS_COLUMN_CLOSED + " = 0 AND " + DBConst.TABLE_VEHICLES + "." + DBConst.VEHICLE_COLUMN_DELETED + " = 0";
+        return countResults(query);
+    }
+
+    /**
+     *
+     * gets number of work orders in specified month and year
+     *
+     * @Author James DiNovo
+     * @Date 02.12.2018
+     * @return int
+     */
+    public int getMonthWorkorders(int month, int year) {
+        String query = "SELECT * FROM " + DBConst.TABLE_WORKORDERS + " WHERE YEAR(" + DBConst.WORKORDERS_COLUMN_DATE + ") = " + year + " AND MONTH(" + DBConst.WORKORDERS_COLUMN_DATE + ") = " + month;
+        int count = countResults(query);
+
+        if(count > maxWork) {
+            maxWork = count + 1;
+        }
+        return count;
+    }
+
+    /**
+     * Returns number of results found
+     *
+     * @author James DiNovo
+     * @date 02.12.2018
+     * @param query
+     * @return int number of results
+     */
+    private int countResults(String query) {
         int count = 0;
-        String closed = "closed";
-        String query = "SELECT * FROM " + DBConst.TABLE_WORKORDERS + " WHERE " + DBConst.WORKORDERS_COLUMN_CLOSED + " = 1";
         try {
             Statement getCount = db.getConnection().createStatement();
             ResultSet data = getCount.executeQuery(query);
@@ -159,23 +207,12 @@ public class WorkordersTable implements WorkordersDAO {
     }
 
     /**
-     * @Author Dorian Harusha
-     * @Date 11.29.2018
-     * @return number of open workorders
+     * @author James DiNovo
+     * @date 02.12.2018
+     * @return int
      */
-    public int getOpenWorkordersCount() {
-        int count = 0;
-        String query = "SELECT * FROM " + DBConst.TABLE_WORKORDERS + " WHERE " + DBConst.WORKORDERS_COLUMN_CLOSED + " = 0";
-        try {
-            Statement getCount = db.getConnection().createStatement();
-            ResultSet data = getCount.executeQuery(query);
-            while(data.next()) {
-                count++;
-            }
-        } catch(SQLException e) {
-            e.printStackTrace();
-        }
-        return count;
+    public static int getMaxWork() {
+        return maxWork;
     }
 }
 

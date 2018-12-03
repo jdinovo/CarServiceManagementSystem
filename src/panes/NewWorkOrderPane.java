@@ -15,7 +15,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import tables.*;
 import tabs.NewWorkOrderTab;
@@ -37,11 +36,11 @@ import static main.Const.TEXTFIELD_WIDTH_SIZE;
 public class NewWorkOrderPane extends GridPane {
 
     //Importing the vehicleMap
-    Map<String, List<String>> vehicleMap = VehicleChoice.getVehicleModel();
-    ArrayList<String> provinceMap = ProvinceChoice.getProvinceModel();
+    private Map<String, List<String>> vehicleMap = VehicleChoice.getVehicleModel();
+    private ArrayList<String> provinceMap = ProvinceChoice.getProvinceModel();
 
     //Array of Textfields
-    ArrayList<TextField> arrayOfTextFields = new ArrayList<>();
+    private ArrayList<TextField> arrayOfTextFields = new ArrayList<>();
 
     //ComboBoxes for the form
     private ComboBox<String> comboBrand = new ComboBox<>();
@@ -49,12 +48,12 @@ public class NewWorkOrderPane extends GridPane {
     private ComboBox<String> comboProvince = new ComboBox<>();
 
     //Get Access to the tables
-    CustomersTable custTable = new CustomersTable();
-    VehiclesTable vehTable = new VehiclesTable();
-    WorkordersTable workTable = new WorkordersTable();
-    CustomerVehiclesTable custVehTable = new CustomerVehiclesTable();
-    VehicleWorkordersTable vehWorkTable = new VehicleWorkordersTable();
-    CustomerVehicleIssueTable customerVehicleIssueTable = new CustomerVehicleIssueTable();
+    private CustomersTable custTable = new CustomersTable();
+    private VehiclesTable vehTable = new VehiclesTable();
+    private WorkordersTable workTable = new WorkordersTable();
+    private CustomerVehiclesTable custVehTable = new CustomerVehiclesTable();
+    private VehicleWorkordersTable vehWorkTable = new VehicleWorkordersTable();
+    private CustomerVehicleIssueTable customerVehicleIssueTable = new CustomerVehicleIssueTable();
 
     /**
      * @author Chris Dias
@@ -449,9 +448,12 @@ public class NewWorkOrderPane extends GridPane {
                     OpenWorkOrderPane.refreshTable();
                     EditCustInfoPane.refreshTable();
                     StatisticsTab.generateBarChart();
+                    StatisticsTab.generateMonthBarChart();
+                    StatisticsTab.generateChart();
                     NewWorkOrderTab.closeInstance();
                 }
             } catch (NullPointerException f) {
+                f.printStackTrace();
                 System.out.println("A textfield is empty");
                 textfieldIncomplete.setVisible(true);
             }

@@ -1,8 +1,6 @@
 package panes;
 
 import database.Database;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -10,9 +8,6 @@ import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import main.Construct;
 import tabs.*;
 
 /**
@@ -45,20 +40,22 @@ public class MainMenuPane extends BorderPane {
 		MenuBar menu = new MenuBar();
 
 		//create menu choices
-		Menu fileMenu = new Menu("File");
-		Menu editMenu = new Menu("Edit");
-		Menu statsMenu = new Menu("Statistics");
-		Menu settingsMenu = new Menu("Settings");
+		Menu fileMenu = new Menu();
+		Menu editMenu = new Menu();
+		Menu statsMenu = new Menu();
+		Menu settingsMenu = new Menu();
 
 		ImageView carImage = new ImageView(new Image("/graphics/carService.png"));
 		carImage.setFitHeight(500);
 		carImage.setFitWidth(500);
+		carImage.setVisible(true);
 
 		carImage.setX(265);
 		carImage.setY(150);
 
 		//creating tabPane
 		TabPane tabPane = new TabPane();
+		tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.ALL_TABS);
 		
 		//Create MenuItems for the 'File' Tab
 		MenuItem newWork = new MenuItem("New Work Order");
@@ -164,6 +161,33 @@ public class MainMenuPane extends BorderPane {
 		editMenu.getItems().addAll(editCustInfo);
 		statsMenu.getItems().add(serviceCharts);
 		settingsMenu.getItems().addAll(dbLogin, credits);
+
+		ImageView settings = new ImageView(new Image("/graphics/settings.png"));
+		settings.setFitWidth(24);
+		settings.setFitHeight(24);
+
+		ImageView stats = new ImageView(new Image("/graphics/stats.png"));
+		stats.setFitWidth(24);
+		stats.setFitHeight(24);
+
+		ImageView file = new ImageView(new Image("/graphics/file.png"));
+		file.setFitWidth(24);
+		file.setFitHeight(24);
+
+		ImageView edit = new ImageView(new Image("/graphics/edit.png"));
+		edit.setFitWidth(24);
+		edit.setFitHeight(24);
+
+		fileMenu.setGraphic(file);
+		editMenu.setGraphic(edit);
+		settingsMenu.setGraphic(settings);
+		statsMenu.setGraphic(stats);
+
+		tabPane.getSelectionModel().selectedItemProperty().addListener((ov, oldTab, newTab) -> {
+			if(tabPane.getTabs().size() < 1) {
+				carImage.setVisible(true);
+			}
+		});
 		
 		//adding menus to menubar
 		menu.getMenus().addAll(fileMenu, editMenu, statsMenu, settingsMenu);

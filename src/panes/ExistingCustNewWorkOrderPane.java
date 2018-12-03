@@ -5,7 +5,6 @@ import form.ProvinceChoice;
 import form.VehicleChoice;
 import javabean.*;
 import javafx.animation.FadeTransition;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -15,13 +14,12 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
-import main.Const;
 import tables.*;
 import tabs.ExistingWorkOrderTab;
 import tabs.NewWorkOrderTab;
+import tabs.StatisticsTab;
 
 import java.util.*;
 
@@ -404,10 +402,14 @@ public class ExistingCustNewWorkOrderPane extends BorderPane {
         hBox.setPadding(new Insets(0, 10, 0, 10));
         hBox.setVisible(false);
 
+        HBox warnBox = new HBox();
+        warnBox.getChildren().add(warning);
+        warnBox.setAlignment(Pos.CENTER);
+
         hBox.setAlignment(Pos.CENTER);
         this.setTop(tableAndButtonBox);
         this.setCenter(hBox);
-        this.setBottom(warning);
+        this.setBottom(warnBox);
         this.setPadding(new Insets(0, 10, 0, 10));
 
         newProfile.setOnMouseClicked(e->{
@@ -505,10 +507,23 @@ public class ExistingCustNewWorkOrderPane extends BorderPane {
 
 
                     //Complete the form and close the instance
-                    issue.setText("");
                     OpenWorkOrderPane.refreshTable();
+                    StatisticsTab.generateChart();
+                    StatisticsTab.generateMonthBarChart();
 
-                    ExistingWorkOrderTab.closeInstance();
+                    FadeTransition fade = new FadeTransition(Duration.millis(500), hBox);
+                    fade.setFromValue(1);
+                    fade.setToValue(0);
+                    fade.setCycleCount(1);
+                    fade.setAutoReverse(false);
+                    fade.play();
+                    fade.setOnFinished(a-> {
+                        tableView.setPrefHeight(625);
+                        hBox.setVisible(false);
+                        issue.setText("");
+                    });
+
+
                 }
             } catch(Exception f) {
                 warning.setVisible(true);
@@ -516,6 +531,12 @@ public class ExistingCustNewWorkOrderPane extends BorderPane {
         });
     }
 
+    /**
+     * refreshes table displayed in this pane
+     *
+     * @author James DiNovo
+     * @date 02.12.2018
+     */
     public static void refreshTable() {
         tableView.setItems(FXCollections.observableArrayList(custTable.getAllActiveCustomers()));
         tableView.refresh();

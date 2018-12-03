@@ -1,10 +1,10 @@
 .button {
     -fx-font-family: Tahoma;
-    -fx-background-color: #eaeaea;
+    -fx-background-color: #afb8c6;
     -fx-border-radius: 10;
     -fx-background-radius: 10;
     -fx-border-color: #000000;
-    -fx-border-width: 2;
+    -fx-border-width: 1;
     -fx-font-size: 14;
 }
 
@@ -30,12 +30,70 @@
     -fx-background-color: #afb8c6;
 }
 
+.menu-item {
+    -fx-font-family: Tahoma;
+}
+
 .menu:hover, .menu-button:hover, .menu-item:hover {
-    -fx-background-color: #cecece;
+    -fx-background-color: #707070;
+}
+
+.menu:focused, .menu-item:focused, .menu-button:focused, .menu-bar:focused, .menu:selected {
+    -fx-background-color: #707070;
 }
 
 .table-view, .text-field, .text-area, .list-view, .combo-box {
     -fx-font-family: Tahoma;
+}
+
+.chart {
+    -fx-font-family: Tahoma;
+}
+
+.default-color0.chart-pie {
+    -fx-pie-color: #78cc55;
+}
+.default-color1.chart-pie {
+    -fx-pie-color: #cc5454;
+}
+
+.default-color0.chart-bar {
+    -fx-bar-fill: #8da2c4;
+}
+
+.context-menu {
+    -fx-font-weight: bold;
+    -fx-border-color: black;
+    -fx-border-width: 1;
+    -fx-background-color: #afb8c6;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.tab-pane {
+    -fx-tab-min-width:50px;
+}
+
+.tab-pane .tab {
+    -fx-border-color: black;
+    -fx-border-width: .5;
+    -fx-border-radius: 1;
+}
+
+.tab-pane .tab:selected {
+    -fx-background-color: #8da2c4;
+}
+
+.tab .tab-label {
+    -fx-font-family: Tahoma;
+    -fx-alignment: CENTER;
+    -fx-text-fill: black;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.tab:selected .tab-label {
+   -fx-font-size: 14px;
 }
 
 
