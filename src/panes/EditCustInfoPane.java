@@ -561,6 +561,8 @@ public class EditCustInfoPane extends BorderPane {
                     warning.setVisible(false);
                 });
                 StatisticsTab.generateBarChart();
+                OpenWorkOrderPane.refreshTable();
+                ClosedWorkOrderPane.refreshTable();
                 ExistingCustNewWorkOrderPane.refreshTable();
             }
         });

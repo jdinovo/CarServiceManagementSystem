@@ -1,8 +1,6 @@
 package panes;
 
 
-import form.ProvinceChoice;
-import form.VehicleChoice;
 import javabean.*;
 import javafx.animation.FadeTransition;
 import javafx.collections.FXCollections;
@@ -14,15 +12,12 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import tables.*;
 import tabs.StatisticsTab;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 import static main.Const.HEADER_FONT;
 

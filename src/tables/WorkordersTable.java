@@ -4,7 +4,6 @@ import dao.WorkordersDAO;
 import database.DBConst;
 import database.Database;
 import javabean.Workorders;
-import main.Const;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

@@ -17,8 +17,6 @@ import javafx.util.Duration;
 import tables.VehiclesTable;
 import tables.WorkordersTable;
 
-import java.sql.*;
-
 /**
  *
  * Statistics is a tab that contains the GUI for viewing service statistics
