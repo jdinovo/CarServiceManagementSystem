@@ -37,7 +37,6 @@ public class NewWorkOrderPane extends GridPane {
 
     //Importing the vehicleMap
     private Map<String, List<String>> vehicleMap = VehicleChoice.getVehicleModel();
-    private ArrayList<String> provinceMap = ProvinceChoice.getProvinceModel();
 
     //Array of Textfields
     private ArrayList<TextField> arrayOfTextFields = new ArrayList<>();
@@ -70,6 +69,8 @@ public class NewWorkOrderPane extends GridPane {
         this.setPadding(new Insets(10, 10, 10, 10));
         this.setVgap(20);
         this.setHgap(10);
+
+        ArrayList<String> provinceMap = ProvinceChoice.getProvinceModel();
 
         //Creating columns
         ColumnConstraints col1 = new ColumnConstraints();

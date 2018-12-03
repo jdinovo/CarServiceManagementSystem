@@ -177,7 +177,7 @@ public class WorkordersTable implements WorkordersDAO {
         String query = "SELECT * FROM " + DBConst.TABLE_WORKORDERS + " WHERE YEAR(" + DBConst.WORKORDERS_COLUMN_DATE + ") = " + year + " AND MONTH(" + DBConst.WORKORDERS_COLUMN_DATE + ") = " + month;
         int count = countResults(query);
 
-        if(count > maxWork) {
+        if(count >= maxWork) {
             maxWork = count + 1;
         }
         return count;

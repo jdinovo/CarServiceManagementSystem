@@ -22,6 +22,7 @@ import java.util.ArrayList;
 public class VehiclesTable implements VehiclesDAO {
     private Database db = Database.getInstance();
     private ArrayList<Vehicles> vehicles = new ArrayList<Vehicles>();
+    private static int maxVehicle = 0;
 
 //    private CustomerVehiclesTable customerVehiclesTable = new CustomerVehiclesTable();
 //    private VehicleWorkordersTable vehicleWorkordersTable = new VehicleWorkordersTable();
@@ -188,7 +189,19 @@ public class VehiclesTable implements VehiclesDAO {
         } catch(SQLException e) {
             e.printStackTrace();
         }
+
+        if(count >= maxVehicle) {
+            maxVehicle = count + 1;
+        }
         return count;
+    }
+
+    /**
+     *
+     * @return int max number of vehicles
+     */
+    public static int getMaxVehicle() {
+        return maxVehicle;
     }
 }
 
