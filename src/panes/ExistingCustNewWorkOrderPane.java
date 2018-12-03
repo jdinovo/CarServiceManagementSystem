@@ -509,6 +509,7 @@ public class ExistingCustNewWorkOrderPane extends BorderPane {
                     //Complete the form and close the instance
                     OpenWorkOrderPane.refreshTable();
                     StatisticsTab.generateChart();
+                    StatisticsTab.generateMonthBarChart();
 
                     FadeTransition fade = new FadeTransition(Duration.millis(500), hBox);
                     fade.setFromValue(1);

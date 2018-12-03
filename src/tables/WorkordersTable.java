@@ -8,6 +8,7 @@ import javabean.Workorders;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.Year;
 import java.util.ArrayList;
 
 /**
@@ -170,6 +171,26 @@ public class WorkordersTable implements WorkordersDAO {
                 + DBConst.TABLE_VEHICLE_WORKORDERS + "." + DBConst.VEHICLE_WORKORDERS_COLUMN_VEHICLE_ID + " = " + DBConst.TABLE_VEHICLES + "." + DBConst.VEHICLE_COLUMN_ID + " AND " +
                 DBConst.TABLE_VEHICLE_WORKORDERS + "." + DBConst.VEHICLE_WORKORDERS_COLUMN_WORKORDER_ID + " = " + DBConst.TABLE_WORKORDERS + "." + DBConst.WORKORDERS_COLUMN_ID + " AND " +
                 DBConst.TABLE_WORKORDERS + "." + DBConst.WORKORDERS_COLUMN_CLOSED + " = 0 AND " + DBConst.TABLE_VEHICLES + "." + DBConst.VEHICLE_COLUMN_DELETED + " = 0";
+        try {
+            Statement getCount = db.getConnection().createStatement();
+            ResultSet data = getCount.executeQuery(query);
+            while(data.next()) {
+                count++;
+            }
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
+
+    /**
+     * @Author James DiNovo
+     * @Date 12.02.2018
+     * @return int
+     */
+    public int getMonthWorkorders(int month, int year) {
+        int count = 0;
+        String query = "SELECT * FROM " + DBConst.TABLE_WORKORDERS + " WHERE YEAR(" + DBConst.WORKORDERS_COLUMN_DATE + ") = " + year + " AND MONTH(" + DBConst.WORKORDERS_COLUMN_DATE + ") = " + month;
         try {
             Statement getCount = db.getConnection().createStatement();
             ResultSet data = getCount.executeQuery(query);

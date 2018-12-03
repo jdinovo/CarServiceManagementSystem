@@ -448,6 +448,8 @@ public class NewWorkOrderPane extends GridPane {
                     OpenWorkOrderPane.refreshTable();
                     EditCustInfoPane.refreshTable();
                     StatisticsTab.generateBarChart();
+                    StatisticsTab.generateMonthBarChart();
+                    StatisticsTab.generateChart();
                     NewWorkOrderTab.closeInstance();
                 }
             } catch (NullPointerException f) {
