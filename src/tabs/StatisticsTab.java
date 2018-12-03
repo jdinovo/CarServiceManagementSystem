@@ -14,10 +14,11 @@ import javafx.scene.control.Tab;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.util.Duration;
+import javafx.util.StringConverter;
 import tables.VehiclesTable;
 import tables.WorkordersTable;
 
-import java.sql.*;
+import java.util.Collections;
 
 /**
  *
@@ -37,12 +38,16 @@ public class StatisticsTab extends Tab {
 	 */
 
 	private static StatisticsTab tab;
-	public static BorderPane pane;
-	public static PieChart chart = new PieChart();
+	private static BorderPane pane;
+	private static PieChart chart = new PieChart();
 
-	static NumberAxis xAxis = new NumberAxis();
-	static CategoryAxis yAxis = new CategoryAxis();
+	private static NumberAxis xAxis = new NumberAxis();
+	private static CategoryAxis yAxis = new CategoryAxis();
+	private static NumberAxis yAxisM = new NumberAxis();
+	private static CategoryAxis xAxisM = new CategoryAxis();
+
 	private static BarChart<String, Number> bchart = new BarChart<>(yAxis, xAxis);
+	private static BarChart<String, Number> bMonthChart = new BarChart<>(xAxisM, yAxisM);
 
 	/**
 	 *
@@ -67,11 +72,13 @@ public class StatisticsTab extends Tab {
 		final ComboBox chartComboBox = new ComboBox();
 		chartComboBox.getItems().addAll(
 				"Open/Closed Work Orders",
-				"Vehicles Worked On"
+				"Work Orders per Month",
+				"Vehicles Serviced"
 		);
 		chartComboBox.setValue("Open/Closed Work Orders");
 		chart.setVisible(true);
 		bchart.setVisible(false);
+		bMonthChart.setVisible(false);
 		FadeTransition fade = new FadeTransition(Duration.millis(500), chart);
 		fade.setFromValue(0);
 		fade.setToValue(1);
@@ -82,48 +89,40 @@ public class StatisticsTab extends Tab {
 		chartComboBox.valueProperty().addListener(new ChangeListener<String>() {
 			@Override public void changed(ObservableValue ov, String t, String t1) {
 				if (chartComboBox.getValue().equals("Open/Closed Work Orders")) {
-					FadeTransition fade = new FadeTransition(Duration.millis(500), bchart);
-					fade.setFromValue(1);
-					fade.setToValue(0);
-					fade.setCycleCount(1);
-					fade.setAutoReverse(false);
-					fade.play();
-					fade.setOnFinished(a-> {
-						pane.setCenter(generateChart());
-						chart.setVisible(true);
-						FadeTransition fade2 = new FadeTransition(Duration.millis(500), chart);
-						fade2.setFromValue(0);
-						fade2.setToValue(1);
-						fade2.setCycleCount(1);
-						fade2.setAutoReverse(false);
-						fade2.play();
-						fade2.setOnFinished(v-> {
-
-							bchart.setVisible(false);
-						});
-					});
-
-				} else if (chartComboBox.getValue().equals("Vehicles Worked On")) {
 					FadeTransition fade = new FadeTransition(Duration.millis(500), chart);
-					fade.setFromValue(1);
-					fade.setToValue(0);
+					fade.setFromValue(0);
+					fade.setToValue(1);
 					fade.setCycleCount(1);
 					fade.setAutoReverse(false);
 					fade.play();
-					fade.setOnFinished(a-> {
-						pane.setCenter(generateBarChart());
-						bchart.setVisible(true);
-						FadeTransition fade2 = new FadeTransition(Duration.millis(500), bchart);
-						fade2.setFromValue(0);
-						fade2.setToValue(1);
-						fade2.setCycleCount(1);
-						fade2.setAutoReverse(false);
-						fade2.play();
-						fade2.setOnFinished(v-> {
+					pane.setCenter(generateChart());
+					chart.setVisible(true);
+					bchart.setVisible(false);
+					bMonthChart.setVisible(false);
+				} else if (chartComboBox.getValue().equals("Vehicles Serviced")) {
+					FadeTransition fade = new FadeTransition(Duration.millis(500), bchart);
+					fade.setFromValue(0);
+					fade.setToValue(1);
+					fade.setCycleCount(1);
+					fade.setAutoReverse(false);
+					fade.play();
+					pane.setCenter(generateBarChart());
+					bchart.setVisible(true);
+					chart.setVisible(false);
+					bMonthChart.setVisible(false);
 
-							chart.setVisible(false);
-						});
-					});
+				} else if (chartComboBox.getValue().equals("Work Orders per Month")) {
+					FadeTransition fade = new FadeTransition(Duration.millis(500), bMonthChart);
+					fade.setFromValue(0);
+					fade.setToValue(1);
+					fade.setCycleCount(1);
+					fade.setAutoReverse(false);
+					fade.play();
+					bMonthChart.setVisible(true);
+					pane.setCenter(generateMonthBarChart());
+					bchart.setVisible(false);
+					chart.setVisible(false);
+
 
 				}
 			}
@@ -197,10 +196,11 @@ public class StatisticsTab extends Tab {
 	public static BarChart generateBarChart() {
 		VehiclesTable vehiclesTable = new VehiclesTable();
 
-		bchart.setTitle("Vehicles Worked On By Brand");
-		xAxis.setLabel("# Worked on");
-//		xAxis.setTickLabelRotation(10);
-//		yAxis.setTickLabelRotation(10);
+		bchart.setTitle("Vehicles Serviced By Brand");
+		xAxis.setLabel("# Serviced");
+		xAxis.setTickLength(1);
+		yAxis.setTickLabelRotation(10);
+		xAxis.setMinorTickVisible(false);
 		yAxis.setLabel("Brands");
 
 		XYChart.Series series1 = new XYChart.Series();
@@ -225,6 +225,51 @@ public class StatisticsTab extends Tab {
 		//bchart.getData().addAll(series1);
 
 		return bchart;
+	}
+
+	/**
+	 * @author James DiNovo
+	 * @date 12.02.2018
+	 * @return BarChart
+	 */
+	public static BarChart generateMonthBarChart() {
+		WorkordersTable workordersTable = new WorkordersTable();
+
+		bMonthChart.setTitle("Work Orders per Month");
+		yAxisM.setLabel("# Serviced");
+		xAxisM.setLabel("Month");
+
+		yAxisM.setTickLength(1);
+		yAxisM.setMinorTickVisible(false);
+
+		yAxisM.setTickUnit(1);
+		yAxisM.setAutoRanging(false);
+
+//		bMonthChart.setCategoryGap(10);
+
+		XYChart.Series series1 = new XYChart.Series();
+
+		series1.setName("2018");
+
+		series1.getData().add(new XYChart.Data("January", workordersTable.getMonthWorkorders(1, 2018)));
+		series1.getData().add(new XYChart.Data("February"  , workordersTable.getMonthWorkorders(2, 2018)));
+		series1.getData().add(new XYChart.Data("March"  , workordersTable.getMonthWorkorders(3, 2018)));
+		series1.getData().add(new XYChart.Data("April", workordersTable.getMonthWorkorders(4, 2018)));
+		series1.getData().add(new XYChart.Data("May", workordersTable.getMonthWorkorders(5, 2018)));
+		series1.getData().add(new XYChart.Data("June"  , workordersTable.getMonthWorkorders(6, 2018)));
+		series1.getData().add(new XYChart.Data("July"  , workordersTable.getMonthWorkorders(7, 2018)));
+		series1.getData().add(new XYChart.Data("August", workordersTable.getMonthWorkorders(8, 2018)));
+		series1.getData().add(new XYChart.Data("September", workordersTable.getMonthWorkorders(9, 2018)));
+		series1.getData().add(new XYChart.Data("October", workordersTable.getMonthWorkorders(10, 2018)));
+		series1.getData().add(new XYChart.Data("November"  , workordersTable.getMonthWorkorders(11, 2018)));
+		series1.getData().add(new XYChart.Data("December"  , workordersTable.getMonthWorkorders(12, 2018)));
+
+		yAxisM.setUpperBound(WorkordersTable.getMaxWork());
+
+		bMonthChart.setData(FXCollections.observableArrayList(series1));
+		//bchart.getData().addAll(series1);
+
+		return bMonthChart;
 	}
 }
 

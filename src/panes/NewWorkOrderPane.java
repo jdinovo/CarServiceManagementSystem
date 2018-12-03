@@ -15,7 +15,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import tables.*;
 import tabs.NewWorkOrderTab;
@@ -437,18 +436,20 @@ public class NewWorkOrderPane extends GridPane {
                     VehicleWorkorders vehicleWorkorder = new VehicleWorkorders(vehicleArray.get(vehicleArray.size() - 1).getId(), workorderArray.get(workorderArray.size() - 1).getId());
                     vehWorkTable.createVehicleWorkorder(vehicleWorkorder);
 
-//                    //Delete response in textfields and close the tab
-//                    for (TextField answer : arrayOfTextFields) {
-//                        answer.setText("");
-//                    }
+                    //Delete response in textfields and close the tab
+                    for (TextField answer : arrayOfTextFields) {
+                        answer.setText("");
+                    }
 
-//                    comboBrand.setValue(null);
-//                    comboModel.setValue(null);
-//                    comboProvince.setValue(null);
-//                    issue.setText("");
+                    comboBrand.setValue(null);
+                    comboModel.setValue(null);
+                    comboProvince.setValue(null);
+                    issue.setText("");
                     OpenWorkOrderPane.refreshTable();
                     EditCustInfoPane.refreshTable();
                     StatisticsTab.generateBarChart();
+                    StatisticsTab.generateMonthBarChart();
+                    StatisticsTab.generateChart();
                     NewWorkOrderTab.closeInstance();
                 }
             } catch (NullPointerException f) {

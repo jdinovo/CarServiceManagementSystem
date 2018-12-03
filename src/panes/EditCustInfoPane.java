@@ -15,10 +15,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
-import main.Const;
 import tables.CustomerVehiclesTable;
 import tables.CustomersTable;
 import tables.VehiclesTable;
@@ -258,6 +256,7 @@ public class EditCustInfoPane extends BorderPane {
                 }
             }
         });
+        comboModel.setVisibleRowCount(5);
 
         //Model Label
         Label modelText = new Label("Model:");
@@ -561,6 +560,8 @@ public class EditCustInfoPane extends BorderPane {
                     warning.setVisible(false);
                 });
                 StatisticsTab.generateBarChart();
+                OpenWorkOrderPane.refreshTable();
+                ClosedWorkOrderPane.refreshTable();
                 ExistingCustNewWorkOrderPane.refreshTable();
             }
         });
@@ -637,6 +638,12 @@ public class EditCustInfoPane extends BorderPane {
 
     }
 
+    /**
+     * refreshes table displayed in this pane
+     *
+     * @author James DiNovo
+     * @date 02.12.2018
+     */
     public static void refreshTable() {
         tableView.setItems(FXCollections.observableArrayList(custTable.getAllActiveCustomers()));
         tableView.refresh();

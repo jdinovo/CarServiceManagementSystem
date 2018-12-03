@@ -1,8 +1,6 @@
 package panes;
 
 import database.Database;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -10,9 +8,6 @@ import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import main.Construct;
 import tabs.*;
 
 /**
@@ -53,6 +48,7 @@ public class MainMenuPane extends BorderPane {
 		ImageView carImage = new ImageView(new Image("/graphics/carService.png"));
 		carImage.setFitHeight(500);
 		carImage.setFitWidth(500);
+		carImage.setVisible(true);
 
 		carImage.setX(265);
 		carImage.setY(150);

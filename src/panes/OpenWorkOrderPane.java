@@ -1,8 +1,6 @@
 package panes;
 
 
-import form.ProvinceChoice;
-import form.VehicleChoice;
 import javabean.*;
 import javafx.animation.FadeTransition;
 import javafx.collections.FXCollections;
@@ -14,15 +12,12 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import tables.*;
 import tabs.StatisticsTab;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 import static main.Const.HEADER_FONT;
 
@@ -222,6 +217,12 @@ public class OpenWorkOrderPane extends BorderPane {
 
     }
 
+    /**
+     * refreshes table displayed in this pane
+     *
+     * @author James DiNovo
+     * @date 02.12.2018
+     */
     public static void refreshTable() {
         tableView.setItems(FXCollections.observableArrayList(customerVehicleIssueTable.getAllOpenCustomerVehicleIssues()));
         tableView.refresh();

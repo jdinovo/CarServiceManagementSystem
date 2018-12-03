@@ -10,7 +10,7 @@ public class Const {
 
     public static final Font HEADER_FONT = Font.font("Tahoma", FontWeight.BOLD, FontPosture.REGULAR, 20);
 
-    public static final Font BODY_FONT = Font.font("Tahoma", FontWeight.NORMAL, FontPosture.REGULAR, 16);
+    public static final Font BODY_FONT = Font.font("Tahoma", FontWeight.NORMAL, FontPosture.REGULAR, 14);
 
     public static final Font STATS_FONT = Font.font("Tahoma", FontWeight.LIGHT, FontPosture.REGULAR, 12);
 

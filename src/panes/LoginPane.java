@@ -10,7 +10,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import main.Main;
 import scenes.MainMenuScene;
@@ -125,7 +124,13 @@ public class LoginPane extends BorderPane {
 
     }
 
-
+    /**
+     *  changes and displays alert message
+     *  @author James DiNovo
+     *  @date 02.12.2018
+     *
+     * @param msg
+     */
     private void alert(String msg) {
         error.setText(msg);
         error.setFill(Color.RED);

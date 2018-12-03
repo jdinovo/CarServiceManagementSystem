@@ -30,7 +30,7 @@ public class VehicleChoice {
         vehicleModel.put("PORSCHE", Arrays.asList("CAYMAN", "BOXSTER", "911 CARRERA", "MACAN", "CAYENNE"));
         vehicleModel.put("SUBARU", Arrays.asList("FORESTER", "IMPREZA", "LEGACY", "OUTBACK", "WRX", "WRX STI", "BRZ", "CROSSTREK", "ASCENT"));
         vehicleModel.put("TOYOTA", Arrays.asList("YARIS", "COROLLA", "PRIUS", "CAMRY", "AVALON", "SIENNA", "RAV 4", "HIGHLANDER", "4 RUNNER", "TACOMA", "TUNDRA"));
-        vehicleModel.put("VOLKSWAGEN", Arrays.asList("TIGUAN", "ATLAS", "JETTA", "ARTEON", "PASSAT", "GOLD", "BEETLE"));
+        vehicleModel.put("VOLKSWAGEN", Arrays.asList("TIGUAN", "ATLAS", "JETTA", "ARTEON", "PASSAT", "GOLF", "BEETLE"));
 
         return vehicleModel;
     }
