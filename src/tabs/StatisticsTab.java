@@ -199,9 +199,10 @@ public class StatisticsTab extends Tab {
 		bchart.setTitle("Vehicles Serviced By Brand");
 		xAxis.setLabel("# Serviced");
 		xAxis.setTickLength(1);
-		yAxis.setTickLabelRotation(10);
 		xAxis.setMinorTickVisible(false);
-		yAxis.setLabel("Brands");
+		xAxis.setTickUnit(1);
+		xAxis.setAutoRanging(false);
+		xAxis.setLabel("Brands");
 
 		XYChart.Series series1 = new XYChart.Series();
 
@@ -220,6 +221,8 @@ public class StatisticsTab extends Tab {
 		series1.getData().add(new XYChart.Data("FORD"  , vehiclesTable.getVehiclesWorkedOnCount("FORD")));
 		series1.getData().add(new XYChart.Data("HONDA"  , vehiclesTable.getVehiclesWorkedOnCount("HONDA")));
 		series1.getData().add(new XYChart.Data("CHEVROLET", vehiclesTable.getVehiclesWorkedOnCount("CHEVROLET")));
+
+		xAxis.setUpperBound(vehiclesTable.getMaxVehicle());
 
 		bchart.setData(FXCollections.observableArrayList(series1));
 		//bchart.getData().addAll(series1);
