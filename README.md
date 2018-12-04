@@ -7,7 +7,7 @@ Our system allows a service tech to keep track of customers, their vehicles, and
 
 ## Basic Use
 
-1. ### Creating a New Customer
+### 1. Creating a New Customer
 - Click the file drop down
 - Click on `New Work Order`
 - Click `Create A New Customer`
@@ -15,7 +15,7 @@ Our system allows a service tech to keep track of customers, their vehicles, and
 
 ![New Customer](https://github.com/jdinovo/CarServiceManagementSystem/blob/master/screenshots/newCustomer.png)
 
-2. ### Editing Customer Information
+### 2. Editing Customer Information
 - Click on the edit drop down
 - Click on `Edit Customer Information`
 - Enter customer phone number or press `OK` to show all customers
@@ -24,7 +24,7 @@ Our system allows a service tech to keep track of customers, their vehicles, and
 
 ![Edit Customer Info](https://github.com/jdinovo/CarServiceManagementSystem/blob/master/screenshots/edit.png)
 
-3. ### Work Orders
+### 3. Work Orders
 - Click on the file drop down
 - Click on `Open Work Order`
 - Click on the work order you wish to update
@@ -32,7 +32,7 @@ Our system allows a service tech to keep track of customers, their vehicles, and
 
 ![Work Orders](https://github.com/jdinovo/CarServiceManagementSystem/blob/master/screenshots/openWorkOrder.png)
 
-4. ### Statistics
+### 4. Statistics
 - Click on the statistics drop down
 - Click on `Service Charts`
 - Click on the `Choose a chart` drop-down menu and choose what statistics you would like to see
@@ -56,4 +56,4 @@ Our system allows a service tech to keep track of customers, their vehicles, and
 2. [Garage Service Engine](https://pixabay.com/en/oil-garage-service-engine-99220/)
 
 
-:copyright: 2018 JNC, Inc. All rights reserved. 
+#### :copyright: 2018 JDC, Inc. All rights reserved. 
