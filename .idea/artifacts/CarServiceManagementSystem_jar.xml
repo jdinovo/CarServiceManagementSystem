@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="CarServiceManagementSystem:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/CarServiceManagementSystem_jar</output-path>
+    <root id="archive" name="CarServiceManagementSystem.jar">
+      <element id="module-output" name="CarServiceManagementSystem" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/mysql-connector-java-5.1.43-bin.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
