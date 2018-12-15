@@ -5,6 +5,7 @@ import database.DBConst;
 import database.Database;
 import javabean.Workorders;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -86,15 +87,19 @@ public class WorkordersTable implements WorkordersDAO {
     @Override
     public void updateWorkorder(Workorders workorder) {
         String query = "UPDATE " + DBConst.TABLE_WORKORDERS + " SET "  +
-                DBConst.WORKORDERS_COLUMN_DATE + " = '" + workorder.getDate() + "', " +
-                DBConst.WORKORDERS_COLUMN_ISSUE + " = '" + workorder.getIssue() + "', " +
-                DBConst.WORKORDERS_COLUMN_CAUSE+ " = '" + workorder.getCause() + "', " +
-                DBConst.WORKORDERS_COLUMN_CORRECTION + " = '" + workorder.getCorrection() + "', " +
-                DBConst.WORKORDERS_COLUMN_CLOSED + " = '" + workorder.getClosed() +
-                "' WHERE " + DBConst.WORKORDERS_COLUMN_ID + " = " + workorder.getId();
+                DBConst.WORKORDERS_COLUMN_DATE + " = ?, " +
+                DBConst.WORKORDERS_COLUMN_ISSUE + " = ?, " +
+                DBConst.WORKORDERS_COLUMN_CAUSE+ " = ?, " +
+                DBConst.WORKORDERS_COLUMN_CORRECTION + " = ?, " +
+                DBConst.WORKORDERS_COLUMN_CLOSED + " = ? WHERE " + DBConst.WORKORDERS_COLUMN_ID + " = " + workorder.getId();
         try {
-            Statement updateItem = db.getConnection().createStatement();
-            updateItem.execute(query);
+            PreparedStatement updateItem = db.getConnection().prepareStatement(query);
+            updateItem.setString(1, workorder.getDate());
+            updateItem.setString(2, workorder.getIssue());
+            updateItem.setString(3, workorder.getCause());
+            updateItem.setString(4, workorder.getCorrection());
+            updateItem.setInt(5, workorder.getClosed());
+            updateItem.execute();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -125,14 +130,15 @@ public class WorkordersTable implements WorkordersDAO {
                 DBConst.WORKORDERS_COLUMN_ISSUE + ", " +
                 DBConst.WORKORDERS_COLUMN_CAUSE + ", " +
                 DBConst.WORKORDERS_COLUMN_CORRECTION + ", " +
-                DBConst.WORKORDERS_COLUMN_CLOSED + ") VALUES ('" +
-                workorder.getDate() + "','" +
-                workorder.getIssue() + "','" +
-                workorder.getCause() + "','" +
-                workorder.getCorrection() + "','" +
-                workorder.getClosed() + "')";
+                DBConst.WORKORDERS_COLUMN_CLOSED + ") VALUES (?, ?, ?, ?, ?)";
         try {
-            db.getConnection().createStatement().execute(query);
+            PreparedStatement createItem = db.getConnection().prepareStatement(query);
+            createItem.setString(1, workorder.getDate());
+            createItem.setString(2, workorder.getIssue());
+            createItem.setString(3, workorder.getCause());
+            createItem.setString(4, workorder.getCorrection());
+            createItem.setInt(5, workorder.getClosed());
+            createItem.execute();
         } catch (SQLException e) {
             e.printStackTrace();
         }

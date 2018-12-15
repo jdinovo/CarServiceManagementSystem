@@ -4,6 +4,8 @@ import dao.VehiclesDAO;
 import database.DBConst;
 import database.Database;
 import javabean.Vehicles;
+
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -105,15 +107,19 @@ public class VehiclesTable implements VehiclesDAO {
     @Override
     public void updateVehicle(Vehicles vehicle) {
         String query = "UPDATE " + DBConst.TABLE_VEHICLES + " SET "  +
-                DBConst.VEHICLE_COLUMN_VIN + " = '" + vehicle.getVin() + "', " +
-                DBConst.VEHICLE_COLUMN_BRAND + " = '" + vehicle.getBrand() + "', " +
-                DBConst.VEHICLE_COLUMN_MODEL + " = '" + vehicle.getModel() + "', " +
-                DBConst.VEHICLE_COLUMN_YEAR + " = '" + vehicle.getYear() + "', " +
-                DBConst.VEHICLE_COLUMN_KM + " = '" + vehicle.getKilometers() +
-                "' WHERE " + DBConst.VEHICLE_COLUMN_ID + " = " + vehicle.getId();
+                DBConst.VEHICLE_COLUMN_VIN + " = ?, " +
+                DBConst.VEHICLE_COLUMN_BRAND + " = ?, " +
+                DBConst.VEHICLE_COLUMN_MODEL + " = ?, " +
+                DBConst.VEHICLE_COLUMN_YEAR + " = ?, " +
+                DBConst.VEHICLE_COLUMN_KM + " = ? WHERE " + DBConst.VEHICLE_COLUMN_ID + " = " + vehicle.getId();
         try {
-            Statement updateItem = db.getConnection().createStatement();
-            updateItem.execute(query);
+            PreparedStatement updateItem = db.getConnection().prepareStatement(query);
+            updateItem.setString(1, vehicle.getVin());
+            updateItem.setString(2, vehicle.getBrand());
+            updateItem.setString(3, vehicle.getModel());
+            updateItem.setString(4, vehicle.getYear());
+            updateItem.setString(5, vehicle.getKilometers());
+            updateItem.execute();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -156,15 +162,16 @@ public class VehiclesTable implements VehiclesDAO {
                 DBConst.VEHICLE_COLUMN_MODEL + ", " +
                 DBConst.VEHICLE_COLUMN_YEAR + ", " +
                 DBConst.VEHICLE_COLUMN_KM + ", " +
-                DBConst.VEHICLE_COLUMN_DELETED + ") VALUES ('" +
-                vehicle.getVin() + "','" +
-                vehicle.getBrand() + "','" +
-                vehicle.getModel() + "','" +
-                vehicle.getYear() + "','" +
-                vehicle.getKilometers() + "','" +
-                vehicle.getDeleted() + "')";
+                DBConst.VEHICLE_COLUMN_DELETED + ") VALUES (?, ?, ?, ?, ?, ?)";
         try {
-            db.getConnection().createStatement().execute(query);
+            PreparedStatement createItem = db.getConnection().prepareStatement(query);
+            createItem.setString(1, vehicle.getVin());
+            createItem.setString(2, vehicle.getBrand());
+            createItem.setString(3, vehicle.getModel());
+            createItem.setString(4, vehicle.getYear());
+            createItem.setString(5, vehicle.getKilometers());
+            createItem.setInt(6, vehicle.getDeleted());
+            createItem.execute();
         } catch (SQLException e) {
             e.printStackTrace();
         }

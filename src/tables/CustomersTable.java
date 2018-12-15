@@ -4,6 +4,8 @@ import dao.CustomersDAO;
 import javabean.Customers;
 import database.DBConst;
 import database.Database;
+
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -101,18 +103,25 @@ public class CustomersTable implements CustomersDAO {
     @Override
     public void updateCustomer(Customers customer) {
         String query = "UPDATE " + DBConst.TABLE_CUSTOMERS + " SET "  +
-                DBConst.CUSTOMER_COLUMN_FNAME + " = '" + customer.getFirstName() + "', " +
-                DBConst.CUSTOMER_COLUMN_LNAME + " = '" + customer.getLastName() + "', " +
-                DBConst.CUSTOMER_COLUMN_ADDR + " = '" + customer.getAddress() + "', " +
-                DBConst.CUSTOMER_COLUMN_CITY + " = '" + customer.getCity() + "', " +
-                DBConst.CUSTOMER_COLUMN_PROVINCE + " = '" + customer.getProvince() + "', " +
-                DBConst.CUSTOMER_COLUMN_POSTAL + " = '" + customer.getPostalCode() + "', " +
-                DBConst.CUSTOMER_COLUMN_PHONE + " = '" + customer.getPhoneNumber() + "', " +
-                DBConst.CUSTOMER_COLUMN_EMAIL + " = '" + customer.getEmail() +
-                "' WHERE " + DBConst.CUSTOMER_COLUMN_ID + " = " + customer.getId();
+                DBConst.CUSTOMER_COLUMN_FNAME + " = ?, " +
+                DBConst.CUSTOMER_COLUMN_LNAME + " = ?, " +
+                DBConst.CUSTOMER_COLUMN_ADDR + " = ?, " +
+                DBConst.CUSTOMER_COLUMN_CITY + " = ?, " +
+                DBConst.CUSTOMER_COLUMN_PROVINCE + " = ?, " +
+                DBConst.CUSTOMER_COLUMN_POSTAL + " = ?, " +
+                DBConst.CUSTOMER_COLUMN_PHONE + " = ?, " +
+                DBConst.CUSTOMER_COLUMN_EMAIL + " = ? WHERE " + DBConst.CUSTOMER_COLUMN_ID + " = " + customer.getId();
         try {
-            Statement updateItem = db.getConnection().createStatement();
-            updateItem.execute(query);
+            PreparedStatement updateItem = db.getConnection().prepareStatement(query);
+            updateItem.setString(1, customer.getFirstName());
+            updateItem.setString(2, customer.getLastName());
+            updateItem.setString(3, customer.getAddress());
+            updateItem.setString(4, customer.getCity());
+            updateItem.setString(5, customer.getProvince());
+            updateItem.setString(6, customer.getPostalCode());
+            updateItem.setString(7, customer.getPhoneNumber());
+            updateItem.setString(8, customer.getEmail());
+            updateItem.execute();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -148,18 +157,19 @@ public class CustomersTable implements CustomersDAO {
                 DBConst.CUSTOMER_COLUMN_POSTAL + ", " +
                 DBConst.CUSTOMER_COLUMN_PHONE + ", " +
                 DBConst.CUSTOMER_COLUMN_EMAIL + ", " +
-                DBConst.CUSTOMER_COLUMN_DELETED + ") VALUES ('" +
-                customer.getFirstName() + "','" +
-                customer.getLastName() + "','" +
-                customer.getAddress() + "','" +
-                customer.getCity() + "','" +
-                customer.getProvince() + "','" +
-                customer.getPostalCode() + "','" +
-                customer.getPhoneNumber() + "','" +
-                customer.getEmail() + "','" +
-                customer.getDeleted() + "')";
+                DBConst.CUSTOMER_COLUMN_DELETED + ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try {
-            db.getConnection().createStatement().execute(query);
+            PreparedStatement createItem = db.getConnection().prepareStatement(query);
+            createItem.setString(1, customer.getFirstName());
+            createItem.setString(2, customer.getLastName());
+            createItem.setString(3, customer.getAddress());
+            createItem.setString(4, customer.getCity());
+            createItem.setString(5, customer.getProvince());
+            createItem.setString(6, customer.getPostalCode());
+            createItem.setString(7, customer.getPhoneNumber());
+            createItem.setString(8, customer.getEmail());
+            createItem.setInt(9, customer.getDeleted());
+            createItem.execute();
         } catch (SQLException e) {
             e.printStackTrace();
         }

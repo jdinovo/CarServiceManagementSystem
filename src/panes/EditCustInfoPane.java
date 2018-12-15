@@ -95,7 +95,7 @@ public class EditCustInfoPane extends BorderPane {
             if(!number.isEmpty()) {
                 customers.clear();
                 custTable.getAllActiveCustomers().forEach(e -> {
-                    if (e.getPhoneNumber().equals(number)) {
+                    if (e.getPhoneNumber().contains(number)) {
                         customers.add(e);
                     }
                 });

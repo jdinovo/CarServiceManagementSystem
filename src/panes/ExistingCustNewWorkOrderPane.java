@@ -425,11 +425,11 @@ public class ExistingCustNewWorkOrderPane extends BorderPane {
         });
 
         searchButton.setOnMouseClicked(e->{
-            if (searchTextField.getText().matches("\\(\\d{3}\\)\\d{3}-?\\d{4}")) {
+            if (!searchTextField.getText().trim().isEmpty()) {
                 final String number = searchTextField.getText().trim();
                 customers.clear();
                 custTable.getAllActiveCustomers().forEach(profile -> {
-                    if (profile.getPhoneNumber().equals(number)) {
+                    if (profile.getPhoneNumber().contains(number)) {
                         customers.add(profile);
                     }
                 });
