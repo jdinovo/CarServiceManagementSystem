@@ -130,7 +130,7 @@ cmake-build-*/
 *.iws
 
 # IntelliJ
-# out/
+out/
 
 # mpeltonen/sbt-idea plugin
 .idea_modules/
