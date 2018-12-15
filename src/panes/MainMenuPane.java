@@ -10,6 +10,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import tabs.*;
 
+import java.net.URL;
+
 /**
  *
  * MainMenuPane is the pane that launches from MainMenuScene
@@ -45,7 +47,13 @@ public class MainMenuPane extends BorderPane {
 		Menu statsMenu = new Menu();
 		Menu settingsMenu = new Menu();
 
-		ImageView carImage = new ImageView(new Image("/graphics/carService.png"));
+		URL background = getClass().getResource("/graphics/carService.png");
+		URL settingsImg = getClass().getResource("/graphics/settings.png");
+		URL editImg = getClass().getResource("/graphics/edit.png");
+		URL statsImg = getClass().getResource("/graphics/stats.png");
+		URL fileImg = getClass().getResource("/graphics/file.png");
+
+		ImageView carImage = new ImageView(new Image(background.toString()));
 		carImage.setFitHeight(500);
 		carImage.setFitWidth(500);
 		carImage.setVisible(true);
@@ -162,19 +170,19 @@ public class MainMenuPane extends BorderPane {
 		statsMenu.getItems().add(serviceCharts);
 		settingsMenu.getItems().addAll(dbLogin, credits);
 
-		ImageView settings = new ImageView(new Image("/graphics/settings.png"));
+		ImageView settings = new ImageView(new Image(settingsImg.toString()));
 		settings.setFitWidth(24);
 		settings.setFitHeight(24);
 
-		ImageView stats = new ImageView(new Image("/graphics/stats.png"));
+		ImageView stats = new ImageView(new Image(statsImg.toString()));
 		stats.setFitWidth(24);
 		stats.setFitHeight(24);
 
-		ImageView file = new ImageView(new Image("/graphics/file.png"));
+		ImageView file = new ImageView(new Image(fileImg.toString()));
 		file.setFitWidth(24);
 		file.setFitHeight(24);
 
-		ImageView edit = new ImageView(new Image("/graphics/edit.png"));
+		ImageView edit = new ImageView(new Image(editImg.toString()));
 		edit.setFitWidth(24);
 		edit.setFitHeight(24);
 
