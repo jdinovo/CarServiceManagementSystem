@@ -1,4 +1,7 @@
 # Car Service Management System
+[ ![Download](https://img.shields.io/github/release/jdinovo/carservicemanagementsystem.svg?label=Download&style=plastic)](https://github.com/jdinovo/CarServiceManagementSystem/releases/latest)
+
+
 
 A system for managing and tracking the service done to a vehicle. 
 Our system allows a service tech to keep track of customers, their vehicles, and the service done to those vehicles.
